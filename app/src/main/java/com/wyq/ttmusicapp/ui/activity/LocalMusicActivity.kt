@@ -1,11 +1,15 @@
 package com.wyq.ttmusicapp.ui.activity
 
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.LocalFragmentAdapter
 import com.wyq.ttmusicapp.base.BaseActivity
+import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.ui.fragment.AlbumFragment
 import com.wyq.ttmusicapp.ui.fragment.FolderFragment
 import com.wyq.ttmusicapp.ui.fragment.SingerFragment
@@ -80,6 +84,23 @@ class LocalMusicActivity :BaseActivity(){
     }
 
     override fun setupToolbar() {
+        setSupportActionBar(local_music_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = Constant.LABEL_LOCAL
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.local_music_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.scan_local_menu) {
+            val intent = Intent(this@LocalMusicActivity, ScanActivity::class.java)
+            startActivity(intent)
+        } else if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return true
     }
 }

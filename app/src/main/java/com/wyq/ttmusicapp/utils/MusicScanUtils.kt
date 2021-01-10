@@ -3,7 +3,7 @@ package com.wyq.ttmusicapp.utils
 import android.content.Context
 import android.database.Cursor
 import android.provider.MediaStore
-import com.wyq.ttmusicapp.Entity.Song
+import com.wyq.ttmusicapp.entity.Song
 
 
 /**

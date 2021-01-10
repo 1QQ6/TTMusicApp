@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.Entity
+package com.wyq.ttmusicapp.entity
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 

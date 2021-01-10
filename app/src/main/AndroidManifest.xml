@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".ui.activity.ScanActivity"
+            android:screenOrientation="portrait"
+            />
+
         <!--LocalMusicActivity-->
         <activity android:name=".ui.activity.LocalMusicActivity"
                   android:screenOrientation="portrait"

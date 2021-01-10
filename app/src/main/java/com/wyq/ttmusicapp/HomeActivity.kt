@@ -2,7 +2,7 @@ package com.wyq.ttmusicapp
 
 import android.content.Intent
 import android.os.Bundle
-import com.wyq.ttmusicapp.Entity.Song
+import com.wyq.ttmusicapp.entity.Song
 import com.wyq.ttmusicapp.adpter.SongsAdapter
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.ui.activity.LocalMusicActivity

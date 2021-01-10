@@ -46,7 +46,7 @@ class MusicScanUtils {
                                 cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST))
                             var path =
                                 cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA))
-                            var duration =
+                            val duration =
                                 cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION))
                             val size =
                                 cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE))
@@ -56,7 +56,7 @@ class MusicScanUtils {
 
                             if (size > 1000*800){
                                 if (songName!!.contains("-")){
-                                    val split = songName!!.split("-")
+                                    val split = songName.split("-")
                                     singer = split[0]
                                     songName = split[1]
                                 }
@@ -85,7 +85,7 @@ class MusicScanUtils {
             }
         }
 
-        fun realiseUnKnown(oldStr: String?): String? {
+        private fun realiseUnKnown(oldStr: String?): String? {
             var oldStr = oldStr
             try {
                 if (oldStr != null) {

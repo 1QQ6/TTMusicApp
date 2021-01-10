@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity
     abstract fun getLayout(): Int
 
     /**
-     * findView
+     * 初始化数据
      */
     abstract fun initData()
 

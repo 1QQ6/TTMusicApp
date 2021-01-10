@@ -13,7 +13,7 @@ import com.wyq.ttmusicapp.utils.MusicScanUtils
 /**
  * Created by Roman on 2021/1/10
  */
-class SongListAdapter(var context: Context,var listSong: List<Song>) : BaseAdapter() {
+class SongsAdapter(var context: Context, var listSong: List<Song>) : BaseAdapter() {
 
     inner class ViewHolder{
         var songName: TextView?=null

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/item_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="1"
+        android:gravity="center"
+        android:textColor="#0d0c0c"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        >
+
+        <TextView
+            android:id="@+id/item_song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="歌曲名"
+            android:textColor="#0d0c0c"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/item_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_song_name"
+            android:text="歌手"
+            android:textColor="#0d0c0c"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/item_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_song_name"
+            android:layout_marginLeft="15dp"
+            android:textColor="#0d0c0c"
+            android:layout_toRightOf="@+id/item_singer"
+            android:text="时间"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>

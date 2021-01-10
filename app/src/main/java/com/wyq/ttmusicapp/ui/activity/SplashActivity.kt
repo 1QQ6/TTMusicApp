@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.view.activity
+package com.wyq.ttmusicapp.ui.activity
 
 import android.Manifest
 import android.content.Intent

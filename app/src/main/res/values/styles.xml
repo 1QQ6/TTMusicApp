@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@style/BaseTheme">
+
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/no_color</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/gray9a</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/gray9a</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <color name="no_color">#00000000</color>
+    <color name="text_primary">#DE000000</color>
+    <color name="gray9a">#9a9a9a</color>
+</resources>

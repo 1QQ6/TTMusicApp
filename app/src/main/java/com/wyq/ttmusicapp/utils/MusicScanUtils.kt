@@ -3,7 +3,7 @@ package com.wyq.ttmusicapp.utils
 import android.content.Context
 import android.database.Cursor
 import android.provider.MediaStore
-import com.wyq.ttmusicapp.entity.Song
+import com.wyq.ttmusicapp.entity.SongInfo
 
 
 /**
@@ -29,8 +29,8 @@ class MusicScanUtils {
         /**
          * 媒体库查询语句（写一个工具类MusicUtils）
          */
-        fun startScanLocalMusic(context:Context):List<Song>{
-            val songDataList= mutableListOf<Song>()
+        fun startScanLocalMusic(context:Context):List<SongInfo>{
+            val songDataList= mutableListOf<SongInfo>()
             //开启子线程进行查询本地音乐
             Thread {
                 var cursor: Cursor? = null
@@ -60,7 +60,7 @@ class MusicScanUtils {
                                     singer = split[0]
                                     songName = split[1]
                                 }
-                                songDataList.add(Song(songName,singer,path,duration,size))
+                                //songDataList.add(SongInfo(songName,singer,path,duration,size))
                             }
                         }
                     }

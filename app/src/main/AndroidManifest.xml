@@ -11,7 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <!--
+        android:enabled=[“true” | “false”]:是否可实例化，默认true,如设置false ，Service将不可用
+        android:exported=[“true” |”false”]:是否允许跨进程调用，
+        默认值跟filter是否有子元素有关，filter子元素个数为0,默认值为false ,否则true
+        -->
+        <service android:name=".service.MusicPlayerService"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <receiver android:name=".receiver.PlayerManagerReceiver"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <!--ScanActivity-->
         <activity android:name=".ui.activity.ScanActivity"
             android:screenOrientation="portrait"
             />

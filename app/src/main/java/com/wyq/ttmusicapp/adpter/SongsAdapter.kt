@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.wyq.ttmusicapp.entity.Song
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.utils.MusicScanUtils
 
 /**
  * Created by Roman on 2021/1/10
  */
-class SongsAdapter(var context: Context, var listSong: List<Song>) : BaseAdapter() {
+class SongsAdapter(var context: Context, var listSongInfo: List<SongInfo>) : BaseAdapter() {
 
     inner class ViewHolder{
         var songName: TextView?=null
@@ -36,11 +36,11 @@ class SongsAdapter(var context: Context, var listSong: List<Song>) : BaseAdapter
         }else{
             holder = (view?.tag) as ViewHolder
         }
-            val songItemInfo = listSong[position]
+            val songItemInfo = listSongInfo[position]
             holder.singer!!.text = songItemInfo.singer
-            holder.songName!!.text = songItemInfo.songName
-            val time: String = MusicScanUtils.formatTime(songItemInfo.duration).toString()
-            holder.duration!!.text = time
+            holder.songName!!.text = songItemInfo.musicName
+            //val time: String = MusicScanUtils.formatTime().toString()
+            holder.duration!!.text = songItemInfo.duration
             holder.position!!.text = (position+1).toString()
             holder.singer!!.text = songItemInfo.singer
 
@@ -48,7 +48,7 @@ class SongsAdapter(var context: Context, var listSong: List<Song>) : BaseAdapter
     }
 
     override fun getItem(position: Int): Any {
-        return listSong[position]
+        return listSongInfo[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -56,6 +56,6 @@ class SongsAdapter(var context: Context, var listSong: List<Song>) : BaseAdapter
     }
 
     override fun getCount(): Int {
-        return listSong.size
+        return listSongInfo.size
     }
 }

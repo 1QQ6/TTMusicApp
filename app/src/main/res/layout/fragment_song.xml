@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <TextView
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/local_music_playmode_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="歌曲"
-        android:textSize="26sp"
-        android:gravity="center_horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        >
+        <ImageView
+            android:id="@+id/local_music_playmode_iv"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:padding="12dp"
+            android:src="@drawable/play_mode_level_list"/>
+        <TextView
+            android:id="@+id/local_music_playmode_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/local_music_playmode_iv"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="顺序播放"/>
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dip"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/colorDividerGray"></View>-->
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/local_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_below="@id/local_music_playmode_rl"/>
+    <com.wyq.ttmusicapp.ui.view.SideBar
+        android:id="@+id/local_music_siderbar"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@id/local_music_playmode_rl"/>
+    <TextView
+        android:id="@+id/local_music_siderbar_pre_tv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_letter_pre"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textColor="@color/grey700"
+        android:textSize="50sp"/>
+</RelativeLayout>

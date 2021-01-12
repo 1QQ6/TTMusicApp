@@ -8,7 +8,6 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.utils.MusicScanUtils
 
 /**
  * Created by Roman on 2021/1/10
@@ -37,12 +36,12 @@ class SongsAdapter(var context: Context, var listSongInfo: List<SongInfo>) : Bas
             holder = (view?.tag) as ViewHolder
         }
             val songItemInfo = listSongInfo[position]
-            holder.singer!!.text = songItemInfo.singer
+            holder.singer!!.text = songItemInfo.musicSinger
             holder.songName!!.text = songItemInfo.musicName
             //val time: String = MusicScanUtils.formatTime().toString()
-            holder.duration!!.text = songItemInfo.duration
+            holder.duration!!.text = songItemInfo.musicDuration
             holder.position!!.text = (position+1).toString()
-            holder.singer!!.text = songItemInfo.singer
+            holder.singer!!.text = songItemInfo.musicSinger
 
         return view!!
     }

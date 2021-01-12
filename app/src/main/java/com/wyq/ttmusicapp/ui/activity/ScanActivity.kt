@@ -2,6 +2,7 @@ package com.wyq.ttmusicapp.ui.activity
 
 import android.content.Intent
 import android.database.Cursor
+import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
@@ -40,11 +41,16 @@ class ScanActivity:BaseActivity() {
     var musicsList:ArrayList<SongInfo>? = null
     var message:Message? = null
     //数据库管理
-    private val dbManager: DatabaseManager? = null
+    private var dbManager: DatabaseManager? = null
     //当前播放音乐的id
     private var curMusicId :Int? = null
 
     private var curMusicPath:String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dbManager = DatabaseManager.getInstance(this)
+    }
 
     override fun getLayout(): Int {
         return R.layout.activity_scan
@@ -97,6 +103,7 @@ class ScanActivity:BaseActivity() {
             try {
                 if (cursor?.count!=0){
                     musicsList = java.util.ArrayList()
+                    var i = 0
                     while (cursor!!.moveToNext()){
                         if (!isScanning){
                             return@Thread
@@ -116,7 +123,7 @@ class ScanActivity:BaseActivity() {
                     curMusicPath = dbManager!!.getMusicPath(curMusicId!!)
 
                     // 根据a-z进行排序源数据
-                    musicsList!!.sortBy { it.firstLetter }
+                    musicsList!!.sortBy { it.musicFirstLetter }
                     dbManager!!.updateAllMusic(musicsList!!)
                     //扫描完成
                     message = Message.obtain()
@@ -180,7 +187,7 @@ class ScanActivity:BaseActivity() {
             var isContain = false
             var id  = 1;
                 musicsList?.forEach {
-                    if (it.path.equals(curMusicPath)){
+                    if (curMusicPath!=null && it.musicPath.equals(curMusicPath)){
                         isContain = true
                         id = musicsList!!.indexOf(it) + 1
                     }

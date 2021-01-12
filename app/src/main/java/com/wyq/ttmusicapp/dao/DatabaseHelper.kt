@@ -45,20 +45,20 @@ class DatabaseHelper(
      */
     private val createMusicTable = ("create table if not exists "
             + MUSIC_TABLE + "("
-            + ID_COLUMN + " INTEGER PRIMARY KEY ,"
-            + MUSIC_NAME_COLUMN + " TEXT,"
-            + MUSIC_SINGER_COLUMN + " TEXT,"
-            + MUSIC_DURATION_COLUMN + " LONG,"
-            + MUSIC_ALBUM_COLUMN + " TEXT,"
-            + MUSIC_PATH_COLUMN + " TEXT,"
-            + MUSIC_PARENT_PATH_COLUMN + " TEXT"
-            + MUSIC_FIRST_LETTER_COLUMN + " TEXT"
-            + MUSIC_LOVE_COLUMN + " TEXT );")
+            + ID_COLUMN + " integer PRIMARY KEY ,"
+            + MUSIC_NAME_COLUMN + " text,"
+            + MUSIC_SINGER_COLUMN + " text,"
+            + MUSIC_ALBUM_COLUMN + " text,"
+            + MUSIC_DURATION_COLUMN + " long,"
+            + MUSIC_PATH_COLUMN + " text,"
+            + MUSIC_PARENT_PATH_COLUMN + " text,"
+            + MUSIC_LOVE_COLUMN + " integer,"
+            + MUSIC_FIRST_LETTER_COLUMN + " text);")
 
     /**
      * 创建最近播放表
      */
-    private val createRecentPlayTable = ("create table if no exists "
+    private val createRecentPlayTable = ("create table if not exists "
             + RECENT_PLAY_TABLE + "("
             + ID_COLUMN + " INTEGER,"
             +"FOREIGN KEY(id) REFERENCES " + MUSIC_TABLE +" (id) ON DELETE CASCADE);"
@@ -80,8 +80,8 @@ class DatabaseHelper(
             + MUSIC_MUSIC_LIST_TABLE + "("
             + ID_COLUMN + " INTEGER,"
             + MUSIC_ID_COLUMN + " INTEGER,"
-            + "FOREIGN KEY(id) REFERENCES" + RECENT_PLAY_TABLE +"(id) ON DELETE CASCADE,"
-            + "FOREIGN KEY(music_id) REFERENCES" + MUSIC_LIST_TABLE +"(id) ON DELETE CASCADE);")
+            + "FOREIGN KEY(music_id) REFERENCES " + MUSIC_TABLE +"(id) ON DELETE CASCADE,"
+            + "FOREIGN KEY(id) REFERENCES " + MUSIC_LIST_TABLE +"(id) ON DELETE CASCADE);")
 
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -96,7 +96,7 @@ class DatabaseHelper(
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if (oldVersion< VERSION){
             db!!.run {
-                execSQL("drop table if exists $MUSIC_TABLE")
+                execSQL("  drop table if exists $MUSIC_TABLE")
                 execSQL("  drop table if exists $RECENT_PLAY_TABLE")
                 execSQL("  drop table if exists $MUSIC_LIST_TABLE")
                 execSQL("  drop table if exists $MUSIC_MUSIC_LIST_TABLE")

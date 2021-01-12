@@ -56,6 +56,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     //汉子转拼音库
     implementation 'com.belerweb:pinyin4j:2.5.0'
     //Room

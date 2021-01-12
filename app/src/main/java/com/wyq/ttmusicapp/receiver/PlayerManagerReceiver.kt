@@ -16,6 +16,7 @@ import java.io.File
  * Created by Roman on 2021/1/11
  */
 class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
+    //constructor():super()
 
     private val TAG = PlayerManagerReceiver::class.java.name
 
@@ -83,13 +84,13 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
         MyMusicUtil.setShared(Constant.KEY_ID, musicId)
         MyMusicUtil.setShared(Constant.KEY_PATH, musicPath)
 
-        UpdateUI()
+        updateUI()
     }
 
     /**
      * 发送更新UI的广播
      */
-    private fun UpdateUI() {
+    private fun updateUI() {
 
     }
 
@@ -139,7 +140,7 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
 
             }
         }
-        UpdateUI()
+        updateUI()
     }
 
     private fun initStopOperate() {
@@ -151,11 +152,13 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
         mediaPlayer?.release()
         mediaPlayer = MediaPlayer()
 
-        //在播放过程中到达媒体源末尾时要调用的回调
+        //在播放过程中到达音乐末尾时要调用的回调
         mediaPlayer?.setOnCompletionListener {
-            numberRandom() //切换线程
-            onComplete() //调用音乐切换模块，进行相应操作
-            UpdateUI() //更新界面
+            //切换线程
+            numberRandom()
+            //调用音乐切换模块，进行相应操作
+            onComplete()
+            updateUI()
         }
         try {
             val file = File(musicPath)

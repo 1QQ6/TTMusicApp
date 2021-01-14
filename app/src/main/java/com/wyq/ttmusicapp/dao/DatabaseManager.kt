@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import java.util.ArrayList
 
 /**
@@ -13,7 +13,7 @@ import java.util.ArrayList
  */
 class DatabaseManager(context: Context) {
 
-    private val databaseHelper:DatabaseHelper
+    private val databaseHelper:DatabaseHelper = DatabaseHelper(context)
     private val db: SQLiteDatabase
 
     companion object{
@@ -30,7 +30,6 @@ class DatabaseManager(context: Context) {
         }
     }
     init {
-        databaseHelper = DatabaseHelper(context)
         db = databaseHelper.writableDatabase
     }
 

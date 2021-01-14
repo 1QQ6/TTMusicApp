@@ -7,7 +7,7 @@ import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.SongRecyclerViewAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import kotlinx.android.synthetic.main.fragment_song.*
 
 /**

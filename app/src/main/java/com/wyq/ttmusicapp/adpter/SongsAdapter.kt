@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import com.wyq.ttmusicapp.R
 
 /**

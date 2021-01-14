@@ -13,13 +13,11 @@ import com.wyq.ttmusicapp.service.MusicPlayerService
  */
 class MyApplication: Application() {
 
-
-
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-        //val startIntent = Intent(this@MyApplication, MusicPlayerService::class.java)
-        //startService(startIntent)
+        val startIntent = Intent(this@MyApplication, MusicPlayerService::class.java)
+        startService(startIntent)
     }
 
     companion object{

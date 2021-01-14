@@ -30,18 +30,18 @@ class DatabaseHelper(
          const val MUSIC_FIRST_LETTER_COLUMN ="music_first_letter"
          const val MUSIC_LOVE_COLUMN = "music_love"
         //最近播放表
-         val RECENT_PLAY_TABLE = "recent_play_table"
+        const val RECENT_PLAY_TABLE = "recent_play_table"
         //歌单表
-         val MUSIC_LIST_TABLE = "music_list_table"
+        const val MUSIC_LIST_TABLE = "music_list_table"
         //歌单-歌曲-表 (多对多)
-         val MUSIC_MUSIC_LIST_TABLE = "music_music_list_table"
+        const val MUSIC_MUSIC_LIST_TABLE = "music_music_list_table"
         //数据库版本号
         const val VERSION = 2
     }
 
 
     /**
-     * 创建音乐表语句
+     * 创建音乐表语句，注意每个数据类型前面有一个空格
      */
     private val createMusicTable = ("create table if not exists "
             + MUSIC_TABLE + "("

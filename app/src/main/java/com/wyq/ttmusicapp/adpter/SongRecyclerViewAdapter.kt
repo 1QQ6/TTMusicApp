@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import com.wyq.ttmusicapp.service.MusicPlayerService
 import com.wyq.ttmusicapp.utils.MyApplication.Companion.context
 import com.wyq.ttmusicapp.utils.MyMusicUtil
@@ -42,7 +42,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        fun bind(musicInfoList:ArrayList<SongInfo>,dbManager:DatabaseManager,onItemClickListener:OnItemClickListener){
+        fun bind(musicInfoList:ArrayList<SongInfo>, dbManager:DatabaseManager, onItemClickListener:OnItemClickListener){
             val musicInfo = musicInfoList[adapterPosition]
 
             with(itemView){

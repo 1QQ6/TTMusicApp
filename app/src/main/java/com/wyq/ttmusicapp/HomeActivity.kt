@@ -2,17 +2,13 @@ package com.wyq.ttmusicapp
 
 import android.content.Intent
 import android.os.Bundle
-import com.wyq.ttmusicapp.adpter.SongsAdapter
 import com.wyq.ttmusicapp.base.BaseActivity
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import com.wyq.ttmusicapp.service.MusicPlayerService
 import com.wyq.ttmusicapp.ui.activity.LocalMusicActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : BaseActivity() {
 
-    private var listSongInfo:List<SongInfo>? = null
-    private var songsAdapter:SongsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

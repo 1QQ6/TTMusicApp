@@ -55,19 +55,14 @@ class ScanActivity:BaseActivity(), MusicView {
      * 扫描更新当前进度的view
      */
     override fun showScanProgress(path:String,currentProgress:Int) {
-        scan_count.text = "已扫描到" + currentProgress + "首歌曲"
+        scan_count.text = getString(R.string.scanning_music_count_tv,currentProgress.toString())
         scan_path.text = path
     }
     /**
      * 扫描完毕，点击关闭当前activity
      */
     override fun scanMusicSuccess(type:Int) {
-        if (type == Constant.HAS_MUSIC){
-
-        }else if(type==Constant.HAS_NO_MUSIC){
-            Toast.makeText(this, "本地没有歌曲，快去下载吧", Toast.LENGTH_SHORT).show()
-        }
-        start_scan_btn.text = "扫描完成"
+        start_scan_btn.text = getString(R.string.scan_finish)
         isScanning = false
         start_scan_btn.setOnClickListener {
             if (!isScanning){
@@ -75,12 +70,17 @@ class ScanActivity:BaseActivity(), MusicView {
             }
             scan_view.stop()
         }
+        if (type == Constant.HAS_MUSIC){
+            Toast.makeText(this, getString(R.string.scan_finish), Toast.LENGTH_SHORT).show()
+        }else if(type==Constant.HAS_NO_MUSIC){
+            Toast.makeText(this, getString(R.string.scan_finish_no_music), Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
      * 扫描出错
      */
     override fun scanMusicError() {
-        Toast.makeText(this, "数据库错误", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.scan_error), Toast.LENGTH_LONG).show()
     }
 }

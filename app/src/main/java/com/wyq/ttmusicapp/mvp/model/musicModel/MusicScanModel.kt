@@ -19,7 +19,7 @@ import com.wyq.ttmusicapp.utils.ChineseToEnglish
 import com.wyq.ttmusicapp.utils.MyMusicUtil
 import java.io.File
 import java.lang.ref.WeakReference
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Roman on 2021/1/14
@@ -103,6 +103,11 @@ class MusicScanModel() : IMusicScanModel {
                         data.putString("scanPath", musicPath)
                         message!!.data = data
                         handler!!.sendMessage(message)
+                        try {
+                            Thread.sleep(50)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
                     }
 
                     //扫描完成获取当前播放音乐及路径
@@ -195,7 +200,11 @@ class MusicScanModel() : IMusicScanModel {
 
         }
     }
-
+    /**
+     * 这里采用内部类方式使用弱引用来避免handler内存泄漏
+     *
+     * 接收到消息后，通过presenter回调给view
+     */
     inner class MyHandler(
         val context: Context,
         private val onScanMusicFinishListener: OnScanMusicFinishListener?

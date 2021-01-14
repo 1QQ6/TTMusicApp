@@ -9,13 +9,12 @@ import com.wyq.ttmusicapp.mvp.view.MusicView
 /**
  * Created by Roman on 2021/1/14
  */
-class MusicScanPresenter {
+class MusicScanPresenter(musicView: MusicView) {
 
     var musicScanModel: IMusicScanModel? = null
-    var musicView: MusicView? = null
+    var musicView: MusicView? = musicView
 
-    constructor(musicView: MusicView) {
-        this.musicView = musicView
+    init {
         musicScanModel = MusicScanModel()
     }
 

@@ -1,9 +1,5 @@
-package com.wyq.ttmusicapp.entity
+package com.wyq.ttmusicapp.mvp.model.entity
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -19,6 +15,4 @@ data class SongInfo(
     var musicPath: String?,
     var musicParentPath: String?,
     var musicFirstLetter: String?,
-    var musicLove: Int?):Parcelable {
-
-}
+    var musicLove: Int?):Parcelable

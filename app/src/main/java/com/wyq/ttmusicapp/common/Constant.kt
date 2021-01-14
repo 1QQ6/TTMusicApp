@@ -45,6 +45,9 @@ object Constant {
     const val LIST_SINGER = 10005 //歌手
     const val LIST_ALBUM = 10006 //专辑
     const val LIST_FOLDER = 10007 //文件夹
+    //扫描结果 0：没有音乐 1：有音乐
+    const val HAS_NO_MUSIC = 0
+    const val HAS_MUSIC = 1
 
 
     //handle常量

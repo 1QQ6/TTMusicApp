@@ -8,7 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.utils.MyMusicUtil
+import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import com.wyq.ttmusicapp.utils.UpdateUIThreadHelper
 import java.io.File
 
@@ -66,8 +66,8 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
         // 改变线程号,使旧的播放线程停止
         numberRandom()
         //获取当前音乐id
-        val musicId: Int = MyMusicUtil.getIntShared(Constant.KEY_ID)
-        val current: Int = MyMusicUtil.getIntShared(Constant.KEY_CURRENT)
+        val musicId: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)
+        val current: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_CURRENT)
 
         // 如果是没取到当前正在播放的音乐ID，则从数据库中获取第一首音乐的播放信息初始化
         if (musicId == -1) {
@@ -81,8 +81,8 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
             // 设置播放状态为暂停
             Constant.STATUS_PAUSE
         }
-        MyMusicUtil.setShared(Constant.KEY_ID, musicId)
-        MyMusicUtil.setShared(Constant.KEY_PATH, musicPath)
+        PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_ID, musicId)
+        PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_PATH, musicPath)
 
         updateUI()
     }
@@ -104,7 +104,7 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
             //播放状态
             Constant.COMMAND_PLAY ->{
                 status = Constant.STATUS_PLAY
-                val musicPath = intent.getStringExtra(Constant.KEY_PATH)
+                val musicPath = intent.getStringExtra(Constant.KEY_MUSIC_PATH)
                 if (musicPath!=null){
                     playMusic(musicPath)
                 }else{

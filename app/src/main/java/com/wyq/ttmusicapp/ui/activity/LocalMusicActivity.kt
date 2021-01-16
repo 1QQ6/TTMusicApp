@@ -87,7 +87,7 @@ class LocalMusicActivity :PlayBarBaseActivity(){
     override fun setupToolbar() {
         setSupportActionBar(local_music_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = Constant.LABEL_LOCAL
+        supportActionBar?.title = getString(R.string.local_music)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

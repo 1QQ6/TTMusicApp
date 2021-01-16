@@ -6,29 +6,30 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Roman on 2021/1/11
  */
 class DatabaseManager(context: Context) {
 
-    private val databaseHelper:DatabaseHelper = DatabaseHelper(context)
+    private val databaseHelper: DatabaseHelper = DatabaseHelper(context)
     private val db: SQLiteDatabase
 
-    companion object{
+    companion object {
         private val TAG = DatabaseManager::class.java.name
         private var instance: DatabaseManager? = null
 
         @JvmStatic
         @Synchronized
-        fun getInstance(context: Context?):DatabaseManager?{
-            if (instance==null){
+        fun getInstance(context: Context?): DatabaseManager? {
+            if (instance == null) {
                 instance = DatabaseManager(context!!)
             }
             return instance
         }
     }
+
     init {
         db = databaseHelper.writableDatabase
     }
@@ -53,9 +54,9 @@ class DatabaseManager(context: Context) {
             deleteAllTable()
             insertMusicListToMusicTable(musicsList)
             db.setTransactionSuccessful()
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
-        }finally {
+        } finally {
             db.endTransaction()
         }
     }
@@ -64,7 +65,7 @@ class DatabaseManager(context: Context) {
      * 遍历插入音乐到数据库中
      */
     private fun insertMusicListToMusicTable(musicInfoList: List<SongInfo>) {
-        for (musicInfo in musicInfoList){
+        for (musicInfo in musicInfoList) {
             insertMusicInfoToMusicTable(musicInfo)
         }
     }
@@ -73,25 +74,25 @@ class DatabaseManager(context: Context) {
      * 添加音乐到音乐表中
      */
     private fun insertMusicInfoToMusicTable(musicInfo: SongInfo) {
-        val musicInfoToContentValues:ContentValues
+        val musicInfoToContentValues: ContentValues
         var cursor: Cursor? = null
         var id = 1
         try {
             musicInfoToContentValues = musicInfoToContentValues(musicInfo)
             val sql = "select max(id) from " + DatabaseHelper.MUSIC_TABLE + ";"
-            cursor = db.rawQuery(sql,null)
+            cursor = db.rawQuery(sql, null)
             //查询出的cursor的初始位置是指向第一条记录的前一个位置的
             //cursor.moveToFirst（）指向查询结果的第一个位置
-            if (cursor.moveToFirst()){
+            if (cursor.moveToFirst()) {
                 //设置新添加的ID为最大ID+1
                 id = cursor.getInt(0) + 1
             }
-            musicInfoToContentValues.put(DatabaseHelper.ID_COLUMN,id)
+            musicInfoToContentValues.put(DatabaseHelper.ID_COLUMN, id)
             //将musicInfo转换后的数据插入到MUSIC_TABLE中
-            db.insert(DatabaseHelper.MUSIC_TABLE,null,musicInfoToContentValues)
-        }catch (e:Exception){
+            db.insert(DatabaseHelper.MUSIC_TABLE, null, musicInfoToContentValues)
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             cursor?.close()
         }
     }
@@ -99,20 +100,20 @@ class DatabaseManager(context: Context) {
     /**
      * 音乐转化成ContentValues
      */
-    private fun musicInfoToContentValues(musicInfo: SongInfo):ContentValues {
+    private fun musicInfoToContentValues(musicInfo: SongInfo): ContentValues {
         val values = ContentValues()
         try {
             values.run {
-                put(DatabaseHelper.MUSIC_NAME_COLUMN,musicInfo.musicName)
-                put(DatabaseHelper.MUSIC_SINGER_COLUMN,musicInfo.musicSinger)
-                put(DatabaseHelper.MUSIC_ALBUM_COLUMN,musicInfo.musicAlbum)
-                put(DatabaseHelper.MUSIC_DURATION_COLUMN,musicInfo.musicDuration)
-                put(DatabaseHelper.MUSIC_PATH_COLUMN,musicInfo.musicPath)
-                put(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN,musicInfo.musicParentPath)
-                put(DatabaseHelper.MUSIC_LOVE_COLUMN,musicInfo.musicLove)
-                put(DatabaseHelper.MUSIC_FIRST_LETTER_COLUMN,musicInfo.musicFirstLetter)
+                put(DatabaseHelper.MUSIC_NAME_COLUMN, musicInfo.musicName)
+                put(DatabaseHelper.MUSIC_SINGER_COLUMN, musicInfo.musicSinger)
+                put(DatabaseHelper.MUSIC_ALBUM_COLUMN, musicInfo.musicAlbum)
+                put(DatabaseHelper.MUSIC_DURATION_COLUMN, musicInfo.musicDuration)
+                put(DatabaseHelper.MUSIC_PATH_COLUMN, musicInfo.musicPath)
+                put(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN, musicInfo.musicParentPath)
+                put(DatabaseHelper.MUSIC_LOVE_COLUMN, musicInfo.musicLove)
+                put(DatabaseHelper.MUSIC_FIRST_LETTER_COLUMN, musicInfo.musicFirstLetter)
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return values
@@ -121,14 +122,14 @@ class DatabaseManager(context: Context) {
     private fun deleteAllTable() {
         //在SQLite中启用外键支持,必须在运行时打开, 因为默认是关闭的
         db.execSQL("PRAGMA foreign_keys = on")
-        db.delete(DatabaseHelper.MUSIC_TABLE,null,null)
-        db.delete(DatabaseHelper.RECENT_PLAY_TABLE,null,null)
-        db.delete(DatabaseHelper.MUSIC_LIST_TABLE,null,null)
-        db.delete(DatabaseHelper.MUSIC_MUSIC_LIST_TABLE,null,null)
+        db.delete(DatabaseHelper.MUSIC_TABLE, null, null)
+        db.delete(DatabaseHelper.RECENT_PLAY_TABLE, null, null)
+        db.delete(DatabaseHelper.MUSIC_LIST_TABLE, null, null)
+        db.delete(DatabaseHelper.MUSIC_MUSIC_LIST_TABLE, null, null)
     }
 
     fun getMusicPath(curMusicId: Int): String? {
-        if (curMusicId==-1){
+        if (curMusicId == -1) {
             return ""
         }
         var path: String? = null
@@ -137,14 +138,22 @@ class DatabaseManager(context: Context) {
         setLastPlay(curMusicId)
         try {
             //TODO  测试rawQuery
-            cursor = db.query(DatabaseHelper.MUSIC_TABLE, null, DatabaseHelper.ID_COLUMN + " = ?", arrayOf("" + curMusicId), null, null, null)
+            cursor = db.query(
+                DatabaseHelper.MUSIC_TABLE,
+                null,
+                DatabaseHelper.ID_COLUMN + " = ?",
+                arrayOf("" + curMusicId),
+                null,
+                null,
+                null
+            )
             Log.i(TAG, "getCount: " + cursor.count)
-            if (cursor.moveToFirst()){
+            if (cursor.moveToFirst()) {
                 path = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             cursor!!.close()
         }
 
@@ -155,29 +164,29 @@ class DatabaseManager(context: Context) {
      * 设置最近播放的20首歌曲
      */
     private fun setLastPlay(curMusicId: Int) {
-        if (curMusicId==-1||curMusicId==0){
+        if (curMusicId == -1 || curMusicId == 0) {
             return
         }
         val values = ContentValues()
         val lastList = ArrayList<Int>()
-        var cursor:Cursor? = null
+        var cursor: Cursor? = null
         lastList.add(curMusicId)
         db.beginTransaction()
         try {
             //首先查询历史播放表
-            cursor = db.rawQuery("select id from "+DatabaseHelper.RECENT_PLAY_TABLE,null)
+            cursor = db.rawQuery("select id from " + DatabaseHelper.RECENT_PLAY_TABLE, null)
             //将历史播放表中所有的音乐id添加到临时的list中，不包括当前播放的id
-            while (cursor.moveToNext()){
-                if (cursor.getInt(0) != curMusicId){
+            while (cursor.moveToNext()) {
+                if (cursor.getInt(0) != curMusicId) {
                     lastList.add(cursor.getInt(0))
                 }
             }
             //删除历史播放表数据
-            db.delete(DatabaseHelper.RECENT_PLAY_TABLE,null,null)
+            db.delete(DatabaseHelper.RECENT_PLAY_TABLE, null, null)
             //将最新的历史播放列表插入数据库中
-            for (i in 0..19){
-                values.put(DatabaseHelper.ID_COLUMN,lastList[i])
-                db.insert(DatabaseHelper.RECENT_PLAY_TABLE,null,values)
+            for (i in 0..19) {
+                values.put(DatabaseHelper.ID_COLUMN, lastList[i])
+                db.insert(DatabaseHelper.RECENT_PLAY_TABLE, null, values)
             }
             db.setTransactionSuccessful()
             /*if (lastList.size<20){
@@ -189,9 +198,9 @@ class DatabaseManager(context: Context) {
 
             }*/
 
-        }catch (e:java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             cursor!!.close()
             db.endTransaction()
         }
@@ -210,17 +219,17 @@ class DatabaseManager(context: Context) {
     fun getAllMusicFromMusicTable(): ArrayList<SongInfo> {
         Log.d(TAG, "getAllMusicFromMusicTable: ")
         var musicInfoList = ArrayList<SongInfo>()
-        var cursor:Cursor? = null
+        var cursor: Cursor? = null
         //开启一个事务
         db.beginTransaction()
         try {
-            cursor = db.query(DatabaseHelper.MUSIC_TABLE,null,null,null,null,null,null,null)
+            cursor = db.query(DatabaseHelper.MUSIC_TABLE, null, null, null, null, null, null, null)
             musicInfoList = cursorToSongsList(cursor)
 
             db.setTransactionSuccessful()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
-        }finally {
+        } finally {
             db.endTransaction()
             cursor?.close()
         }
@@ -231,20 +240,28 @@ class DatabaseManager(context: Context) {
      * 数据库数据存到集合中
      */
     private fun cursorToSongsList(cursor: Cursor?): ArrayList<SongInfo> {
-        var musicsList:ArrayList<SongInfo>? = null
+        var musicsList: ArrayList<SongInfo>? = null
         try {
-            if (cursor!=null){
+            if (cursor != null) {
                 musicsList = ArrayList()
-                while (cursor.moveToNext()){
+                while (cursor.moveToNext()) {
                     val musicId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN))
-                    val musicName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_NAME_COLUMN))
-                    val musicSinger = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_SINGER_COLUMN))
-                    val musicAlbum = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COLUMN))
-                    val musicPath = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
-                    val musicParentPath = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN))
-                    val musicFirstLetter = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_FIRST_LETTER_COLUMN))
-                    val musicLove = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_LOVE_COLUMN))
-                    val musicDuration = cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
+                    val musicName =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_NAME_COLUMN))
+                    val musicSinger =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_SINGER_COLUMN))
+                    val musicAlbum =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COLUMN))
+                    val musicPath =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
+                    val musicParentPath =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN))
+                    val musicFirstLetter =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_FIRST_LETTER_COLUMN))
+                    val musicLove =
+                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_LOVE_COLUMN))
+                    val musicDuration =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
 
                     val songInfo = SongInfo(
                         musicId,
@@ -260,10 +277,56 @@ class DatabaseManager(context: Context) {
                     musicsList.add(songInfo)
                 }
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
         }
         return musicsList!!
+    }
+
+    /**
+     * 根据id返回数据库中的一条歌曲信息
+     */
+    fun getSongInfo(nextMusicId: Int): SongInfo? {
+        if (nextMusicId == -1) {
+            return null
+        }
+        var songInfo:SongInfo? = null
+        var cursor: Cursor? = null
+        cursor = db.query(
+            DatabaseHelper.MUSIC_TABLE, null, DatabaseHelper.ID_COLUMN + " = ?",
+            arrayOf("" + nextMusicId), null, null, null)
+        if (cursor.moveToFirst()) {
+            val musicId = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID_COLUMN))
+            val musicName =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_NAME_COLUMN))
+            val musicSinger =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_SINGER_COLUMN))
+            val musicAlbum =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COLUMN))
+            val musicPath =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
+            val musicParentPath =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN))
+            val musicFirstLetter =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_FIRST_LETTER_COLUMN))
+            val musicLove =
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_LOVE_COLUMN))
+            val musicDuration =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
+
+                songInfo = SongInfo(
+                musicId,
+                musicName,
+                musicSinger,
+                musicDuration,
+                musicAlbum,
+                musicPath,
+                musicParentPath,
+                musicFirstLetter,
+                musicLove
+            )
+        }
+        return songInfo
     }
 
 }

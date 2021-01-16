@@ -13,7 +13,7 @@ import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import com.wyq.ttmusicapp.service.MusicPlayerService
 import com.wyq.ttmusicapp.utils.MyApplication.Companion.context
-import com.wyq.ttmusicapp.utils.MyMusicUtil
+import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.local_music_item.view.*
 
 /**
@@ -51,7 +51,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
                 local_music_singer.text = musicInfo.musicSinger
                 initTheme()
                 //TODO 设置当前正在播放的itemView
-                if (musicInfo.music_id == MyMusicUtil.getIntShared(Constant.KEY_ID)) {
+                if (musicInfo.music_id == PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)) {
 
                 }else{
 
@@ -64,10 +64,10 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
                     //发送广播，传送播放命令和歌曲路径
                     val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
                     intent.putExtra(Constant.COMMAND, Constant.COMMAND_PLAY)
-                    intent.putExtra(Constant.KEY_PATH, path)
+                    intent.putExtra(Constant.KEY_MUSIC_PATH, path)
                     context.sendBroadcast(intent)
                     //保存当前播放的音乐到sp
-                    MyMusicUtil.setShared(Constant.KEY_ID, musicInfo.music_id!!)
+                    PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_ID, musicInfo.music_id!!)
                     //处理点击回调
                     onItemClickListener.onItemClick(adapterPosition)
                 }

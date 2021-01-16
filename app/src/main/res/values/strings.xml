@@ -7,4 +7,8 @@
     <string name="custom_music">自建歌单</string>
     <string name="local_music">本地音乐</string>
     <string name="recent_music">最近音乐</string>
+
+    <string name="play_mode_random">随机播放</string>
+    <string name="play_mode_repeat">单曲循环</string>
+    <string name="play_mode_sequence">顺序播放</string>
 </resources>

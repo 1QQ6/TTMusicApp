@@ -4,9 +4,9 @@ package com.wyq.ttmusicapp.common
  * Created by Roman on 2021/1/10
  */
 object Constant {
-    const val KEY_ID = "id"
-    const val KEY_PATH = "path"
-    const val KEY_MODE = "mode"
+    const val KEY_MUSIC_ID = "id"
+    const val KEY_MUSIC_PATH = "path"
+    const val KEY_PLAY_MODE = "mode"
     const val KEY_LIST = "list"
     const val KEY_LIST_ID = "list_id"
     //当前播放条进度，以毫秒为单位
@@ -20,6 +20,11 @@ object Constant {
     const val COMMAND_PROGRESS = 5 //改变进度命令
     const val COMMAND_RELEASE = 6 //退出程序时释放
 
+    //播放模式
+    const val PLAY_MODE_SEQUENCE = -1
+    const val PLAY_MODE_SINGLE_REPEAT = 1
+    const val PLAY_MODE_RANDOM = 2
+
     const val PLAY_MODE_SEQUENCE_TEXT = "顺序播放"
     const val PLAY_MODE_RANDOM_TEXT = "随机播放"
     const val PLAY_MODE_SINGLE_REPEAT_TEXT = "单曲循环"
@@ -30,6 +35,7 @@ object Constant {
     const val STATUS_PLAY = 1 //播放状态
     const val STATUS_PAUSE = 2 //暂停状态
     const val STATUS_RUN = 3 //   状态
+    const val STATUS_ERROR = 4 // 错误状态
 
 
     const val LABEL_LOCAL = "本地音乐"
@@ -40,7 +46,7 @@ object Constant {
     const val LIST_LAST_PLAY = 10001
     const val LIST_DOWNLOAD = 10002
     const val LIST_MY_PLAY = 10003 //我的歌单列表
-    const val LIST_PLAYLIST = 10004 //歌单音乐列表
+    const val LIST_PLAY_LIST = 10004 //歌单音乐列表
 
     const val LIST_SINGER = 10005 //歌手
     const val LIST_ALBUM = 10006 //专辑
@@ -55,4 +61,6 @@ object Constant {
     const val SCAN_COMPLETE = 1
     const val SCAN_UPDATE = 2
     const val SCAN_NO_MUSIC = 3
+
+    val MP_FILTER: String? = "com.example.vinyl.start_mediaplayer"
 }

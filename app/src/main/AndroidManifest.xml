@@ -26,6 +26,9 @@
             android:enabled="true"
             android:exported="true"
             />
+        <activity android:name=".ui.activity.PlayBarBaseActivity"
+            android:screenOrientation="portrait"
+            />
         <!--ScanActivity-->
         <activity android:name=".ui.activity.ScanActivity"
             android:screenOrientation="portrait"

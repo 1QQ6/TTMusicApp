@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SeekBar
+        android:id="@+id/home_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="2dp"
+        android:minHeight="2dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@null"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/player_bar_iv"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/ic_home_music_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <LinearLayout
+        android:id="@+id/home_music_name_ll"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/player_bar_iv"
+        app:layout_constraintRight_toLeftOf="@+id/play_iv_ll"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/home_music_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:text="歌名aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/home_singer_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="1"
+            android:text="歌手名"
+            android:textColor="@color/grey500"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/play_iv_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/play_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:padding="6dp"
+            android:src="@drawable/selector_play_pause_bar" />
+
+        <ImageView
+            android:id="@+id/next_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:padding="10dp"
+            android:src="@drawable/selector_next_play_bar" />
+
+        <ImageView
+            android:id="@+id/play_menu_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:padding="10dp"
+            android:src="@drawable/selector_menu" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

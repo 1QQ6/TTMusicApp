@@ -4,4 +4,7 @@
     <string name="scan_finish_no_music">本地没有歌曲，快去下载吧</string>
     <string name="scanning_music_count_tv">已扫描到 %s 首歌曲</string>
     <string name="scan_error">扫描失败</string>
+    <string name="custom_music">自建歌单</string>
+    <string name="local_music">本地音乐</string>
+    <string name="recent_music">最近音乐</string>
 </resources>

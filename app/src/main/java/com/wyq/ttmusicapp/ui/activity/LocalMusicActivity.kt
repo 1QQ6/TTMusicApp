@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.acticity_local_music.*
 /**
  * Created by Roman on 2021/1/10
  */
-class LocalMusicActivity :BaseActivity(){
+class LocalMusicActivity :PlayBarBaseActivity(){
 
     private var tabList = ArrayList<String>()
     private var fragmentList = ArrayList<Fragment>()
@@ -75,6 +75,7 @@ class LocalMusicActivity :BaseActivity(){
     }
 
     override fun initViews() {
+        super.initViews()
         local_viewPager.adapter = fragmentAdapter
         local_viewPager.offscreenPageLimit = 2
 

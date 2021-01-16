@@ -49,10 +49,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/local_shadow"
-        android:layout_above="@id/fragment_playbar"
+        android:layout_above="@id/fragment_play_bar"
         android:background="@color/white" />
     <FrameLayout
-        android:id="@+id/fragment_playbar"
+        android:id="@+id/fragment_play_bar"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"

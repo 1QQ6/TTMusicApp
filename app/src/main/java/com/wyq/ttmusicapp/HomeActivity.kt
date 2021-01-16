@@ -2,12 +2,12 @@ package com.wyq.ttmusicapp
 
 import android.content.Intent
 import android.os.Bundle
-import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.service.MusicPlayerService
 import com.wyq.ttmusicapp.ui.activity.LocalMusicActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.wyq.ttmusicapp.ui.activity.PlayBarBaseActivity
+import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : PlayBarBaseActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,13 +18,14 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun getLayout(): Int {
-        return R.layout.activity_main
+        return R.layout.activity_home
     }
 
     override fun initData() {
     }
 
     override fun initViews() {
+        super.initViews()
         home_local_layout.setOnClickListener {
             val intent = Intent(this@HomeActivity, LocalMusicActivity::class.java)
             startActivity(intent)

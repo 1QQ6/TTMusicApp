@@ -10,6 +10,8 @@ import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
 import com.wyq.ttmusicapp.mvp.presenter.musicPresenter.MusicPlayerBarPresenter
 import com.wyq.ttmusicapp.mvp.view.MusicPlayerBarView
 import com.wyq.ttmusicapp.ui.activity.PlayMusicActivity
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
+import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
 
 /**
@@ -28,7 +30,32 @@ class PlayBarFragment:BaseFragment(), MusicPlayerBarView {
     }
 
     override fun initViews() {
+        initMusicInfo()
+        initPlayBarUI()
         clickEvent()
+    }
+
+    private fun initPlayBarUI() {
+        when (PlayMusicHelper.getPlayStatus()) {
+            Constant.STATUS_STOP -> play_iv.isSelected = false
+            Constant.STATUS_PLAY -> play_iv.isSelected = true
+            Constant.STATUS_PAUSE -> play_iv.isSelected = false
+            Constant.STATUS_RUN -> play_iv.isSelected = true
+        }
+    }
+
+    private fun initMusicInfo() {
+        val musicId: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)
+        if (musicId == -1) {
+            home_music_name_tv.text = "听听音乐"
+            home_singer_name_tv.text = "好音质"
+        }else{
+            val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
+            if (musicInfo!=null){
+                home_music_name_tv.text = musicInfo.musicName
+                home_singer_name_tv.text = musicInfo.musicSinger
+            }
+        }
     }
 
     private fun clickEvent() {

@@ -35,7 +35,7 @@ object PlayMusicHelper {
             return Constant.STATUS_ERROR
         }
         //如果当前媒体在播放音乐状态，则图片显示暂停图片，按下播放键，则发送暂停媒体命令，图片显示播放图片。以此类推。
-        when (PlayerManagerReceiver.status) {
+        when (getPlayStatus()) {
             //当前暂停状态-->发送广播到播放状态
             Constant.STATUS_PAUSE -> {
                 sendMusicStatusBroadcast(context, "", Constant.COMMAND_PLAY)
@@ -49,10 +49,14 @@ object PlayMusicHelper {
             else -> {
                 //为停止状态时发送播放命令，并发送将要播放歌曲的路径
                 val musicPath = dbManager!!.getMusicPath(musicId)
-                sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PAUSE)
+                sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
                 return Constant.STATUS_PLAY
             }
         }
+    }
+
+    fun getPlayStatus(): Int {
+        return PlayerManagerReceiver.status
     }
 
     /**
@@ -92,7 +96,11 @@ object PlayMusicHelper {
         //发送播放下一首歌的广播
         val musicPath = dbManager!!.getMusicPath(nextMusicId)
         sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
-        return dbManager!!.getSongInfo(nextMusicId)
+        return getMusicInfoById(nextMusicId)
+    }
+
+    fun getMusicInfoById(musicId: Int): SongInfo? {
+        return dbManager!!.getSongInfo(musicId)
     }
 
 

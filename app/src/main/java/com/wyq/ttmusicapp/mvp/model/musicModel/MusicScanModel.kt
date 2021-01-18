@@ -10,7 +10,7 @@ import android.provider.MediaStore
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.FileNameFormat
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.mvp.model.musicModeListener.IMusicScanModel
 import com.wyq.ttmusicapp.mvp.presenter.`interface`.OnScanMusicFinishListener
 import com.wyq.ttmusicapp.service.MusicPlayerService

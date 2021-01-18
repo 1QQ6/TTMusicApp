@@ -6,8 +6,10 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.util.Log
 import android.widget.Toast
+import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.dao.DatabaseManager
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import com.wyq.ttmusicapp.utils.UpdateUIThreadHelper
 import java.io.File
@@ -83,16 +85,8 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
         }
         PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_ID, musicId)
         PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_PATH, musicPath)
-
-        updateUI()
     }
 
-    /**
-     * 发送更新UI的广播
-     */
-    private fun updateUI() {
-
-    }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         //获取到音乐命令，默认为COMMAND_INIT=1
@@ -140,7 +134,6 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
 
             }
         }
-        updateUI()
     }
 
     private fun initStopOperate() {
@@ -158,13 +151,12 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
             numberRandom()
             //调用音乐切换模块，进行相应操作
             onComplete()
-            updateUI()
         }
         try {
             val file = File(musicPath)
             if (!file.exists()){
-                Toast.makeText(context, "歌曲文件不存在，请重新扫描", Toast.LENGTH_SHORT).show()
-                //MyMusicUtil.playNextMusic(context)
+                Toast.makeText(context, context!!.getString(R.string.no_file_try_again), Toast.LENGTH_SHORT).show()
+                PlayMusicHelper.playNextMusic(context!!)
                 return
             }
             mediaPlayer?.setDataSource(musicPath)
@@ -179,7 +171,8 @@ class PlayerManagerReceiver(context: Context?) : BroadcastReceiver(){
     }
 
     private fun onComplete() {
-        //MyMusicUtil.playNextMusic(context)
+        PlayMusicHelper.playNextMusic(context!!)
+
     }
 
 }

@@ -30,4 +30,24 @@
     <color name="no_color">#00000000</color>
     <color name="text_primary">#DE000000</color>
     <color name="gray9a">#9a9a9a</color>
+
+
+    <style name="CommonButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">@dimen/bottom_action_bar_item_padding_left_right</item>
+    </style>
+
+    <style name="secondTextViewWhite">
+        <item name="android:textColor">@color/secondary_text_white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="textViewWhite" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/primary_text_white</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

@@ -1,7 +1,7 @@
 package com.wyq.ttmusicapp.mvp.presenter.musicPresenter
 
 import android.content.Context
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.mvp.model.musicModel.MusicPlayerBarModel
 import com.wyq.ttmusicapp.mvp.presenter.`interface`.OnMusicPlayerBarListener
 import com.wyq.ttmusicapp.mvp.view.MusicPlayerBarView
@@ -26,7 +26,7 @@ class MusicPlayerBarPresenter(musicPlayerBarView: MusicPlayerBarView) {
                 musicPlayerBarView.startMusicFailed()
             }
 
-            override fun getNextMusicSuccess(songInfo:SongInfo) {
+            override fun getNextMusicSuccess(songInfo: SongInfo) {
                 musicPlayerBarView.setMusicInfo(songInfo)
             }
 

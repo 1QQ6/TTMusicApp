@@ -8,7 +8,7 @@ import com.wyq.ttmusicapp.adpter.SongRecyclerViewAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
 
@@ -45,7 +45,9 @@ class SongFragment: BaseFragment() {
             setMusicMode()
         }
     }
-
+    /**
+     * 初始化音乐模式UI
+     */
     private fun initDefaultPlayModeView() {
         when (PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
             Constant.PLAY_MODE_SEQUENCE -> local_music_play_mode_tv.text = getString(R.string.play_mode_sequence)
@@ -55,6 +57,9 @@ class SongFragment: BaseFragment() {
         initPlayMode()
     }
 
+    /**
+     * 初始化音乐模式
+     */
     private fun initPlayMode() {
         var playMode: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)
         if (playMode == -1) {
@@ -62,6 +67,12 @@ class SongFragment: BaseFragment() {
         }
     }
 
+    /**
+     * 设置音乐模式
+     * 随机
+     * 单曲
+     * 顺序
+     */
     private fun setMusicMode() {
             when (PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
                 Constant.PLAY_MODE_SEQUENCE -> {

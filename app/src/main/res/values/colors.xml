@@ -77,5 +77,11 @@
     <color name="nightActionbar">#3b3b3b</color>
     <color name="nightBg">#2c2c2c</color>
     <color name="gray_e7">#e7e7e7</color>
+    <color name="primary">#9C27B0</color>
+    <color name="black01">#000001</color>
+    <color name="black_08">#14000000</color>
+    <color name="secondary_text_white">@color/abc_secondary_text_material_dark</color>
+    <color name="primary_text_white">#fdfdfe</color>
+    <color name="lightgray">#D3D3D3</color>
 
 </resources>

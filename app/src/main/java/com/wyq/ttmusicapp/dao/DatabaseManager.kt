@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import java.util.*
 
 /**
@@ -290,7 +290,7 @@ class DatabaseManager(context: Context) {
         if (nextMusicId == -1) {
             return null
         }
-        var songInfo:SongInfo? = null
+        var songInfo: SongInfo? = null
         var cursor: Cursor? = null
         cursor = db.query(
             DatabaseHelper.MUSIC_TABLE, null, DatabaseHelper.ID_COLUMN + " = ?",

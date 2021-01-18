@@ -2,11 +2,10 @@ package com.wyq.ttmusicapp.utils
 
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.widget.Toast
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.receiver.PlayerManagerReceiver
 import com.wyq.ttmusicapp.service.MusicPlayerService
 import java.util.*
@@ -87,7 +86,7 @@ object PlayMusicHelper {
         }
         val nextMusicId = getNextMusicId(musicIdList, musicId, playMode)
         PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_ID, nextMusicId)
-        if (musicId == -1) {
+        if (nextMusicId == -1) {
             var intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
             intent.putExtra(Constant.COMMAND, Constant.COMMAND_STOP)
             context.sendBroadcast(intent)

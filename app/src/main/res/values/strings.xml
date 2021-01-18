@@ -11,4 +11,5 @@
     <string name="play_mode_random">随机播放</string>
     <string name="play_mode_repeat">单曲循环</string>
     <string name="play_mode_sequence">顺序播放</string>
+    <string name="no_file_try_again">歌曲文件不存在，请重新扫描</string>
 </resources>

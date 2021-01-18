@@ -6,10 +6,10 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.mvp.model.entity.SongInfo
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.mvp.presenter.musicPresenter.MusicPlayerBarPresenter
 import com.wyq.ttmusicapp.mvp.view.MusicPlayerBarView
-import com.wyq.ttmusicapp.ui.activity.PlayMusicActivity
+import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*

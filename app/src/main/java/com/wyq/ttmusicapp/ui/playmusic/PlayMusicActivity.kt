@@ -1,9 +1,8 @@
-package com.wyq.ttmusicapp.ui.activity
+package com.wyq.ttmusicapp.ui.playmusic
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
+
 
 class PlayMusicActivity : BaseActivity() {
 
@@ -13,11 +12,10 @@ class PlayMusicActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        PlayMusicPresenter(baseContext, supportFragmentManager.findFragmentById(R.id.play_fragment) as PlayMusicFragment)
     }
 
     override fun initViews() {
-
     }
 
     override fun setupToolbar() {

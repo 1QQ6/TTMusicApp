@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.activity
+package com.wyq.ttmusicapp.ui.localmusic
 
 import android.content.Intent
 import android.view.Menu
@@ -8,23 +8,22 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.LocalFragmentAdapter
-import com.wyq.ttmusicapp.base.BaseActivity
-import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.ui.activity.ScanActivity
 import com.wyq.ttmusicapp.ui.fragment.AlbumFragment
 import com.wyq.ttmusicapp.ui.fragment.FolderFragment
 import com.wyq.ttmusicapp.ui.fragment.SingerFragment
-import com.wyq.ttmusicapp.ui.fragment.SongFragment
+import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
 import kotlinx.android.synthetic.main.acticity_local_music.*
 
 /**
  * Created by Roman on 2021/1/10
  */
-class LocalMusicActivity :PlayBarBaseActivity(){
+class LocalMusicActivity : PlayBarBaseActivity(){
 
     private var tabList = ArrayList<String>()
     private var fragmentList = ArrayList<Fragment>()
 
-    private var songFragment: SongFragment? = null
+    private var localMusicFragment: LocalMusicFragment? = null
     private var singerFragment: SingerFragment? = null
     private var albumFragment: AlbumFragment? = null
     private var folderFragment: FolderFragment? = null
@@ -56,9 +55,9 @@ class LocalMusicActivity :PlayBarBaseActivity(){
     }
 
     private fun initFragment() {
-        if (songFragment == null) {
-            songFragment = SongFragment()
-            fragmentList.add(songFragment!!)
+        if (localMusicFragment == null) {
+            localMusicFragment = LocalMusicFragment()
+            fragmentList.add(localMusicFragment!!)
         }
         if (singerFragment == null) {
             singerFragment = SingerFragment()

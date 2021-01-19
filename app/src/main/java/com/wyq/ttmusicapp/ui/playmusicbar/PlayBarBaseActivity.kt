@@ -1,15 +1,15 @@
-package com.wyq.ttmusicapp.ui.activity
+package com.wyq.ttmusicapp.ui.playmusicbar
 
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
-import com.wyq.ttmusicapp.ui.fragment.PlayBarFragment
+import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarFragment
 
 /**
  * Created by Roman on 2021/1/16
  */
 open class PlayBarBaseActivity:BaseActivity() {
 
-    var playBarFragment:PlayBarFragment? = null
+    var playBarFragment: PlayBarFragment? = null
     override fun getLayout(): Int {
         return 0
     }

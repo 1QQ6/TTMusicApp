@@ -2,19 +2,15 @@ package com.wyq.ttmusicapp
 
 import android.content.Intent
 import android.os.Bundle
-import com.wyq.ttmusicapp.service.MusicPlayerService
-import com.wyq.ttmusicapp.ui.activity.LocalMusicActivity
-import com.wyq.ttmusicapp.ui.activity.PlayBarBaseActivity
+import com.wyq.ttmusicapp.ui.localmusic.LocalMusicActivity
+import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : PlayBarBaseActivity() {
+class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
 
-
+    private var mPresenter: HomeContract.Presenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val startIntent = Intent(this@HomeActivity, MusicPlayerService::class.java)
-        startService(startIntent)
     }
 
     override fun getLayout(): Int {
@@ -22,6 +18,9 @@ class HomeActivity : PlayBarBaseActivity() {
     }
 
     override fun initData() {
+        HomePresenter(this,this)
+        mPresenter!!.bindMusicController()
+        mPresenter!!.start()
     }
 
     override fun initViews() {
@@ -41,7 +40,10 @@ class HomeActivity : PlayBarBaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val stopIntent = Intent(this@HomeActivity, MusicPlayerService::class.java)
-        stopService(stopIntent)
+        mPresenter!!.unbindMusicController()
+    }
+
+    override fun setPresenter(presenter: HomeContract.Presenter) {
+        mPresenter = presenter
     }
 }

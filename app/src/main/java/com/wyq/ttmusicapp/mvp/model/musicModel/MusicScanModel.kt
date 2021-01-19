@@ -13,7 +13,6 @@ import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.mvp.model.musicModeListener.IMusicScanModel
 import com.wyq.ttmusicapp.mvp.presenter.`interface`.OnScanMusicFinishListener
-import com.wyq.ttmusicapp.service.MusicPlayerService
 import com.wyq.ttmusicapp.ui.activity.ScanActivity
 import com.wyq.ttmusicapp.utils.ChineseToEnglish
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
@@ -192,9 +191,9 @@ class MusicScanModel() : IMusicScanModel {
                 PlayMusicSPUtil.setCurrentMusicId(Constant.KEY_MUSIC_ID, id)
             } else {
                 //Log.d(TAG, "initCurPlaying: !!!contains")
-                val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
+                /*val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
                 intent.putExtra(Constant.COMMAND, Constant.COMMAND_STOP)
-                context.sendBroadcast(intent)
+                context.sendBroadcast(intent)*/
             }
         } catch (e: java.lang.Exception) {
 

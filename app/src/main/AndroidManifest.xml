@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".utils.MyApplication"
+        android:name=".common.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/music_icon"
         android:label="@string/app_name"
@@ -18,29 +18,34 @@
             >
 
         </activity>
-        <!--
-        android:enabled=[“true” | “false”]:是否可实例化，默认true,如设置false ，Service将不可用
-        android:exported=[“true” |”false”]:是否允许跨进程调用，
-        默认值跟filter是否有子元素有关，filter子元素个数为0,默认值为false ,否则true
-        -->
-        <service
-            android:name=".service.MusicPlayerService"
-            android:enabled="true"
-            android:exported="true" />
 
+        <!--如果被设置的进程名是以一个冒号(:)开头的，则这个新的进程对于这个应用来说是私有的-->
+        <service android:name=".core.MusicControllerService"
+
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.wyq.ttmusicapp.core.MusicControlerService"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+        <!--
+                android:enabled=[“true” | “false”]:是否可实例化，默认true,如设置false ，Service将不可用
+                android:exported=[“true” |”false”]:是否允许跨进程调用，
+                默认值跟filter是否有子元素有关，filter子元素个数为0,默认值为false ,否则true
+                -->
         <receiver
-            android:name=".receiver.PlayerManagerReceiver"
+            android:name=".core.MusicControllerReceiver"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".ui.activity.PlayBarBaseActivity"
+            android:name=".ui.playmusicbar.PlayBarBaseActivity"
             android:screenOrientation="portrait" /> <!-- ScanActivity -->
         <activity
             android:name=".ui.activity.ScanActivity"
             android:screenOrientation="portrait" /> <!-- LocalMusicActivity -->
         <activity
-            android:name=".ui.activity.LocalMusicActivity"
+            android:name=".ui.localmusic.LocalMusicActivity"
             android:screenOrientation="portrait" /> <!-- HomeActivity -->
         <activity
             android:name=".HomeActivity"

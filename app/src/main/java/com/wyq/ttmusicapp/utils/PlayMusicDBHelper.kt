@@ -1,19 +1,15 @@
 package com.wyq.ttmusicapp.utils
 
-import android.content.Context
-import android.content.Intent
-import android.widget.Toast
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.common.MyApplication
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.receiver.PlayerManagerReceiver
-import com.wyq.ttmusicapp.service.MusicPlayerService
 import java.util.*
 
 /**
  * Created by Roman on 2021/1/16
  */
-object PlayMusicHelper {
+object PlayMusicDBHelper {
 
     private var dbManager: DatabaseManager? = null
 
@@ -24,7 +20,7 @@ object PlayMusicHelper {
     /**
      * 操作当前播放音乐状态
      */
-    fun playCurrentMusic(context: Context): Int {
+    /*fun playCurrentMusic(context: Context): Int {
         val musicId: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)
         if (musicId == -1 || musicId == 0) {
             val intent = Intent(Constant.MP_FILTER)
@@ -37,43 +33,43 @@ object PlayMusicHelper {
         when (getPlayStatus()) {
             //当前暂停状态-->发送广播到播放状态
             Constant.STATUS_PAUSE -> {
-                sendMusicStatusBroadcast(context, "", Constant.COMMAND_PLAY)
+                //sendMusicStatusBroadcast(context, "", Constant.COMMAND_PLAY)
                 return Constant.STATUS_PLAY
             }
             //当前播放状态-->发送广播到暂停状态
             Constant.STATUS_PLAY -> {
-                sendMusicStatusBroadcast(context, "", Constant.COMMAND_PAUSE)
+                //sendMusicStatusBroadcast(context, "", Constant.COMMAND_PAUSE)
                 return Constant.STATUS_PAUSE
             }
             else -> {
                 //为停止状态时发送播放命令，并发送将要播放歌曲的路径
                 val musicPath = dbManager!!.getMusicPath(musicId)
-                sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
+                //sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
                 return Constant.STATUS_PLAY
             }
         }
-    }
+    }*/
 
-    fun getPlayStatus(): Int {
+    /*fun getPlayStatus(): Int {
         return PlayerManagerReceiver.status
-    }
+    }*/
 
     /**
      * 发送广播
      */
-    private fun sendMusicStatusBroadcast(context: Context, musicPath: String, command: Int) {
+    /*private fun sendMusicStatusBroadcast(context: Context, musicPath: String, command: Int) {
         val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
         intent.putExtra(Constant.COMMAND, command)
         if (musicPath.isNotEmpty()) {
             intent.putExtra(Constant.KEY_MUSIC_PATH, musicPath)
         }
         context.sendBroadcast(intent)
-    }
+    }*/
 
     /**
      * 播放下一首音乐
      */
-    fun playNextMusic(context: Context): SongInfo? {
+    /*fun playNextMusic(context: Context): SongInfo? {
         //获取当前播放模式
         val playMode: Int = PlayMusicSPUtil.getPlayMusicModeShared()
         //获取当前音乐id
@@ -94,9 +90,9 @@ object PlayMusicHelper {
         }
         //发送播放下一首歌的广播
         val musicPath = dbManager!!.getMusicPath(nextMusicId)
-        sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
+        //sendMusicStatusBroadcast(context, musicPath!!, Constant.COMMAND_PLAY)
         return getMusicInfoById(nextMusicId)
-    }
+    }*/
 
     fun getMusicInfoById(musicId: Int): SongInfo? {
         return dbManager!!.getSongInfo(musicId)

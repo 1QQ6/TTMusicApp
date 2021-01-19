@@ -9,10 +9,9 @@ import android.widget.SectionIndexer
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.common.MyApplication.Companion.context
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.service.MusicPlayerService
-import com.wyq.ttmusicapp.utils.MyApplication.Companion.context
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.local_music_item.view.*
 
@@ -59,16 +58,6 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
                 //点击播放
                 local_music_item_ll.setOnClickListener {
                     Log.i(TAG, "onClick: 播放 " + musicInfo.musicName)
-                    //获取点击的音乐id路径
-                    val path = dbManager!!.getMusicPath(musicInfo.music_id!!)
-                    //发送广播，传送播放命令和歌曲路径
-                    val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
-                    intent.putExtra(Constant.COMMAND, Constant.COMMAND_PLAY)
-                    intent.putExtra(Constant.KEY_MUSIC_PATH, path)
-                    context.sendBroadcast(intent)
-                    //保存当前播放的音乐到sp
-                    PlayMusicSPUtil.setShared(Constant.KEY_MUSIC_ID, musicInfo.music_id!!)
-                    //处理点击回调
                     onItemClickListener.onItemClick(adapterPosition)
                 }
                 //点击菜单

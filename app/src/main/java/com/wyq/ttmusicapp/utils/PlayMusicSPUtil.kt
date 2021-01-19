@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.common.MyApplication
 
 /**
  * Created by Roman on 2021/1/11
@@ -59,5 +60,13 @@ object PlayMusicSPUtil {
     @Synchronized
     fun setCurrentMusicId(keyId: String,value:Int){
         getSP().edit().putInt(keyId,value).apply()
+    }
+
+    fun saveRecentMusicId(musicId: Int) {
+        getSP().edit().putInt(Constant.KEY_MUSIC_ID, musicId).apply()
+    }
+
+    fun getRecentMusicId():Int{
+        return getSP().getInt(Constant.KEY_MUSIC_ID, -1)
     }
 }

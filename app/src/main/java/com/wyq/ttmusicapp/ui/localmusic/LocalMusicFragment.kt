@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.fragment
+package com.wyq.ttmusicapp.ui.localmusic
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,7 @@ import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.SongRecyclerViewAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_song.*
 /**
  * Created by Roman on 2021/1/10
  */
-class SongFragment: BaseFragment() {
+class LocalMusicFragment: BaseFragment() {
     var songRecyclerViewAdapter:SongRecyclerViewAdapter? = null
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
 
@@ -116,7 +117,7 @@ class SongFragment: BaseFragment() {
             }
 
             override fun onItemClick(position: Int) {
-                PlayMusicSPUtil.setShared(Constant.KEY_LIST, Constant.LIST_ALL_MUSIC)
+                PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)
             }
         })
     }

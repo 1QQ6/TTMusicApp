@@ -63,4 +63,23 @@ object Constant {
     const val SCAN_NO_MUSIC = 3
 
     val MP_FILTER: String? = "com.example.vinyl.start_mediaplayer"
+
+    var PLAYPRO_EXIT = "com.huwei.intent.PLAYPRO_EXIT_ACTION"
+    //关于歌曲信息控件的更新
+    const val PLAY_BAR_UPDATE = "com.huwei.intent.PLAYBAR_UPDATE"
+
+    const val PLAY_STATUS_UPDATE = "com.huwei.intent.PLAY_STATUS_UPDATE"
+    //当前状态 有关时间控件的更新
+    const val CURRENT_UPDATE = "com.huwei.intent.DURATION_UPDATE"
+    //在线音乐的缓冲更新
+    const val BUFFER_UPDATE = "com.huwei.intent.BUFFER_UPDATE"
+
+    /**
+     * 播放服务传递常亮
+     */
+    const val NOW_PLAY_MUSIC = "NOW_PLAY_MUSIC"
+
+    const val IS_PLAYING = "is_playing"
+    const val IS_NEW_PLAY_MUSIC = "is_new_play_music"
+
 }

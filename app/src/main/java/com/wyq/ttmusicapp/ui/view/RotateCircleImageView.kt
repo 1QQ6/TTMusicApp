@@ -10,36 +10,35 @@ import com.thinkcool.circletextimageview.CircleTextImageView
 import com.wyq.ttmusicapp.R
 
 /**
- * Created by huwei on 18-1-17.
+ * 圆的image自转动画
  */
 
 class RotateCircleImageView @JvmOverloads constructor(internal var context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : CircleTextImageView(context, attrs, defStyleAttr) {
 
-    val ratoteAnimator: ObjectAnimator
+    private val rotateAnimator: ObjectAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
 
     init {
-        ratoteAnimator = ObjectAnimator.ofFloat(this, "rotation", 0f, 360f)
-        ratoteAnimator.setInterpolator(LinearInterpolator())
-        ratoteAnimator.setDuration(20000)
-        ratoteAnimator.repeatMode = RESTART
-        ratoteAnimator.repeatCount = INFINITE
+        rotateAnimator.interpolator = LinearInterpolator()
+        rotateAnimator.duration = 20000
+        rotateAnimator.repeatMode = RESTART
+        rotateAnimator.repeatCount = INFINITE
 
         setBorderColorResource(R.color.black)
-        setBorderWidth(5)
+        borderWidth = 5
 
         //setImageResource(R.drawable.turntable)
     }
 
     fun start() {
-        ratoteAnimator.setupStartValues()
-        ratoteAnimator.start()
+        rotateAnimator.setupStartValues()
+        rotateAnimator.start()
     }
 
     fun pause() {
-        ratoteAnimator.pause()
+        rotateAnimator.pause()
     }
 
     fun resume() {
-        ratoteAnimator.resume()
+        rotateAnimator.resume()
     }
 }

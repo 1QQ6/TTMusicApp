@@ -87,29 +87,39 @@ class PlayMusicManager : IMusicControl {
         }
     }
 
+    /**
+     *
+     */
     override fun preparePlayingList(index: Int, list: List<SongInfo?>?) {
         mPlayThreadPool!!.execute {
             try {
-                preparePlayingListInner(index, list!!)
+                preparePlayingListInner(index, list!!,true)
             } catch (e: Exception) {
 
             }
         }
     }
 
+    /**
+     *
+     */
     fun prepareAndPlay(
         index: Int,
         list: List<SongInfo?>?
     ) {
-        mPlayThreadPool!!.execute { preparePlayingListInner(index, list!!) }
+        mPlayThreadPool!!.execute { preparePlayingListInner(index, list!!,false) }
     }
 
+    /**
+     *
+     */
     private fun preparePlayingListInner(
         index: Int,
-        list: List<SongInfo?>
+        list: List<SongInfo?>,
+        isPrepare:Boolean
     ) {
         try {
-            service!!.preparePlayingList(index, list)
+            service!!.preparePlayingList(index, list,isPrepare)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }

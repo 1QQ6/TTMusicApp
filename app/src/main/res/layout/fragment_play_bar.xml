@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.wyq.ttmusicapp.ui.view.RotateCircleImageView
         android:id="@+id/player_bar_iv"
         android:layout_width="38dp"
         android:layout_height="38dp"

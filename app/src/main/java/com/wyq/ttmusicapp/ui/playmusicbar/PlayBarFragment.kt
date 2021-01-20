@@ -16,6 +16,7 @@ import com.wyq.ttmusicapp.utils.PlayMusicDBHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
 
+
 /**
  * Created by Roman on 2021/1/16
  */
@@ -23,6 +24,7 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
 
     var musicPlayerBarPresenter:PlayBarContract.Presenter? = null
     var isReceiverRegistered = false
+    var isPlayMusic = false
     override fun getLayout(): Int {
         return R.layout.fragment_play_bar
     }
@@ -48,6 +50,13 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
             if (musicInfo!=null){
                 home_music_name_tv.text = musicInfo.musicName
                 home_singer_name_tv.text = musicInfo.musicSinger
+                if (isPlayMusic) {
+                    player_bar_iv.start()
+                    play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))
+                } else {
+                    player_bar_iv.pause()
+                    play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_play_stop))
+                }
             }
         }
     }
@@ -123,7 +132,10 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
      */
     private fun initReceiver() {
         val intentFilter = IntentFilter()
+        //bar当前状态
         intentFilter.addAction(Constant.PLAY_BAR_UPDATE)
+        //当前进度条
+        intentFilter.addAction(Constant.CURRENT_UPDATE)
         context!!.registerReceiver(receiver,intentFilter)
         isReceiverRegistered = true
     }
@@ -133,10 +145,17 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
      */
     private val receiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-            val isNewPlayMusic = intent!!.getBooleanExtra(Constant.IS_PLAYING, false)
-            val songInfo = intent.getParcelableExtra<SongInfo>(Constant.NOW_PLAY_MUSIC)
-            if (songInfo!=null){
-                updateMusicBarUI(songInfo,isNewPlayMusic)
+            when(intent!!.action){
+                Constant.PLAY_BAR_UPDATE->{
+                    isPlayMusic = intent.getBooleanExtra(Constant.IS_PLAYING, false)
+                    val songInfo = intent.getParcelableExtra<SongInfo>(Constant.NOW_PLAY_MUSIC)
+                    if (songInfo!=null){
+                        updateMusicBarUI(songInfo,isPlayMusic)
+                    }
+                }
+                Constant.CURRENT_UPDATE->{
+                    home_seek_bar.progress = intent.getIntExtra(Constant.SEEK_BAR_CURRENT_TIME, 0)
+                }
             }
         }
     }
@@ -146,8 +165,10 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
         home_singer_name_tv.text = songInfo.musicSinger
         home_seek_bar.max = songInfo.musicDuration!!
         if (isPlaying) {
+            player_bar_iv.start()
             play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))
         } else {
+            player_bar_iv.pause()
             play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_play_stop))
         }
     }

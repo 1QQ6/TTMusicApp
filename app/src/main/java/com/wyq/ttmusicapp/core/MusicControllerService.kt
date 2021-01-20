@@ -29,6 +29,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
     private var mediaPlayer: MediaPlayer? = null
     private var mIsPrepared = false
     private var isPlayCurrentMusic = true
+    private var isPrepare = true
     private var controlReceiver:MusicControllerReceiver? = null
     companion object{
 
@@ -50,14 +51,14 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             super.handleMessage(msg)
             var intent: Intent?
             when (msg.what) {
-                //
+                //音乐进度条更新
                 MSG_CURRENT -> {
                     if (!mIsPrepared){
                         return
                     }
                     intent = Intent(Constant.CURRENT_UPDATE)
                     val currentTime: Int = mediaPlayer!!.currentPosition
-                    intent.putExtra("currentTime", currentTime)
+                    intent.putExtra(Constant.SEEK_BAR_CURRENT_TIME, currentTime)
                     //发送广播更新UI操作
                     sendBroadcast(intent)
                     sendEmptyMessageDelayed(MSG_CURRENT, 500)
@@ -136,9 +137,10 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         mediaPlayer!!.setOnBufferingUpdateListener(this)
         mediaPlayer!!.setOnPreparedListener {
             mIsPrepared = true
-            if (!isPlayCurrentMusic){
+            if (!isPlayCurrentMusic||!this@MusicControllerService.isPrepare){
                 //开始或继续播放。如果以前已暂停播放，则将从暂停的位置继续播放。如果播放已停止或之前从未开始过，则播放将从头开始。
                 it.start()
+                handler.sendEmptyMessage(MSG_CURRENT)
             }
             this.updatePlayState()
         }
@@ -213,6 +215,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             if (!mediaPlayer!!.isPlaying) {
                 isPlayCurrentMusic = true
                 mediaPlayer!!.start()
+                handler.sendEmptyMessage(MSG_CURRENT)
                 this@MusicControllerService.updatePlayState()
             }
         }
@@ -261,9 +264,10 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             prepareSong(musicList!![musicIndex])
         }
 
-        override fun preparePlayingList(musicIndex: Int, list: MutableList<SongInfo>?) {
+        override fun preparePlayingList(musicIndex: Int, list: MutableList<SongInfo>?,isPrepare:Boolean) {
             this@MusicControllerService.musicIndex = musicIndex
             musicList = list
+            this@MusicControllerService.isPrepare = isPrepare
             if (musicList == null || musicList!!.isEmpty()) {
                 toast("播放列表为空", Toast.LENGTH_LONG)
                 return
@@ -326,6 +330,8 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
 
     override fun onUnbind(intent: Intent?): Boolean {
         Log.e(TAG, "onUnbind")
+        handler.removeMessages(MSG_CURRENT)
+        mediaPlayer?.release()
         return super.onUnbind(intent)
     }
 

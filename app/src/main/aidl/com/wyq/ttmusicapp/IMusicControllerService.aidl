@@ -1,6 +1,6 @@
 // IMusicControllerService.aidl
 package com.wyq.ttmusicapp;
-//手动添加报名，注意和项目报名保持一致
+//手动添加包名，注意和项目报名保持一致
 import com.wyq.ttmusicapp.entity.SongInfo;
 
 // Declare any non-default types here with import statements
@@ -23,7 +23,7 @@ interface IMusicControllerService {
 
         void seekTo(int mesc);
 
-        void preparePlayingList(int musicIndex,in List<SongInfo>  list);
+        void preparePlayingList(int musicIndex,in List<SongInfo>  list,boolean isPlaying);
 
         boolean isPlaying();
 

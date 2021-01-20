@@ -37,16 +37,15 @@
             android:name=".core.MusicControllerReceiver"
             android:enabled="true"
             android:exported="true" />
-
+        <!-- PlayBarBaseActivity -->
         <activity
             android:name=".ui.playmusicbar.PlayBarBaseActivity"
-            android:screenOrientation="portrait" /> <!-- ScanActivity -->
+            android:screenOrientation="portrait" />
+        <!-- ScanActivity -->
         <activity
             android:name=".ui.activity.ScanActivity"
-            android:screenOrientation="portrait" /> <!-- LocalMusicActivity -->
-        <activity
-            android:name=".ui.localmusic.LocalMusicActivity"
-            android:screenOrientation="portrait" /> <!-- HomeActivity -->
+            android:screenOrientation="portrait" />
+         <!-- HomeActivity -->
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTask"

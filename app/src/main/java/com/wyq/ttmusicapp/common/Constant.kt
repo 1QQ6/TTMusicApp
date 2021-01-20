@@ -4,6 +4,11 @@ package com.wyq.ttmusicapp.common
  * Created by Roman on 2021/1/10
  */
 object Constant {
+    //主页tab
+    const val TAB_MAIN = 1
+    const val TAB_WORK = 2
+    const val TAB_ME = 3
+
     const val KEY_MUSIC_ID = "id"
     const val KEY_MUSIC_PATH = "path"
     const val KEY_PLAY_MODE = "mode"
@@ -78,8 +83,8 @@ object Constant {
      * 播放服务传递常亮
      */
     const val NOW_PLAY_MUSIC = "NOW_PLAY_MUSIC"
-
     const val IS_PLAYING = "is_playing"
     const val IS_NEW_PLAY_MUSIC = "is_new_play_music"
+    const val SEEK_BAR_CURRENT_TIME = "seek_bar_current_time"
 
 }

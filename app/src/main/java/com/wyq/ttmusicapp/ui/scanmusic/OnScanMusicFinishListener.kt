@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.mvp.presenter.`interface`
+package com.wyq.ttmusicapp.ui.scanmusic
 
 /**
  * Created by Roman on 2021/1/14

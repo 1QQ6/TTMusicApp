@@ -43,7 +43,7 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
     private fun initMusicInfo() {
         val musicId: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)
         if (musicId == -1) {
-            home_music_name_tv.text = "听听音乐"
+            home_music_name_tv.text = "天天音乐"
             home_singer_name_tv.text = "好音质"
         }else{
             val musicInfo = PlayMusicDBHelper.getMusicInfoById(musicId)

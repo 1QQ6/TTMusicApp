@@ -43,7 +43,7 @@
             android:screenOrientation="portrait" />
         <!-- ScanActivity -->
         <activity
-            android:name=".ui.activity.ScanActivity"
+            android:name=".ui.scanmusic.ScanActivity"
             android:screenOrientation="portrait" />
          <!-- HomeActivity -->
         <activity

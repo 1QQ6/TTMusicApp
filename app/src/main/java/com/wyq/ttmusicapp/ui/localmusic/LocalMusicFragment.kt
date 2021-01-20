@@ -93,6 +93,8 @@ class LocalMusicFragment: BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        updateView()
+        initMusicList()
     }
 
     private fun updateView() {

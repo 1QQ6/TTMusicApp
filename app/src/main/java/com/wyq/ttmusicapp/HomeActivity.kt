@@ -6,10 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.ui.activity.ScanActivity
 import com.wyq.ttmusicapp.ui.fragment.WorkFragment
 import com.wyq.ttmusicapp.ui.me.MeFragment
 import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
+import com.wyq.ttmusicapp.ui.scanmusic.ScanActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : PlayBarBaseActivity(),HomeContract.View {

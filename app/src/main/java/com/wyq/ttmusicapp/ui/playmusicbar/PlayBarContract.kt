@@ -11,11 +11,6 @@ interface PlayBarContract{
 
     interface View:BaseView<Presenter>{
         /**
-         * 更新UI
-         */
-        fun updatePlayerViewUI(status:Int)
-
-        /**
          * 设置音乐相关信息
          */
         fun setMusicInfo(songItem: SongInfo)

@@ -20,7 +20,6 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
     override fun initData() {
         HomePresenter(this,this)
         mPresenter!!.bindMusicController()
-        mPresenter!!.start()
     }
 
     override fun initViews() {

@@ -261,7 +261,7 @@ class DatabaseManager(context: Context) {
                     val musicLove =
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_LOVE_COLUMN))
                     val musicDuration =
-                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
+                        cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
 
                     val songInfo = SongInfo(
                         musicId,
@@ -312,7 +312,7 @@ class DatabaseManager(context: Context) {
             val musicLove =
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_LOVE_COLUMN))
             val musicDuration =
-                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
+                cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
 
                 songInfo = SongInfo(
                 musicId,

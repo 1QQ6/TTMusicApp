@@ -22,7 +22,7 @@ interface HomeContract {
         fun unbindMusicController()
 
         /**
-         * 家再上一个退出时的音乐
+         * 加载上一个退出时的音乐
          */
         fun loadMusicPlayAgo()
     }

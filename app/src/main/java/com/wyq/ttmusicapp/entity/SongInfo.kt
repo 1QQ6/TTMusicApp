@@ -11,7 +11,7 @@ data class SongInfo(
     var music_id: Int?,
     var musicName: String?,
     var musicSinger: String?,
-    var musicDuration: String?,
+    var musicDuration: Int?,
     var musicAlbum: String?,
     var musicPath: String?,
     var musicParentPath: String?,
@@ -21,7 +21,7 @@ data class SongInfo(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -34,7 +34,7 @@ data class SongInfo(
         parcel.writeValue(music_id)
         parcel.writeString(musicName)
         parcel.writeString(musicSinger)
-        parcel.writeString(musicDuration)
+        parcel.writeValue(musicDuration)
         parcel.writeString(musicAlbum)
         parcel.writeString(musicPath)
         parcel.writeString(musicParentPath)

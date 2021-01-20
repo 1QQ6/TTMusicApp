@@ -15,6 +15,7 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import com.wyq.ttmusicapp.utils.toast
+import java.io.File
 import kotlin.random.Random
 
 
@@ -27,6 +28,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
     private var musicIndex = -1
     private var mediaPlayer: MediaPlayer? = null
     private var mIsPrepared = false
+    private var isPlayCurrentMusic = true
     private var controlReceiver:MusicControllerReceiver? = null
     companion object{
 
@@ -87,10 +89,17 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
     private fun playMusic(music: SongInfo) {
         if (mediaPlayer != null) {
             mIsPrepared = false
+            //调用此方法后，将必须通过设置数据源并调用prepare()再次对其进行初始化。
             mediaPlayer!!.reset()
         }
         try {
-            //Log.i(TAG, "datasoure:" + music.getDataSoure())
+            val file = File(music.musicPath)
+            if (!file.exists()) {
+                Toast.makeText(this, "歌曲文件不存在，请重新扫描", Toast.LENGTH_SHORT).show()
+                mBinder.nextSong()
+                return
+            }
+            Log.i(TAG, "datasoure:" + music.musicPath)
             //todo 添加网络url
             mediaPlayer!!.setDataSource(music.musicPath)
             //准备播放器以进行异步播放。设置数据源和显示表面后，您需要调用prepare（）或prepareAsync（）。
@@ -127,8 +136,11 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         mediaPlayer!!.setOnBufferingUpdateListener(this)
         mediaPlayer!!.setOnPreparedListener {
             mIsPrepared = true
-            it.start()
-            this.updatePlayState(true)
+            if (!isPlayCurrentMusic){
+                //开始或继续播放。如果以前已暂停播放，则将从暂停的位置继续播放。如果播放已停止或之前从未开始过，则播放将从头开始。
+                it.start()
+            }
+            this.updatePlayState()
         }
     }
 
@@ -180,6 +192,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
 
         override fun preSong() {
             Log.e(TAG, "preSong: ")
+            isPlayCurrentMusic = false
             musicIndex = (musicIndex - 1) % musicList!!.size
             prepareSong(musicList!![musicIndex])
         }
@@ -196,15 +209,11 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             )*/
 
             //mNoticationManager.notify(NT_PLAYBAR_ID, mNotification)
-
-            //准备播放源，准备后播放
-            val music: SongInfo = musicList!![playingSongIndex]
-            Log.e(TAG, "play: ")
-            // Log.i(TAG, "play()->" + music.getTitle())
+            Log.e(TAG, "isPlaying:"+mediaPlayer!!.isPlaying.toString())
             if (!mediaPlayer!!.isPlaying) {
-                //Log.i(TAG, "Enterplay()")
+                isPlayCurrentMusic = true
                 mediaPlayer!!.start()
-                this@MusicControllerService.updatePlayState(true)
+                this@MusicControllerService.updatePlayState()
             }
         }
 
@@ -222,6 +231,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             Log.e(TAG, "pause")
             mediaPlayer!!.pause()
             handler.removeMessages(MSG_CURRENT)
+            updatePlayState()
         }
 
         override fun stop() {
@@ -246,6 +256,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
 
         override fun nextSong() {
             Log.e(TAG, "nextSong")
+            isPlayCurrentMusic = false
             musicIndex = (musicIndex + 1) % musicList!!.size
             prepareSong(musicList!![musicIndex])
         }
@@ -264,22 +275,24 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
     }
 
     /**
-     * 更新UI
+     * 发送广播更新PlayBar的UI
      */
-    private fun updatePlayState(isPlaying: Boolean) {
-        Log.e(TAG, "updatePlayState")
-        val intent = Intent(Constant.PLAY_STATUS_UPDATE)
-        intent.putExtra(Constant.IS_PLAYING, isPlaying)
+    private fun updatePlayState() {
+        val intent = Intent(Constant.PLAY_BAR_UPDATE)
+        //是否正在播放
+        intent.putExtra(Constant.IS_PLAYING, mediaPlayer!!.isPlaying)
+        //正在播放的歌曲信息
+        intent.putExtra(Constant.NOW_PLAY_MUSIC, mBinder.nowPlayingSong)
+        //发送广播
         sendBroadcast(intent)
+        //保存正在播放的音乐id
+        PlayMusicSPUtil.saveRecentMusicId(mBinder.nowPlayingSong.music_id!!)
     }
 
     private fun prepareSong(music: SongInfo) {
         //Log.d(TAG, "prepareSong music:" + Gson().toJson(music))
-
         //showMusicPlayerNotification(music)
-        if(music!=null){
-            updatePlayBar(false, music)
-        }
+        updatePlayState()
         //如果是网络歌曲,而且未从网络获取详细信息，则需要获取歌曲的详细信息
         /*if (music.getType() === AbstractMusic.MusicType.Online) {
             val song: Song = music as Song
@@ -309,17 +322,6 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             playMusic(music)
         }*/
         playMusic(music)
-    }
-
-    /**
-     * 发送广播更新PlayBar的UI
-     */
-    private fun updatePlayBar(isNewPlayMusic: Boolean, music: SongInfo) {
-        val intent = Intent(Constant.PLAY_BAR_UPDATE)
-        intent.putExtra(Constant.IS_NEW_PLAY_MUSIC, isNewPlayMusic)
-        intent.putExtra(Constant.NOW_PLAY_MUSIC, music as Parcelable)
-        sendBroadcast(intent)
-        PlayMusicSPUtil.saveRecentMusicId(music.music_id!!)
     }
 
     override fun onUnbind(intent: Intent?): Boolean {

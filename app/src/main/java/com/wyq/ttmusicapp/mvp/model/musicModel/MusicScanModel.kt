@@ -147,7 +147,7 @@ class MusicScanModel() : IMusicScanModel {
         var path =
             cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA))
         val duration =
-            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION))
+            cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION))
         val file = File(path)
         val parentPath = file.parentFile.path
 
@@ -163,8 +163,8 @@ class MusicScanModel() : IMusicScanModel {
                 0,
                 name,
                 singer,
-                album,
                 duration,
+                album,
                 path,
                 parentPath,
                 firstLetter,

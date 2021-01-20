@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.activity
+package com.wyq.ttmusicapp.ui.scanmusic
 
 import android.os.Bundle
 import android.view.View
@@ -6,18 +6,16 @@ import android.widget.Toast
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.mvp.presenter.musicPresenter.MusicScanPresenter
-import com.wyq.ttmusicapp.mvp.view.MusicView
 import kotlinx.android.synthetic.main.activity_scan.*
 
 
 /**
  * Created by Roman on 2021/1/10
  */
-class ScanActivity:BaseActivity(), MusicView {
+class ScanActivity:BaseActivity(), ScanContract.View {
     //是否正在扫描
     private var isScanning = false
-    private var musicScanPresenter: MusicScanPresenter? = null
+    private var musicScanPresenter: ScanContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +26,7 @@ class ScanActivity:BaseActivity(), MusicView {
     }
 
     override fun initData() {
-        musicScanPresenter = MusicScanPresenter(this)
+        ScanPresenter(this)
     }
 
     override fun initViews() {
@@ -52,16 +50,9 @@ class ScanActivity:BaseActivity(), MusicView {
     }
 
     /**
-     * 扫描更新当前进度的view
-     */
-    override fun showScanProgress(path:String,currentProgress:Int) {
-        scan_count.text = getString(R.string.scanning_music_count_tv,currentProgress.toString())
-        scan_path.text = path
-    }
-    /**
      * 扫描完毕，点击关闭当前activity
      */
-    override fun scanMusicSuccess(type:Int) {
+    override fun scanMusicFinished(type: Int) {
         start_scan_btn.text = getString(R.string.scan_finish)
         isScanning = false
         start_scan_btn.setOnClickListener {
@@ -77,10 +68,16 @@ class ScanActivity:BaseActivity(), MusicView {
         }
     }
 
-    /**
-     * 扫描出错
-     */
-    override fun scanMusicError() {
+    override fun scanMusicFailed() {
         Toast.makeText(this, getString(R.string.scan_error), Toast.LENGTH_LONG).show()
+    }
+
+    override fun showScanProgress(path: String, currentProgress: Int) {
+        scan_count.text = getString(R.string.scanning_music_count_tv,currentProgress.toString())
+        scan_path.text = path
+    }
+
+    override fun setPresenter(presenter: ScanContract.Presenter) {
+        musicScanPresenter = presenter
     }
 }

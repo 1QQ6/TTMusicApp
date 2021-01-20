@@ -1,7 +1,6 @@
-package com.wyq.ttmusicapp.mvp.model.musicModel
+package com.wyq.ttmusicapp.ui.scanmusic
 
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import android.os.Handler
@@ -11,9 +10,7 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.FileNameFormat
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.mvp.model.musicModeListener.IMusicScanModel
-import com.wyq.ttmusicapp.mvp.presenter.`interface`.OnScanMusicFinishListener
-import com.wyq.ttmusicapp.ui.activity.ScanActivity
+import com.wyq.ttmusicapp.ui.scanmusic.ScanActivity
 import com.wyq.ttmusicapp.utils.ChineseToEnglish
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import java.io.File
@@ -23,7 +20,7 @@ import java.util.*
 /**
  * Created by Roman on 2021/1/14
  */
-class MusicScanModel() : IMusicScanModel {
+object MusicScanHelper {
     //查询歌曲的信息数组集合
     var musicInfoArray: Array<String>? = null
 
@@ -48,7 +45,7 @@ class MusicScanModel() : IMusicScanModel {
     //当前音乐路径
     private var curMusicPath: String? = null
 
-    override fun startScanLocalMusic(
+    fun startScanLocalMusic(
         context: Context,
         isScanning: Boolean,
         onScanMusicFinishListener: OnScanMusicFinishListener
@@ -204,7 +201,7 @@ class MusicScanModel() : IMusicScanModel {
      *
      * 接收到消息后，通过presenter回调给view
      */
-    inner class MyHandler(
+    class MyHandler(
         val context: Context,
         private val onScanMusicFinishListener: OnScanMusicFinishListener?
     ) : Handler() {
@@ -220,6 +217,7 @@ class MusicScanModel() : IMusicScanModel {
                     }
                     Constant.SCAN_COMPLETE -> {
                         initCurPlaying(context)
+                        currentProgress = 0
                         onScanMusicFinishListener?.scanMusicSuccess(Constant.HAS_MUSIC)
                     }
                     Constant.SCAN_UPDATE -> {

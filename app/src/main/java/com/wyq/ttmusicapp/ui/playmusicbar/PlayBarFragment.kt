@@ -14,6 +14,8 @@ import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 
 /**
@@ -45,17 +47,22 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
             home_music_name_tv.text = "天天音乐"
             home_singer_name_tv.text = "好音质"
         }else{
-            val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
-            if (musicInfo!=null){
-                home_music_name_tv.text = musicInfo.musicName
-                home_singer_name_tv.text = musicInfo.musicSinger
-                if (isPlayMusic) {
-                    player_bar_iv.start()
-                    play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))
-                } else {
-                    player_bar_iv.pause()
-                    play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_play_stop))
+            doAsync {
+                val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
+                uiThread {
+                    if (musicInfo!=null){
+                        home_music_name_tv.text = musicInfo.musicName
+                        home_singer_name_tv.text = musicInfo.musicSinger
+
+                    }
                 }
+            }
+            if (isPlayMusic) {
+                player_bar_iv.start()
+                play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))
+            } else {
+                player_bar_iv.pause()
+                play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_play_stop))
             }
         }
     }

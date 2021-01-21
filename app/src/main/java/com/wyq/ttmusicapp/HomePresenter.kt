@@ -46,15 +46,16 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
     }
 
     override fun loadMusicPlayAgo() {
-        val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
-        if (recentMusicId != -1L){
-            val songInfo = DatabaseManager.getInstance(context)!!.getSongInfo(recentMusicId)
-            val allMusicList =
-                DatabaseManager.getInstance(context)!!.getAllMusicFromMusicTable()
-            val indexOf = allMusicList.indexOf(songInfo)
-            PlayMusicManager.getMusicManager()!!.preparePlayingList(indexOf, allMusicList)
-        }
-
+        Thread{
+            val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+            if (recentMusicId != -1L){
+                val songInfo = DatabaseManager.getInstance(context)!!.getSongInfo(recentMusicId)
+                val allMusicList =
+                    DatabaseManager.getInstance(context)!!.getAllMusicFromMusicTable()
+                val indexOf = allMusicList.indexOf(songInfo)
+                PlayMusicManager.getMusicManager()!!.preparePlayingList(indexOf, allMusicList)
+            }
+        }.start()
     }
     override fun start() {
 

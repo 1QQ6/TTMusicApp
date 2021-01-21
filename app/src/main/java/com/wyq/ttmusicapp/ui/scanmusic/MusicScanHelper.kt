@@ -185,11 +185,11 @@ object MusicScanHelper {
     private fun initCurPlaying(context: Context) {
         try {
             var isContain = false
-            var id = 1;
+            var id = 1L
             musicsList?.forEach {
                 if (curMusicPath != null && it.musicPath.equals(curMusicPath)) {
                     isContain = true
-                    id = musicsList!!.indexOf(it) + 1
+                    id = (musicsList!!.indexOf(it) + 1).toLong()
                 }
             }
             if (isContain) {

@@ -30,9 +30,7 @@ object PlayMusicSPUtil {
             getSP().getInt(keyId, -1)
         }
 
-    fun getCurrentMusicId():Long{
-        return getSP().getLong(Constant.KEY_MUSIC_ID, -1)
-    }
+
 
     /**
      * 获取当前播放的音乐模式
@@ -62,14 +60,18 @@ object PlayMusicSPUtil {
      * 设置当前播放音乐的id
      */
     @Synchronized
-    fun setCurrentMusicId(keyId: String,value:Int){
-        getSP().edit().putInt(keyId,value).apply()
+    fun setCurrentMusicId(keyId: String,value:Long){
+        getSP().edit().putLong(keyId,value).apply()
     }
-
+    @Synchronized
+    fun getCurrentMusicId():Long{
+        return getSP().getLong(Constant.KEY_MUSIC_ID, -1)
+    }
+    @Synchronized
     fun saveRecentMusicId(musicId: Long) {
         getSP().edit().putLong(Constant.KEY_MUSIC_ID, musicId).apply()
     }
-
+    @Synchronized
     fun getRecentMusicId():Long{
         return getSP().getLong(Constant.KEY_MUSIC_ID, -1)
     }

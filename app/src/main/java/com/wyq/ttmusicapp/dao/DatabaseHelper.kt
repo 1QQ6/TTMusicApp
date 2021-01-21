@@ -45,7 +45,7 @@ class DatabaseHelper(
      */
     private val createMusicTable = ("create table if not exists "
             + MUSIC_TABLE + "("
-            + ID_COLUMN + " integer PRIMARY KEY ,"
+            + ID_COLUMN + " long PRIMARY KEY ,"
             + MUSIC_NAME_COLUMN + " text,"
             + MUSIC_SINGER_COLUMN + " text,"
             + MUSIC_ALBUM_COLUMN + " text,"

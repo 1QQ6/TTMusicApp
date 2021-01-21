@@ -40,7 +40,7 @@ object MusicScanHelper {
     private var currentProgress = 0
 
     //当前播放音乐的id
-    private var curMusicId: Int? = null
+    private var curMusicId: Long? = null
 
     //当前音乐路径
     private var curMusicPath: String? = null
@@ -51,16 +51,17 @@ object MusicScanHelper {
         onScanMusicFinishListener: OnScanMusicFinishListener
     ) {
         musicInfoArray = arrayOf(
+            MediaStore.Audio.Media._ID,
             //歌曲名称
             MediaStore.Audio.Media.TITLE,
             //歌曲歌手
             MediaStore.Audio.Media.ARTIST,
             //歌曲的专辑名
             MediaStore.Audio.Media.ALBUM,
-            //歌曲时长
-            MediaStore.Audio.Media.DURATION,
             //歌曲文件的全路径
-            MediaStore.Audio.Media.DATA
+            MediaStore.Audio.Media.DATA,
+            //歌曲时长
+            MediaStore.Audio.Media.DURATION
         )
         handler = MyHandler(context, onScanMusicFinishListener)
         dbManager = DatabaseManager.getInstance(context)
@@ -107,7 +108,7 @@ object MusicScanHelper {
                     }
 
                     //扫描完成获取当前播放音乐及路径
-                    curMusicId = PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)
+                    curMusicId = PlayMusicSPUtil.getCurrentMusicId()
                     curMusicPath = dbManager!!.getMusicPath(curMusicId!!)
 
                     // 根据a-z进行排序源数据
@@ -135,16 +136,17 @@ object MusicScanHelper {
     }
 
     private fun queryLocalMusics(cursor: Cursor): String? {
+        var musicId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
         var name =
-            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE))
+            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
         var singer =
-            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST))
+            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
         var album =
-            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM))
+            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM))
         var path =
-            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DATA))
+            cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
         val duration =
-            cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION))
+            cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
         val file = File(path)
         val parentPath = file.parentFile.path
 
@@ -157,7 +159,7 @@ object MusicScanHelper {
         //将扫描的音乐加入到一个list集合，后续将集合的音乐数据插入到数据库中
         musicsList?.add(
             SongInfo(
-                0,
+                musicId,
                 name,
                 singer,
                 duration,

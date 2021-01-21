@@ -54,6 +54,9 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
         setImageAnimation(isPlaying)
     }
 
+    /**
+     * 初始化页面
+     */
     private fun initMusicView() {
         //GlideApp.with(context).load(song.artPicHuge).into(rotateView)
         //加载模糊背景图

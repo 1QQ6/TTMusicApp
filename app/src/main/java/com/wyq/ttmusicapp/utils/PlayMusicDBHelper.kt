@@ -94,7 +94,7 @@ object PlayMusicDBHelper {
         return getMusicInfoById(nextMusicId)
     }*/
 
-    fun getMusicInfoById(musicId: Int): SongInfo? {
+    fun getMusicInfoById(musicId: Long): SongInfo? {
         return dbManager!!.getSongInfo(musicId)
     }
 

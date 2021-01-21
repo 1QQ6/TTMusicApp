@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 
 data class SongInfo(
-    var music_id: Int?,
+    var music_id: Long?,
     var musicName: String?,
     var musicSinger: String?,
     var musicDuration: Int?,
@@ -18,7 +18,7 @@ data class SongInfo(
     var musicFirstLetter: String?,
     var musicLove: Int?):Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Long,
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,

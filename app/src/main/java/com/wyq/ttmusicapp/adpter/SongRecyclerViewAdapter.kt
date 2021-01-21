@@ -50,7 +50,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
                 local_music_singer.text = musicInfo.musicSinger
                 initTheme()
                 //TODO 设置当前正在播放的itemView
-                if (musicInfo.music_id == PlayMusicSPUtil.getIntShared(Constant.KEY_MUSIC_ID)) {
+                if (musicInfo.music_id == PlayMusicSPUtil.getCurrentMusicId()) {
 
                 }else{
 

@@ -50,7 +50,7 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
 
     override fun loadMusicPlayAgo() {
         val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
-        if (recentMusicId != -1){
+        if (recentMusicId != -1L){
             val songInfo = DatabaseManager.getInstance(context)!!.getSongInfo(recentMusicId)
             val allMusicList =
                 DatabaseManager.getInstance(context)!!.getAllMusicFromMusicTable()

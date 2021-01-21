@@ -10,6 +10,7 @@ import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.utils.CoverLoader
 import com.wyq.ttmusicapp.utils.TimeUtil
 import kotlinx.android.synthetic.main.fragment_playing_music.*
 
@@ -58,10 +59,6 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
      * 初始化页面
      */
     private fun initMusicView() {
-        //GlideApp.with(context).load(song.artPicHuge).into(rotateView)
-        //加载模糊背景图
-        //GlideApp.with(context).load(song.artPic).transform(BlurBitmapTransformation(song.blurValueOfPlaying())).into(iv_playing_bg)
-
         val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
         playpage_play!!.isChecked = isPlaying
         updateSongInfoView()
@@ -78,7 +75,13 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
     }
 
     private fun updateSongInfoView() {
+
         val songInfo = PlayMusicManager.getMusicManager()!!.nowPlayingSong
+
+        CoverLoader.loadBitmap(context, songInfo!!.coverUrl) {
+            rotateView.setImageBitmap(it)
+            iv_playing_bg.setImageDrawable(CoverLoader.createBlurredImageFromBitmap(it))
+        }
         if (songInfo != null) {
             play_page_title_tv?.text = songInfo.musicName
             play_page_artist_tv?.text = songInfo.musicSinger

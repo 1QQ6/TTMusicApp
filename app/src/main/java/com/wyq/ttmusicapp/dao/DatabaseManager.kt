@@ -98,6 +98,8 @@ class DatabaseManager(context: Context) {
                 put(DatabaseHelper.MUSIC_NAME_COLUMN, musicInfo.musicName)
                 put(DatabaseHelper.MUSIC_SINGER_COLUMN, musicInfo.musicSinger)
                 put(DatabaseHelper.MUSIC_ALBUM_COLUMN, musicInfo.musicAlbum)
+                put(DatabaseHelper.MUSIC_ALBUM_ID_COLUMN, musicInfo.musicAlbumId)
+                put(DatabaseHelper.MUSIC_ALBUM_COVER_URI_COLUMN, musicInfo.coverUrl)
                 put(DatabaseHelper.MUSIC_DURATION_COLUMN, musicInfo.musicDuration)
                 put(DatabaseHelper.MUSIC_PATH_COLUMN, musicInfo.musicPath)
                 put(DatabaseHelper.MUSIC_PARENT_PATH_COLUMN, musicInfo.musicParentPath)
@@ -110,6 +112,9 @@ class DatabaseManager(context: Context) {
         return values
     }
 
+    /**
+     * 删除所有表
+     */
     private fun deleteAllTable() {
         //在SQLite中启用外键支持,必须在运行时打开, 因为默认是关闭的
         db.execSQL("PRAGMA foreign_keys = on")
@@ -119,7 +124,10 @@ class DatabaseManager(context: Context) {
         db.delete(DatabaseHelper.MUSIC_MUSIC_LIST_TABLE, null, null)
     }
 
-    fun getMusicPath(curMusicId: Long): String? {
+    /**
+     * 根据音乐id获取音乐路径
+     */
+    fun getMusicPathById(curMusicId: Long): String? {
         if (curMusicId == -1L) {
             return ""
         }
@@ -228,7 +236,7 @@ class DatabaseManager(context: Context) {
     }
 
     /**
-     * 数据库数据存到集合中
+     * 数据库数据存到集合中并返回
      */
     private fun cursorToSongsList(cursor: Cursor?): ArrayList<SongInfo> {
         var musicsList: ArrayList<SongInfo>? = null
@@ -243,6 +251,10 @@ class DatabaseManager(context: Context) {
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_SINGER_COLUMN))
                     val musicAlbum =
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COLUMN))
+                    val musicAlbumId =
+                        cursor.getLong(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_ID_COLUMN))
+                    val musicCoverUri =
+                        cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COVER_URI_COLUMN))
                     val musicPath =
                         cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
                     val musicParentPath =
@@ -260,6 +272,8 @@ class DatabaseManager(context: Context) {
                         musicSinger,
                         musicDuration,
                         musicAlbum,
+                        musicAlbumId,
+                        musicCoverUri,
                         musicPath,
                         musicParentPath,
                         musicFirstLetter,
@@ -294,6 +308,10 @@ class DatabaseManager(context: Context) {
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_SINGER_COLUMN))
             val musicAlbum =
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COLUMN))
+            val musicAlbumId =
+                cursor.getLong(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_ID_COLUMN))
+            val musicCoverUri =
+                cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_ALBUM_COVER_URI_COLUMN))
             val musicPath =
                 cursor.getString(cursor.getColumnIndex(DatabaseHelper.MUSIC_PATH_COLUMN))
             val musicParentPath =
@@ -311,6 +329,8 @@ class DatabaseManager(context: Context) {
                 musicSinger,
                 musicDuration,
                 musicAlbum,
+                musicAlbumId,
+                musicCoverUri,
                 musicPath,
                 musicParentPath,
                 musicFirstLetter,

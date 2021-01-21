@@ -6,12 +6,14 @@ import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import java.util.*
 
+
 /**
  * Created by Roman on 2021/1/16
  */
-object PlayMusicDBHelper {
+object PlayMusicHelper {
 
     private var dbManager: DatabaseManager? = null
+    private const val albumPrePath = "content://media/external/audio/albumart"
 
     init {
         dbManager = DatabaseManager(MyApplication.context!!)

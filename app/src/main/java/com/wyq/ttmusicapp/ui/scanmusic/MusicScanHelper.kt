@@ -8,10 +8,11 @@ import android.os.Message
 import android.provider.MediaStore
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.FileNameFormat
+import com.wyq.ttmusicapp.common.MyApplication.Companion.context
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.ui.scanmusic.ScanActivity
 import com.wyq.ttmusicapp.utils.ChineseToEnglish
+import com.wyq.ttmusicapp.utils.CoverLoader
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import java.io.File
 import java.lang.ref.WeakReference
@@ -58,6 +59,8 @@ object MusicScanHelper {
             MediaStore.Audio.Media.ARTIST,
             //歌曲的专辑名
             MediaStore.Audio.Media.ALBUM,
+            //歌曲的专辑ID
+            MediaStore.Audio.Media.ALBUM_ID,
             //歌曲文件的全路径
             MediaStore.Audio.Media.DATA,
             //歌曲时长
@@ -109,7 +112,7 @@ object MusicScanHelper {
 
                     //扫描完成获取当前播放音乐及路径
                     curMusicId = PlayMusicSPUtil.getCurrentMusicId()
-                    curMusicPath = dbManager!!.getMusicPath(curMusicId!!)
+                    curMusicPath = dbManager!!.getMusicPathById(curMusicId!!)
 
                     // 根据a-z进行排序源数据
                     musicsList!!.sortBy { it.musicFirstLetter }
@@ -143,6 +146,8 @@ object MusicScanHelper {
             cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
         var album =
             cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM))
+        var albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+        var coverUri = CoverLoader.getCoverUri(context!!, albumId.toString())
         var path =
             cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
         val duration =
@@ -164,6 +169,8 @@ object MusicScanHelper {
                 singer,
                 duration,
                 album,
+                albumId,
+                coverUri,
                 path,
                 parentPath,
                 firstLetter,

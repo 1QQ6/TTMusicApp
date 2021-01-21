@@ -47,7 +47,7 @@ object TimeUtil {
         return millTime
     }
 
-    fun getCurrentTime(format: String?): String {
+    private fun getCurrentTime(format: String?): String {
         val date = Date()
         val sdf =
             SimpleDateFormat(format, Locale.getDefault())

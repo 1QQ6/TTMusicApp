@@ -9,10 +9,9 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
-import com.wyq.ttmusicapp.utils.PlayMusicDBHelper
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
 
@@ -46,7 +45,7 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
             home_music_name_tv.text = "天天音乐"
             home_singer_name_tv.text = "好音质"
         }else{
-            val musicInfo = PlayMusicDBHelper.getMusicInfoById(musicId)
+            val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
             if (musicInfo!=null){
                 home_music_name_tv.text = musicInfo.musicName
                 home_singer_name_tv.text = musicInfo.musicSinger

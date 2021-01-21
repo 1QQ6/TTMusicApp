@@ -8,10 +8,7 @@ import android.os.IBinder
 import com.wyq.ttmusicapp.core.MusicControllerService
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.utils.PlayMusicDBHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
-import java.util.ArrayList
 
 /**
  * Created by Roman on 2021/1/19

@@ -14,28 +14,81 @@ class DatabaseHelper(
 
     companion object{
         private val TAG = DatabaseHelper::class.java.name
-        //数据库名称
+
+        /**
+         * 数据库名称
+         */
         const val DATABASE_NAME ="MusicDatabase.db"
-        //歌曲表
+
+        /**
+         * 歌曲表
+         */
         const val MUSIC_TABLE = "music_table"
-        //音乐相关信息
+        /**
+         *音乐相关信息
+         *音乐id
+         */
          const val ID_COLUMN = "id"
+        /**
+         *音乐id
+         */
          const val MUSIC_ID_COLUMN = "music_id"
+        /**
+         *音乐名称
+         */
          const val MUSIC_NAME_COLUMN ="music_name"
+
+        /**
+         * 音乐歌手
+         */
          const val MUSIC_SINGER_COLUMN = "music_singer"
+        /**
+         *音乐时长
+         */
          const val MUSIC_DURATION_COLUMN = "music_duration"
+        /**
+         *音乐专辑
+         */
          const val MUSIC_ALBUM_COLUMN = "music_album"
+        /**
+         *音乐专辑id
+         */
+         const val MUSIC_ALBUM_ID_COLUMN = "music_album_id"
+        /**
+         *音乐专辑封面路径
+         */
+        const val MUSIC_ALBUM_COVER_URI_COLUMN = "music_album_cover_url"
+        /**
+         *音乐路径
+         */
          const val MUSIC_PATH_COLUMN = "music_path"
+        /**
+         *音乐父路径
+         */
          const val MUSIC_PARENT_PATH_COLUMN ="music_parent_path"
+        /**
+         *音乐名称第一个字的拼音的第一个字母
+         */
          const val MUSIC_FIRST_LETTER_COLUMN ="music_first_letter"
+        /**
+         *音乐喜爱
+         */
          const val MUSIC_LOVE_COLUMN = "music_love"
-        //最近播放表
+        /**
+         *最近播放表
+         */
         const val RECENT_PLAY_TABLE = "recent_play_table"
-        //歌单表
+        /**
+         *歌单表
+         */
         const val MUSIC_LIST_TABLE = "music_list_table"
-        //歌单-歌曲-表 (多对多)
+        /**
+         *歌单-歌曲-表 (多对多)
+         */
         const val MUSIC_MUSIC_LIST_TABLE = "music_music_list_table"
-        //数据库版本号
+        /**
+         *数据库版本号
+         */
         const val VERSION = 2
     }
 
@@ -49,6 +102,8 @@ class DatabaseHelper(
             + MUSIC_NAME_COLUMN + " text,"
             + MUSIC_SINGER_COLUMN + " text,"
             + MUSIC_ALBUM_COLUMN + " text,"
+            + MUSIC_ALBUM_ID_COLUMN + " long,"
+            + MUSIC_ALBUM_COVER_URI_COLUMN + " text,"
             + MUSIC_DURATION_COLUMN + " long,"
             + MUSIC_PATH_COLUMN + " text,"
             + MUSIC_PARENT_PATH_COLUMN + " text,"
@@ -83,7 +138,9 @@ class DatabaseHelper(
             + "FOREIGN KEY(music_id) REFERENCES " + MUSIC_TABLE +"(id) ON DELETE CASCADE,"
             + "FOREIGN KEY(id) REFERENCES " + MUSIC_LIST_TABLE +"(id) ON DELETE CASCADE);")
 
-
+    /**
+     * 创建表
+     */
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.run {
             execSQL(createMusicTable)

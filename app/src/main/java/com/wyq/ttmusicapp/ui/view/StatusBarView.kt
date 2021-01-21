@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
-import com.wyq.ttmusicapp.utils.Utils
+import com.github.xubo.statusbarutils.StatusBarUtils
 
 
 class StatusBarView @JvmOverloads constructor(
@@ -16,7 +16,7 @@ class StatusBarView @JvmOverloads constructor(
     private val mBackgroundColor: Int
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), Utils.getStatusBarHeight(context))
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), StatusBarUtils.getStatusBarHeight(context))
     }
 
     companion object {

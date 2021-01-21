@@ -1,5 +1,6 @@
 package com.wyq.ttmusicapp.ui.playmusic
 
+import com.github.xubo.statusbarutils.StatusBarUtils
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 
@@ -19,6 +20,6 @@ class PlayMusicActivity : BaseActivity() {
     }
 
     override fun setupToolbar() {
-
+        StatusBarUtils.setStatusBarTransparen(this)
     }
 }

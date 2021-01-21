@@ -58,6 +58,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     implementation 'com.github.thinkcool:circletextimageview:1.0.20151218'
+    implementation 'com.github.xubo.statusbarutils:StatusBarUtils:1.0.1'
     //汉子转拼音库
     implementation 'com.belerweb:pinyin4j:2.5.0'
     //Room

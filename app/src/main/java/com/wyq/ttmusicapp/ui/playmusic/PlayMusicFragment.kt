@@ -1,8 +1,16 @@
 package com.wyq.ttmusicapp.ui.playmusic
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.widget.SeekBar
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment
+import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
+import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.utils.TimeUtil
 import kotlinx.android.synthetic.main.fragment_playing_music.*
 
 /**
@@ -11,6 +19,72 @@ import kotlinx.android.synthetic.main.fragment_playing_music.*
 class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
     private lateinit var presenter: PlayMusicContract.Presenter
     private var playMusicManager: PlayMusicManager? = null
+    private var intentFilter: IntentFilter? = null
+    private var mProgressBarLock: Boolean = false
+
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent!!.action) {
+                Constant.PLAY_BAR_UPDATE->{
+                    val isPlayMusic = intent.getBooleanExtra(Constant.IS_PLAYING, false)
+                    val songInfo = intent.getParcelableExtra<SongInfo>(Constant.NOW_PLAY_MUSIC)
+                    if (songInfo!=null){
+                        updateMusicBarUI(isPlayMusic)
+                    }
+                }
+                Constant.CURRENT_UPDATE->{
+                    val currentTime = intent.getIntExtra(Constant.SEEK_BAR_CURRENT_TIME, 0)
+                    playpage_playtime_tv?.text = TimeUtil.mill2mmss(currentTime.toLong())
+                    if(!mProgressBarLock){
+                        play_page_progressbar?.progress = currentTime
+                    }
+                }
+                Constant.UPRATE_MUSIC_QUEUE->{
+
+                }
+                Constant.BUFFER_UPDATE->{
+
+                }
+            }
+        }
+    }
+
+    private fun updateMusicBarUI( isPlaying: Boolean) {
+        updateSongInfoView()
+        setImageAnimation(isPlaying)
+    }
+
+    private fun initMusicView() {
+        //GlideApp.with(context).load(song.artPicHuge).into(rotateView)
+        //加载模糊背景图
+        //GlideApp.with(context).load(song.artPic).transform(BlurBitmapTransformation(song.blurValueOfPlaying())).into(iv_playing_bg)
+
+        val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
+        playpage_play!!.isChecked = isPlaying
+        updateSongInfoView()
+        setImageAnimation(isPlaying)
+    }
+
+    private fun setImageAnimation(isPlaying: Boolean) {
+        playpage_play?.isChecked = isPlaying
+        if (isPlaying) {
+            rotateView?.start()
+        } else {
+            rotateView?.pause()
+        }
+    }
+
+    private fun updateSongInfoView() {
+        val songInfo = PlayMusicManager.getMusicManager()!!.nowPlayingSong
+        if (songInfo != null) {
+            play_page_title_tv?.text = songInfo.musicName
+            play_page_artist_tv?.text = songInfo.musicSinger
+
+            play_page_duration_tv?.text = TimeUtil.mill2mmss(songInfo.musicDuration!!.toLong())
+            play_page_progressbar?.max = songInfo.musicDuration!!
+        }
+    }
+
     override fun togglePanel() {
 
     }
@@ -24,10 +98,44 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
     }
 
     override fun initData() {
+        registerBroadcast()
         playMusicManager = PlayMusicManager.getMusicManager()
     }
 
+    private fun registerBroadcast() {
+        intentFilter = IntentFilter()
+        intentFilter!!.addAction(Constant.PLAY_BAR_UPDATE)
+        intentFilter!!.addAction(Constant.CURRENT_UPDATE)
+        intentFilter!!.addAction(Constant.UPRATE_MUSIC_QUEUE)
+        intentFilter!!.addAction(Constant.BUFFER_UPDATE)
+        context!!.registerReceiver(receiver,intentFilter)
+    }
+
     override fun initViews() {
+        initMusicView()
+        initClickEvent()
+    }
+
+    private fun initClickEvent() {
+
+        play_page_progressbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            var pro: Int = 0
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                pro = progress
+                playpage_playtime_tv!!.text = TimeUtil.mill2mmss(progress.toLong())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                mProgressBarLock = true
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                mProgressBarLock = false
+                PlayMusicManager.getMusicManager()!!.seekTo(pro)
+            }
+        })
+
         playpage_play.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked == playMusicManager!!.isPlaying) {
@@ -40,7 +148,11 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
             }
 
         }
+        play_page_previous.setOnClickListener {
+            PlayMusicManager.getMusicManager()!!.preSong()
+        }
+        play_page_next.setOnClickListener {
+            PlayMusicManager.getMusicManager()!!.nextSong()
+        }
     }
-
-
 }

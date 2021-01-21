@@ -38,17 +38,17 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/playpage_artist_tv"
+                    android:id="@+id/play_page_artist_tv"
                     style="@style/secondTextViewWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/playpage_title_tv"
+                    android:layout_below="@+id/play_page_title_tv"
                     android:layout_centerHorizontal="true"
                     android:focusable="false"
                     android:text="Small Text" />
 
                 <TextView
-                    android:id="@+id/playpage_title_tv"
+                    android:id="@+id/play_page_title_tv"
                     style="@style/textViewWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_height="100dp">
 
             <SeekBar
-                android:id="@+id/playpage_progressbar"
+                android:id="@+id/play_page_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -122,32 +122,32 @@
                 style="@style/secondTextViewWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/playpage_duration_tv"
+                android:layout_alignBottom="@+id/play_page_duration_tv"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="16dp"
                 android:text="00:00" />
 
             <TextView
-                android:id="@+id/playpage_duration_tv"
+                android:id="@+id/play_page_duration_tv"
                 style="@style/secondTextViewWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/playpage_progressbar"
+                android:layout_below="@+id/play_page_progressbar"
                 android:layout_marginRight="16dp"
                 android:text="00:00" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/playpage_progressbar"
+                android:layout_below="@+id/play_page_progressbar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/playpage_previous"
+                    android:id="@+id/play_page_previous"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignBottom="@+id/playpage_play"
@@ -165,12 +165,12 @@
                     android:textOn="" />
 
                 <ImageView
-                    android:id="@+id/playpage_next"
+                    android:id="@+id/play_page_next"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignBottom="@+id/playpage_play"
                     android:layout_marginLeft="48dp"
-                    android:layout_toLeftOf="@+id/playpage_duration_tv"
+                    android:layout_toLeftOf="@+id/play_page_duration_tv"
                     app:srcCompat="@drawable/bt_playpage_next" />
 
 

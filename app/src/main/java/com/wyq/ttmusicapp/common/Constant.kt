@@ -69,15 +69,17 @@ object Constant {
 
     val MP_FILTER: String? = "com.example.vinyl.start_mediaplayer"
 
-    var PLAYPRO_EXIT = "com.huwei.intent.PLAYPRO_EXIT_ACTION"
+    var PLAYPRO_EXIT = "com.wyq.intent.PLAYPRO_EXIT_ACTION"
     //关于歌曲信息控件的更新
-    const val PLAY_BAR_UPDATE = "com.huwei.intent.PLAYBAR_UPDATE"
+    const val PLAY_BAR_UPDATE = "com.wyq.intent.PLAY_BAR_UPDATE"
 
-    const val PLAY_STATUS_UPDATE = "com.huwei.intent.PLAY_STATUS_UPDATE"
+    const val PLAY_STATUS_UPDATE = "com.wyq.intent.PLAY_STATUS_UPDATE"
     //当前状态 有关时间控件的更新
-    const val CURRENT_UPDATE = "com.huwei.intent.DURATION_UPDATE"
+    const val CURRENT_UPDATE = "com.wyq.intent.DURATION_UPDATE"
     //在线音乐的缓冲更新
-    const val BUFFER_UPDATE = "com.huwei.intent.BUFFER_UPDATE"
+    const val BUFFER_UPDATE = "com.wyq.intent.BUFFER_UPDATE"
+    //
+    val UPRATE_MUSIC_QUEUE: String? = "com.wyq.intent.UPDATE_MUSIC_QUEUE"
 
     /**
      * 播放服务传递常亮

@@ -16,6 +16,7 @@ import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import com.wyq.ttmusicapp.utils.toast
 import java.io.File
+import kotlin.math.abs
 import kotlin.random.Random
 
 
@@ -137,6 +138,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         mediaPlayer!!.setOnBufferingUpdateListener(this)
         mediaPlayer!!.setOnPreparedListener {
             mIsPrepared = true
+            Log.e(TAG, "setOnPreparedListener:mIsPrepared:$mIsPrepared")
             if (!isPlayCurrentMusic||!this@MusicControllerService.isPrepare){
                 //开始或继续播放。如果以前已暂停播放，则将从暂停的位置继续播放。如果播放已停止或之前从未开始过，则播放将从头开始。
                 it.start()
@@ -193,9 +195,13 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         }
 
         override fun preSong() {
-            Log.e(TAG, "preSong: ")
             isPlayCurrentMusic = false
-            musicIndex = (musicIndex - 1) % musicList!!.size
+            Log.e(TAG, "preSong:isPlayCurrentMusic   $musicIndex")
+            musicIndex = if (musicIndex == 0){
+                musicList!!.size - 1
+            }else{
+                abs((musicIndex - 1) % musicList!!.size)
+            }
             prepareSong(musicList!![musicIndex])
         }
 
@@ -212,6 +218,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
 
             //mNoticationManager.notify(NT_PLAYBAR_ID, mNotification)
             Log.e(TAG, "isPlaying:"+mediaPlayer!!.isPlaying.toString())
+            Log.e(TAG, "isPlaying:mIsPrepared:$mIsPrepared")
             if (!mediaPlayer!!.isPlaying) {
                 isPlayCurrentMusic = true
                 mediaPlayer!!.start()
@@ -231,7 +238,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             if (!mIsPrepared){
                 return
             }
-            Log.e(TAG, "pause")
+            Log.e(TAG, "pause:mIsPrepared:$mIsPrepared")
             mediaPlayer!!.pause()
             handler.removeMessages(MSG_CURRENT)
             updatePlayState()
@@ -258,9 +265,9 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         }
 
         override fun nextSong() {
-            Log.e(TAG, "nextSong")
+            Log.e(TAG, "nextSong:isPlayCurrentMusic   $musicIndex")
             isPlayCurrentMusic = false
-            musicIndex = (musicIndex + 1) % musicList!!.size
+            musicIndex = abs((musicIndex + 1) % musicList!!.size)
             prepareSong(musicList!![musicIndex])
         }
 
@@ -296,7 +303,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
     private fun prepareSong(music: SongInfo) {
         //Log.d(TAG, "prepareSong music:" + Gson().toJson(music))
         //showMusicPlayerNotification(music)
-        updatePlayState()
+        //updatePlayState()
         //如果是网络歌曲,而且未从网络获取详细信息，则需要获取歌曲的详细信息
         /*if (music.getType() === AbstractMusic.MusicType.Online) {
             val song: Song = music as Song

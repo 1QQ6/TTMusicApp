@@ -11,10 +11,14 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
+import com.wyq.ttmusicapp.core.PlayMusicManager
+import com.wyq.ttmusicapp.ui.scanmusic.MusicScanHelper
+import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import java.util.*
 
 class SplashActivity : BaseActivity() {
-    private val PERMISSON_REQUESTCODE = 1
+    private val PERMISSION_REQUEST_CODE = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,22 @@ class SplashActivity : BaseActivity() {
     override fun initData() {
     }
 
+    private fun initMusicData(){
+        MusicScanHelper.startScanLocalMusic(this,true,object :OnScanMusicFinishListener{
+            override fun scanMusicError() {
+
+            }
+
+            override fun scanMusicSuccess(type: Int) {
+
+            }
+
+            override fun scanMusicUpdate(path: String, currentProgress: Int) {
+
+            }
+        })
+    }
+
     override fun initViews() {
     }
 
@@ -40,17 +60,15 @@ class SplashActivity : BaseActivity() {
             checkSkip()
             return
         }
-        if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                ) !== PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    PERMISSON_REQUESTCODE
+                PERMISSION_REQUEST_CODE
             )
         } else {
+            initMusicData()
             checkSkip()
         }
     }
@@ -78,8 +96,9 @@ class SplashActivity : BaseActivity() {
             grantResults: IntArray
     ) {
         when (requestCode) {
-            PERMISSON_REQUESTCODE -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED
+            PERMISSION_REQUEST_CODE -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
+                initMusicData()
                 checkSkip()
             } else {
                 Toast.makeText(this, "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT).show()

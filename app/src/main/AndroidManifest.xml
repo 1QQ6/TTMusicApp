@@ -13,6 +13,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.login.MusicLogin"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".ui.playmusic.PlayMusicActivity"
             android:screenOrientation="portrait"
             >

@@ -65,21 +65,21 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
         tv_main.setTextColor(-0x6d6d6e)
         tv_workout.setTextColor(-0x6d6d6e)
         tv_me.setTextColor(-0x6d6d6e)
-        iv_main.setImageResource(R.drawable.ic_home_plan)
-        iv_workout.setImageResource(R.drawable.ic_home_report)
-        iv_me.setImageResource(R.drawable.ic_home_me)
+        iv_main.setImageResource(R.drawable.ic_homepage)
+        iv_workout.setImageResource(R.drawable.ic_discover)
+        iv_me.setImageResource(R.drawable.ic_me)
         when (currentTab) {
             Constant.TAB_MAIN -> {
                 tv_main.setTextColor(ContextCompat.getColor(this,R.color.colorAccent))
-                iv_main.setImageResource(R.drawable.ic_home_plan_highlight)
+                iv_main.setImageResource(R.drawable.ic_homepage_highlight)
             }
             Constant.TAB_WORK -> {
                 tv_workout.setTextColor(ContextCompat.getColor(this,R.color.colorAccent))
-                iv_workout.setImageResource(R.drawable.ic_home_report_highlight)
+                iv_workout.setImageResource(R.drawable.ic_discover_highlight)
             }
             else -> {
                 tv_me.setTextColor(ContextCompat.getColor(this,R.color.colorAccent))
-                iv_me.setImageResource(R.drawable.ic_home_me_highlight)
+                iv_me.setImageResource(R.drawable.ic_me_highlight)
             }
         }
     }

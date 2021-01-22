@@ -1,7 +1,14 @@
 package com.wyq.ttmusicapp.base
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 
 /**
  * @author Roman
@@ -20,7 +27,35 @@ import androidx.appcompat.app.AppCompatActivity
        initData()
        initViews()
        setupToolbar()
+       registerBroadcast()
     }
+
+   private fun registerBroadcast() {
+      val intentFilter = IntentFilter()
+      intentFilter.addAction(Constant.PLAY_BAR_UPDATE)
+      registerReceiver(receiver, intentFilter)
+   }
+
+   /**
+    * 解决在另一个进程无法保存sp问题
+    */
+   private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
+      override fun onReceive(context: Context, intent: Intent) {
+         when (intent.action) {
+            Constant.PLAY_BAR_UPDATE -> {
+               val musicId = intent.getLongExtra(Constant.NOW_PLAY_MUSIC_ID,0)
+               PlayMusicSPUtil.saveRecentMusicId(musicId)
+               val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+                Log.e("recentMusicId", recentMusicId.toString())
+            }
+         }
+      }
+   }
+
+   override fun onDestroy() {
+      super.onDestroy()
+      unregisterReceiver(receiver)
+   }
     /**
      * 获取布局文件ID
      *

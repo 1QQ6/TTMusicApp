@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 /**
  * Created by Roman on 2021/1/10
  */
-class LocalFragmentAdapter(fm: FragmentManager, behavior: Int, private val titleList:ArrayList<String>,private val fragmentsList:ArrayList<Fragment>) :
+class LocalFragmentAdapter(fm: FragmentManager, behavior: Int, private val titleList: Array<String>, private val fragmentsList:ArrayList<Fragment>) :
     FragmentPagerAdapter(fm, behavior) {
 
     override fun getPageTitle(position: Int): CharSequence? {

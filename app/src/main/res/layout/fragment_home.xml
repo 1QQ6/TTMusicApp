@@ -3,14 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.tabs.TabLayout
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/local_tab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="?attr/colorPrimary"
-        app:tabIndicatorColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
         android:layout_below="@id/local_shadow"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:tl_indicator_color="#FFB5C5"
+        app:tl_indicator_corner_radius="15dp"
+        app:tl_indicator_margin_left="2dp"
+        app:tl_indicator_margin_right="2dp"
+        app:tl_indicator_style="BLOCK"
         app:tabTextColor="#CCCCCC"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

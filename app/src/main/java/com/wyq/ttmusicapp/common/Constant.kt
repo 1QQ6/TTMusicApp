@@ -8,8 +8,10 @@ object Constant {
     const val TAB_MAIN = 1
     const val TAB_WORK = 2
     const val TAB_ME = 3
-
+    //sp保存当前播放的音乐id
     const val KEY_MUSIC_ID = "id"
+    //sp保存当前音乐进度条
+    const val KEY_SEEK_BAR_PROGRESS = "seek_bar_progress"
     const val KEY_MUSIC_PATH = "path"
     const val KEY_PLAY_MODE = "mode"
     const val KEY_LIST = "list"
@@ -86,7 +88,7 @@ object Constant {
      */
     const val NOW_PLAY_MUSIC = "NOW_PLAY_MUSIC"
     const val IS_PLAYING = "is_playing"
-    const val IS_NEW_PLAY_MUSIC = "is_new_play_music"
+    const val NOW_PLAY_MUSIC_ID = "is_new_play_music_id"
     const val SEEK_BAR_CURRENT_TIME = "seek_bar_current_time"
 
 }

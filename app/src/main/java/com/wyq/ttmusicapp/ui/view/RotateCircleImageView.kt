@@ -24,7 +24,7 @@ class RotateCircleImageView @JvmOverloads constructor(internal var context: Cont
         rotateAnimator.repeatCount = INFINITE
 
         setBorderColorResource(R.color.black)
-        borderWidth = 5
+        borderWidth = 1
 
         //setImageResource(R.drawable.turntable)
     }

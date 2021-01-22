@@ -1,5 +1,6 @@
 package com.wyq.ttmusicapp.ui.scanmusic
 
+import android.app.Activity
 import android.content.Context
 import android.database.Cursor
 import android.os.Bundle
@@ -111,7 +112,7 @@ object MusicScanHelper {
                     }
 
                     //扫描完成获取当前播放音乐及路径
-                    curMusicId = PlayMusicSPUtil.getCurrentMusicId()
+                    curMusicId = PlayMusicSPUtil.getRecentMusicId()
                     curMusicPath = dbManager!!.getMusicPathById(curMusicId!!)
 
                     // 根据a-z进行排序源数据
@@ -189,12 +190,11 @@ object MusicScanHelper {
             musicsList?.forEach {
                 if (curMusicPath != null && it.musicPath.equals(curMusicPath)) {
                     isContain = true
-                    id = (musicsList!!.indexOf(it) + 1).toLong()
+                    id = it.music_id!!
                 }
             }
             if (isContain) {
-                //Log.d(TAG, "initCurPlaying: id = $id")
-                PlayMusicSPUtil.setCurrentMusicId(Constant.KEY_MUSIC_ID, id)
+                PlayMusicSPUtil.saveRecentMusicId( id)
             } else {
                 //Log.d(TAG, "initCurPlaying: !!!contains")
                 /*val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)
@@ -214,7 +214,7 @@ object MusicScanHelper {
         val context: Context,
         private val onScanMusicFinishListener: OnScanMusicFinishListener?
     ) : Handler() {
-        private val weakReference: WeakReference<ScanActivity>?
+        private val weakReference: WeakReference<Activity>?
         override fun handleMessage(msg: Message) {
             if (weakReference?.get() != null) {
                 when (msg.what) {
@@ -238,7 +238,7 @@ object MusicScanHelper {
         }
 
         init {
-            weakReference = WeakReference<ScanActivity>(context as ScanActivity?)
+            weakReference = WeakReference(context as Activity)
         }
     }
 

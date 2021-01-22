@@ -9,11 +9,15 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
+import com.wyq.ttmusicapp.utils.CoverLoader
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.TimeUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
+import kotlinx.android.synthetic.main.fragment_playing_music.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -42,28 +46,24 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
 
 
     private fun initMusicInfo() {
-        val musicId: Long = PlayMusicSPUtil.getCurrentMusicId()
+        val musicId: Long = PlayMusicSPUtil.getRecentMusicId()
         if (musicId == -1L) {
             home_music_name_tv.text = "天天音乐"
             home_singer_name_tv.text = "好音质"
         }else{
             doAsync {
                 val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
+                val recentMusicProgress = PlayMusicSPUtil.getRecentMusicProgress()
                 uiThread {
-                    if (musicInfo!=null){
-                        home_music_name_tv.text = musicInfo.musicName
-                        home_singer_name_tv.text = musicInfo.musicSinger
-
+                    if (recentMusicProgress!=0){
+                        home_seek_bar?.max = musicInfo?.musicDuration!!
+                        home_seek_bar?.progress = recentMusicProgress
+                        PlayMusicManager.getMusicManager()!!.seekTo(recentMusicProgress)
                     }
+                    updateMusicBarUI(musicInfo!!,isPlayMusic)
                 }
             }
-            if (isPlayMusic) {
-                player_bar_iv.start()
-                play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))
-            } else {
-                player_bar_iv.pause()
-                play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_play_stop))
-            }
+
         }
     }
 
@@ -167,9 +167,18 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
     }
 
     private fun updateMusicBarUI(songInfo:SongInfo,isPlaying: Boolean) {
-        home_music_name_tv.text =songInfo.musicName
-        home_singer_name_tv.text = songInfo.musicSinger
+        if (songInfo!=null){
+
+            home_music_name_tv.text = songInfo.musicName
+            home_singer_name_tv.text = songInfo.musicSinger
+        }else{
+            home_music_name_tv.text = "天天音乐"
+            home_singer_name_tv.text = "好音质"
+        }
         home_seek_bar.max = songInfo.musicDuration!!
+        CoverLoader.loadBitmap(context, songInfo!!.coverUrl) {
+            player_bar_iv.setImageBitmap(it)
+        }
         if (isPlaying) {
             player_bar_iv.start()
             play_iv.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_playing))

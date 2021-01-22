@@ -11,6 +11,7 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.CoverLoader
+import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
 import com.wyq.ttmusicapp.utils.TimeUtil
 import kotlinx.android.synthetic.main.fragment_playing_music.*
 
@@ -61,6 +62,13 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
     private fun initMusicView() {
         val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
         playpage_play!!.isChecked = isPlaying
+        val recentMusicProgress = PlayMusicSPUtil.getRecentMusicProgress()
+        if (recentMusicProgress!=0 && !isPlaying){
+            play_page_progressbar?.max = PlayMusicManager.getMusicManager()!!.nowPlayingSong!!.musicDuration!!
+            play_page_progressbar?.progress = recentMusicProgress
+            playpage_playtime_tv!!.text = TimeUtil.mill2mmss(recentMusicProgress.toLong())
+            PlayMusicManager.getMusicManager()!!.seekTo(recentMusicProgress)
+        }
         updateSongInfoView()
         setImageAnimation(isPlaying)
     }

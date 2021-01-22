@@ -13,7 +13,9 @@ import android.widget.Toast
 import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.TimeUtil
 import com.wyq.ttmusicapp.utils.toast
 import java.io.File
 import kotlin.math.abs
@@ -26,7 +28,7 @@ import kotlin.random.Random
 class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateListener {
     private val TAG = MusicControllerService::class.java.name
     private var musicList: MutableList<SongInfo>? = null
-    private var musicIndex = -1
+    private var musicIndex = 0
     private var mediaPlayer: MediaPlayer? = null
     private var mIsPrepared = false
     private var isPlayCurrentMusic = true
@@ -171,14 +173,14 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         ) {
         }
 
-        override fun getNowPlayingSong(): SongInfo {
-            try {
-                return musicList!![musicIndex]
+        override fun getNowPlayingSong(): SongInfo? {
+            return try {
+                musicList!![musicIndex]
             }catch (e:java.lang.Exception){
 
+                val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+                PlayMusicHelper.getMusicInfoById(recentMusicId)
             }
-            //todo 返回播放最近的一首歌
-            return musicList!![musicIndex]
         }
 
         override fun getPid(): Int {
@@ -242,6 +244,8 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             mediaPlayer!!.pause()
             handler.removeMessages(MSG_CURRENT)
             updatePlayState()
+            val currentPosition = mediaPlayer!!.currentPosition
+            PlayMusicSPUtil.saveRecentMusicProgress(currentPosition)
         }
 
         override fun stop() {
@@ -294,10 +298,10 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         intent.putExtra(Constant.IS_PLAYING, mediaPlayer!!.isPlaying)
         //正在播放的歌曲信息
         intent.putExtra(Constant.NOW_PLAY_MUSIC, mBinder.nowPlayingSong)
+        //正在播放的音乐id
+        intent.putExtra(Constant.NOW_PLAY_MUSIC_ID, mBinder.nowPlayingSong?.music_id!!)
         //发送广播
         sendBroadcast(intent)
-        //保存正在播放的音乐id
-        PlayMusicSPUtil.saveRecentMusicId(mBinder.nowPlayingSong.music_id!!)
     }
 
     private fun prepareSong(music: SongInfo) {

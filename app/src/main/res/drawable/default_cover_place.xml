@@ -2,10 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/default_cover_bg" />
+            <solid android:color="@color/grey500" />
         </shape>
     </item>
     <item
-        android:drawable="@drawable/ic_music"
+        android:drawable="@drawable/ic_music_bg"
         android:gravity="center" />
 </layer-list>

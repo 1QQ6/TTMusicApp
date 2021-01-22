@@ -60,9 +60,9 @@
 
                 <ImageView
                     android:id="@+id/iv_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tab_plan" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_homepage" />
 
                 <TextView
                     android:id="@+id/tv_main"
@@ -86,9 +86,9 @@
 
                 <ImageView
                     android:id="@+id/iv_workout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tab_plan" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_discover" />
 
                 <TextView
                     android:id="@+id/tv_workout"
@@ -112,9 +112,9 @@
 
                 <ImageView
                     android:id="@+id/iv_me"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/tab_me" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_me" />
 
                 <TextView
                     android:id="@+id/tv_me"

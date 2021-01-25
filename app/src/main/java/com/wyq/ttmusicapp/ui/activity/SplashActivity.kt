@@ -1,7 +1,6 @@
 package com.wyq.ttmusicapp.ui.activity
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -11,10 +10,10 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
-import com.wyq.ttmusicapp.core.PlayMusicManager
+import com.wyq.ttmusicapp.login.MusicLoginActivity
 import com.wyq.ttmusicapp.ui.scanmusic.MusicScanHelper
 import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener
-import com.wyq.ttmusicapp.utils.PlayMusicHelper
+import com.wyq.ttmusicapp.utils.SPUtil
 import java.util.*
 
 class SplashActivity : BaseActivity() {
@@ -84,10 +83,13 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun startMusicActivity() {
-        val intent = Intent()
-        intent.setClass(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+        if (SPUtil.isLogin()){
+            HomeActivity.startActivity(this)
+            finish()
+        }else{
+            MusicLoginActivity.startActivity(this)
+            finish()
+        }
     }
 
     override fun onRequestPermissionsResult(

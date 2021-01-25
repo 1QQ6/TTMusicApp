@@ -8,7 +8,7 @@ import android.os.IBinder
 import com.wyq.ttmusicapp.core.MusicControllerService
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 
 /**
  * Created by Roman on 2021/1/19
@@ -47,7 +47,7 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
 
     override fun loadMusicPlayAgo() {
         Thread{
-            val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+            val recentMusicId = SPUtil.getRecentMusicId()
             val allMusicList =
                 DatabaseManager.getInstance(context)!!.getAllMusicFromMusicTable()
             if (recentMusicId != -1L){

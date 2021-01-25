@@ -14,7 +14,7 @@ import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.ChineseToEnglish
 import com.wyq.ttmusicapp.utils.CoverLoader
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 import java.io.File
 import java.lang.ref.WeakReference
 import java.util.*
@@ -112,7 +112,7 @@ object MusicScanHelper {
                     }
 
                     //扫描完成获取当前播放音乐及路径
-                    curMusicId = PlayMusicSPUtil.getRecentMusicId()
+                    curMusicId = SPUtil.getRecentMusicId()
                     curMusicPath = dbManager!!.getMusicPathById(curMusicId!!)
 
                     // 根据a-z进行排序源数据
@@ -194,7 +194,7 @@ object MusicScanHelper {
                 }
             }
             if (isContain) {
-                PlayMusicSPUtil.saveRecentMusicId( id)
+                SPUtil.saveRecentMusicId( id)
             } else {
                 //Log.d(TAG, "initCurPlaying: !!!contains")
                 /*val intent = Intent(MusicPlayerService.PLAYER_MANAGER_ACTION)

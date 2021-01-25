@@ -14,8 +14,7 @@ import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
-import com.wyq.ttmusicapp.utils.TimeUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 import com.wyq.ttmusicapp.utils.toast
 import java.io.File
 import kotlin.math.abs
@@ -178,7 +177,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
                 musicList!![musicIndex]
             }catch (e:java.lang.Exception){
 
-                val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+                val recentMusicId = SPUtil.getRecentMusicId()
                 PlayMusicHelper.getMusicInfoById(recentMusicId)
             }
         }
@@ -245,7 +244,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             handler.removeMessages(MSG_CURRENT)
             updatePlayState()
             val currentPosition = mediaPlayer!!.currentPosition
-            PlayMusicSPUtil.saveRecentMusicProgress(currentPosition)
+            SPUtil.saveRecentMusicProgress(currentPosition)
         }
 
         override fun stop() {
@@ -280,7 +279,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             musicList = list
             this@MusicControllerService.isPrepare = isPrepare
             if (musicList == null || musicList!!.isEmpty()) {
-                toast("播放列表为空", Toast.LENGTH_LONG)
+                toast("播放列表为空")
                 return
             }
             Log.e(TAG, "preparePlayingList")

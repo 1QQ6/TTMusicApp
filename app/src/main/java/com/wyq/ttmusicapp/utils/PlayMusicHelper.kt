@@ -159,7 +159,7 @@ object PlayMusicHelper {
      */
     private fun getCurrentPlayList(): List<SongInfo> {
         //获取列表类型
-        val playListMode: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_LIST)
+        val playListMode: Int = SPUtil.getIntShared(Constant.KEY_LIST)
         var musicInfoList: List<SongInfo> = ArrayList<SongInfo>()
         when (playListMode) {
             Constant.LIST_ALL_MUSIC -> {

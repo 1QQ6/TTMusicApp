@@ -9,7 +9,7 @@ import com.wyq.ttmusicapp.common.MyApplication
 /**
  * Created by Roman on 2021/1/11
  */
-object PlayMusicSPUtil {
+object SPUtil {
     /**
      *
      */
@@ -79,5 +79,18 @@ object PlayMusicSPUtil {
     @Synchronized
     fun getRecentMusicProgress():Int{
         return getSP().getInt(Constant.KEY_SEEK_BAR_PROGRESS, -1)
+    }
+
+    /**
+     * 用户是否登录
+     */
+    @Synchronized
+    fun saveLogin(currentProgress: Boolean) {
+        getSP().edit().putBoolean(Constant.IS_LOGIN,currentProgress).apply()
+    }
+
+    @Synchronized
+    fun isLogin():Boolean{
+        return getSP().getBoolean(Constant.IS_LOGIN, false)
     }
 }

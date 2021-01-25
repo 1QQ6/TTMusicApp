@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 
 /**
  * @author Roman
@@ -44,8 +44,8 @@ import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
          when (intent.action) {
             Constant.PLAY_BAR_UPDATE -> {
                val musicId = intent.getLongExtra(Constant.NOW_PLAY_MUSIC_ID,0)
-               PlayMusicSPUtil.saveRecentMusicId(musicId)
-               val recentMusicId = PlayMusicSPUtil.getRecentMusicId()
+               SPUtil.saveRecentMusicId(musicId)
+               val recentMusicId = SPUtil.getRecentMusicId()
                 Log.e("recentMusicId", recentMusicId.toString())
             }
          }

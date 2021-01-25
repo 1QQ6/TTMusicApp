@@ -1,5 +1,6 @@
 package com.wyq.ttmusicapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -41,7 +42,12 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
      */
     private var meFragment:MeFragment? = null
 
-
+    companion object{
+        fun startActivity(ctx: Context){
+            val i = Intent(ctx, HomeActivity::class.java)
+            ctx.startActivity(i)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

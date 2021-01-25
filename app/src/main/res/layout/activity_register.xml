@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_username"
+        android:textSize="16sp"
+        android:textColor="#2b2b2b"/>
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="18"
+        android:maxLines="1"
+        android:hint="请输入用户名"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/login_password"
+        android:textSize="16sp"
+        android:textColor="#2b2b2b"/>
+
+    <EditText
+        android:id="@+id/input_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textPassword"
+        android:maxLength="18"
+        android:hint="请输入密码"
+        android:textSize="14sp"
+        android:maxLines="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/confirm_pwd"
+        android:textSize="16sp"
+        android:textColor="#2b2b2b"/>
+
+    <EditText
+        android:id="@+id/input_confirm_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textPassword"
+        android:maxLength="18"
+        android:hint="请再次输入密码"
+        android:textSize="14sp"
+        android:maxLines="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/email"
+        android:textSize="16sp"
+        android:textColor="#2b2b2b"/>
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="18"
+        android:hint="请输入邮箱"
+        android:textSize="14sp"
+        android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:text="@string/register"/>
+</LinearLayout>

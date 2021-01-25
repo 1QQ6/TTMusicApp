@@ -30,4 +30,12 @@
     <string name="login_username">用户名</string>
     <string name="login_register">注册</string>
     <string name="login_login">登录</string>
+    <string name="confirm_pwd">确认密码</string>
+    <string name="email">邮箱</string>
+    <string name="register">马上注册</string>
+    <string name="username_cant_null">用户名不能为空!</string>
+    <string name="password_cant_null">密码不能为空!</string>
+    <string name="pwd_not_confirm">密码和确认密码不匹配!</string>
+    <string name="email_cant_null">邮箱地址不能为空</string>
+    <string name="login_success">登录成功</string>
 </resources>

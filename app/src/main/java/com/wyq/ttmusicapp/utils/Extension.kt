@@ -7,6 +7,6 @@ import android.widget.Toast
  * 扩展函数类
  */
 
-fun Context.toast(msg : String, duration : Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, msg, duration).show()
+fun Context.toast(msg : String) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

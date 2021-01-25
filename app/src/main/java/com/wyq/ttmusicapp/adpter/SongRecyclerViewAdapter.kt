@@ -1,6 +1,5 @@
 package com.wyq.ttmusicapp.adpter
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.SectionIndexer
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.MyApplication.Companion.context
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.local_music_item.view.*
 
 /**
@@ -50,7 +48,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
                 local_music_singer.text = musicInfo.musicSinger
                 initTheme()
                 //TODO 设置当前正在播放的itemView
-                if (musicInfo.music_id == PlayMusicSPUtil.getRecentMusicId()) {
+                if (musicInfo.music_id == SPUtil.getRecentMusicId()) {
 
                 }else{
 

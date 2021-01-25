@@ -91,4 +91,10 @@ object Constant {
     const val NOW_PLAY_MUSIC_ID = "is_new_play_music_id"
     const val SEEK_BAR_CURRENT_TIME = "seek_bar_current_time"
 
+    /**
+     * 登录相关
+     */
+    const val REQUEST_BASE_URL:String = "http://47.111.233.78:8080/api/user/"
+    const val IS_LOGIN:String = "is_login"
+
 }

@@ -14,10 +14,8 @@ import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.CoverLoader
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
-import com.wyq.ttmusicapp.utils.TimeUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_play_bar.*
-import kotlinx.android.synthetic.main.fragment_playing_music.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -46,14 +44,14 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
 
 
     private fun initMusicInfo() {
-        val musicId: Long = PlayMusicSPUtil.getRecentMusicId()
+        val musicId: Long = SPUtil.getRecentMusicId()
         if (musicId == -1L) {
             home_music_name_tv.text = "天天音乐"
             home_singer_name_tv.text = "好音质"
         }else{
             doAsync {
                 val musicInfo = PlayMusicHelper.getMusicInfoById(musicId)
-                val recentMusicProgress = PlayMusicSPUtil.getRecentMusicProgress()
+                val recentMusicProgress = SPUtil.getRecentMusicProgress()
                 uiThread {
                     if (recentMusicProgress!=0){
                         home_seek_bar?.max = musicInfo?.musicDuration!!

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wyq.ttmusicapp">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -10,24 +10,25 @@
         android:icon="@mipmap/music_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/music_icon"
+        android:usesCleartextTraffic="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.MusicLogin"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.playmusic.PlayMusicActivity"
-            android:screenOrientation="portrait"
-            >
+        <activity android:name=".register.MusicRegisterActivity" />
+        <activity
+            android:name=".login.MusicLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.playmusic.PlayMusicActivity"
+            android:screenOrientation="portrait" />
 
-        </activity>
-
-        <!--如果被设置的进程名是以一个冒号(:)开头的，则这个新的进程对于这个应用来说是私有的-->
-        <service android:name=".core.MusicControllerService"
-
+        <!-- 如果被设置的进程名是以一个冒号(:)开头的，则这个新的进程对于这个应用来说是私有的 -->
+        <service
+            android:name=".core.MusicControllerService"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.wyq.ttmusicapp.core.MusicControlerService"/>
+                <action android:name="com.wyq.ttmusicapp.core.MusicControlerService" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
@@ -35,20 +36,17 @@
                 android:enabled=[“true” | “false”]:是否可实例化，默认true,如设置false ，Service将不可用
                 android:exported=[“true” |”false”]:是否允许跨进程调用，
                 默认值跟filter是否有子元素有关，filter子元素个数为0,默认值为false ,否则true
-                -->
+        -->
         <receiver
             android:name=".core.MusicControllerReceiver"
             android:enabled="true"
-            android:exported="true" />
-        <!-- PlayBarBaseActivity -->
+            android:exported="true" /> <!-- PlayBarBaseActivity -->
         <activity
             android:name=".ui.playmusicbar.PlayBarBaseActivity"
-            android:screenOrientation="portrait" />
-        <!-- ScanActivity -->
+            android:screenOrientation="portrait" /> <!-- ScanActivity -->
         <activity
             android:name=".ui.scanmusic.ScanActivity"
-            android:screenOrientation="portrait" />
-         <!-- HomeActivity -->
+            android:screenOrientation="portrait" /> <!-- HomeActivity -->
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTask"

@@ -10,7 +10,7 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.utils.PlayMusicSPUtil
+import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
 
 /**
@@ -50,7 +50,7 @@ class LocalMusicFragment: BaseFragment() {
      * 初始化音乐模式UI
      */
     private fun initDefaultPlayModeView() {
-        when (PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
+        when (SPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
             Constant.PLAY_MODE_SEQUENCE -> local_music_play_mode_tv.text = getString(R.string.play_mode_sequence)
             Constant.PLAY_MODE_RANDOM -> local_music_play_mode_tv.text = getString(R.string.play_mode_random)
             Constant.PLAY_MODE_SINGLE_REPEAT -> local_music_play_mode_tv.text = getString(R.string.play_mode_repeat)
@@ -62,7 +62,7 @@ class LocalMusicFragment: BaseFragment() {
      * 初始化音乐模式
      */
     private fun initPlayMode() {
-        var playMode: Int = PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)
+        var playMode: Int = SPUtil.getIntShared(Constant.KEY_PLAY_MODE)
         if (playMode == -1) {
             playMode = 0
         }
@@ -75,18 +75,18 @@ class LocalMusicFragment: BaseFragment() {
      * 顺序
      */
     private fun setMusicMode() {
-            when (PlayMusicSPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
+            when (SPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
                 Constant.PLAY_MODE_SEQUENCE -> {
                     local_music_play_mode_tv.text = getString(R.string.play_mode_random)
-                    PlayMusicSPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_RANDOM)
+                    SPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_RANDOM)
                 }
                 Constant.PLAY_MODE_RANDOM -> {
                     local_music_play_mode_tv.text = getString(R.string.play_mode_repeat)
-                    PlayMusicSPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_SINGLE_REPEAT)
+                    SPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_SINGLE_REPEAT)
                 }
                 Constant.PLAY_MODE_SINGLE_REPEAT -> {
                     local_music_play_mode_tv.text = getString(R.string.play_mode_sequence)
-                    PlayMusicSPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_SEQUENCE)
+                    SPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_SEQUENCE)
                 }
             }
     }

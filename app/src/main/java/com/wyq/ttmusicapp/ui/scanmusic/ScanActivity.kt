@@ -37,7 +37,6 @@ class ScanActivity:BaseActivity(), ScanContract.View {
             if (!isScanning){
                 isScanning = true
                 scan_view.start()
-                scan_path.visibility = View.VISIBLE
                 musicScanPresenter!!.startScanMusic(this,isScanning)
             }else{
                 isScanning = false
@@ -73,9 +72,9 @@ class ScanActivity:BaseActivity(), ScanContract.View {
             if (!isScanning){
                 finish()
             }
-            scan_view.stop()
         }
         if (type == Constant.HAS_MUSIC){
+            scan_view.stop()
             Toast.makeText(this, getString(R.string.scan_finish), Toast.LENGTH_SHORT).show()
         }else if(type==Constant.HAS_NO_MUSIC){
             Toast.makeText(this, getString(R.string.scan_finish_no_music), Toast.LENGTH_SHORT).show()

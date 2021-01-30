@@ -12,15 +12,14 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <com.wyq.ttmusicapp.ui.view.ScanView
+    <com.wyq.ttmusicapp.ui.view.MusicScanView
         android:id="@+id/scan_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:accent_color="?attr/colorAccent"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp">
-    </com.wyq.ttmusicapp.ui.view.ScanView>
-
+        android:layout_below="@+id/scan_music_toolbar"
+        />
     <LinearLayout
         android:id="@+id/scan_filter_ll"
         android:layout_width="wrap_content"

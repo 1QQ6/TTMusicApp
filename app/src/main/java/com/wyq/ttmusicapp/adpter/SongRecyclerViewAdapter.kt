@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SectionIndexer
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.MyApplication.Companion.context
+import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.SPUtil
@@ -30,7 +32,6 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
      */
     interface OnItemClickListener {
         fun onOpenMenuClick(position: Int)
-        fun onDeleteMenuClick(content: View?, position: Int)
         fun onItemClick(position: Int)
     }
 
@@ -42,29 +43,32 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
         fun bind(musicInfoList:ArrayList<SongInfo>, dbManager:DatabaseManager, onItemClickListener:OnItemClickListener){
             val musicInfo = musicInfoList[adapterPosition]
 
+            val musicId = PlayMusicManager.getMusicManager()?.nowPlayingSong?.music_id
+
             with(itemView){
-                local_music_name.text = musicInfo.musicName
-                local_index.text = (adapterPosition+1).toString()
+                local_item_name.text = musicInfo.musicName
+                local_item_index.text = (adapterPosition+1).toString()
                 local_music_singer.text = musicInfo.musicSinger
                 initTheme()
-                //TODO 设置当前正在播放的itemView
-                if (musicInfo.music_id == SPUtil.getRecentMusicId()) {
+                //设置当前正在播放的itemView
+                if (musicInfo.music_id == musicId) {
+                    local_item_name.setTextColor(ContextCompat.getColor(context,R.color.colorPrimaryDark))
 
+                    local_item_iv.visibility = View.VISIBLE
+                    local_item_index.visibility = View.INVISIBLE
                 }else{
-
+                    local_item_name.setTextColor(ContextCompat.getColor(context,R.color.black))
+                    local_item_iv.visibility = View.INVISIBLE
+                    local_item_index.visibility = View.VISIBLE
                 }
                 //点击播放
-                local_music_item_ll.setOnClickListener {
+                local_music_item.setOnClickListener {
                     Log.i(TAG, "onClick: 播放 " + musicInfo.musicName)
                     onItemClickListener.onItemClick(adapterPosition)
                 }
                 //点击菜单
                 local_music_item_never_menu.setOnClickListener {
                     onItemClickListener.onOpenMenuClick(adapterPosition)
-                }
-                //删除音乐
-                swip_delete_menu_btn.setOnClickListener {
-                    onItemClickListener.onDeleteMenuClick(swipemenu_layout, adapterPosition)
                 }
             }
         }

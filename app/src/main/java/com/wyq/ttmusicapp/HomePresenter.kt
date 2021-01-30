@@ -50,6 +50,10 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
             val recentMusicId = SPUtil.getRecentMusicId()
             val allMusicList =
                 DatabaseManager.getInstance(context)!!.getAllMusicFromMusicTable()
+            //如果本地音乐为0
+            if (allMusicList.size==0){
+
+            }
             if (recentMusicId != -1L){
                 val songInfo = DatabaseManager.getInstance(context)!!.getSongInfo(recentMusicId)
                 val indexOf = allMusicList.indexOf(songInfo)

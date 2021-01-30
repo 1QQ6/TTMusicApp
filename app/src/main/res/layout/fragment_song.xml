@@ -4,8 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
     <RelativeLayout
         android:id="@+id/local_music_play_mode_rl"
         android:layout_width="match_parent"
@@ -28,11 +26,6 @@
             android:gravity="center_vertical"
             android:textSize="15sp"
             android:text="顺序播放"/>
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dip"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@color/colorDividerGray"></View>-->
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/local_recycler_view"

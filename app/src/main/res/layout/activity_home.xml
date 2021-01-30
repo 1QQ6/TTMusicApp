@@ -43,7 +43,7 @@
         <LinearLayout
             android:id="@+id/home_tab"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -60,8 +60,8 @@
 
                 <ImageView
                     android:id="@+id/iv_main"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_homepage" />
 
                 <TextView
@@ -86,8 +86,8 @@
 
                 <ImageView
                     android:id="@+id/iv_workout"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_discover" />
 
                 <TextView
@@ -112,8 +112,8 @@
 
                 <ImageView
                     android:id="@+id/iv_me"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_me" />
 
                 <TextView

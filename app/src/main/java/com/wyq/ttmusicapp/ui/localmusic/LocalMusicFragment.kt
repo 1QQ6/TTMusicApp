@@ -1,5 +1,6 @@
 package com.wyq.ttmusicapp.ui.localmusic
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,15 +11,17 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
 
 /**
  * Created by Roman on 2021/1/10
  */
-class LocalMusicFragment: BaseFragment() {
+class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
     var songRecyclerViewAdapter:SongRecyclerViewAdapter? = null
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
+    private var localMusicPresenter:LocalMusicContract.Presenter? = null
 
     private var dbManager:DatabaseManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,15 +116,31 @@ class LocalMusicFragment: BaseFragment() {
             override fun onOpenMenuClick(position: Int) {
 
             }
-
-            override fun onDeleteMenuClick(content: View?, position: Int) {
-
-            }
-
             override fun onItemClick(position: Int) {
+                val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
+                val nowPlayingIndex = PlayMusicManager.getMusicManager()!!.nowPlayingIndex
+                //如果当前点击的歌曲正在播放并且和当前播放的index相等，那么跳转到播放主页
+                if(isPlaying && nowPlayingIndex == position){
+                    val intent = Intent(context,PlayMusicActivity::class.java)
+                    startActivity(intent)
+                    return
+                }
                 PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)
+                songRecyclerViewAdapter?.notifyDataSetChanged()
             }
         })
+    }
+
+    override fun updateListView() {
+
+    }
+
+    override fun showBottomMenu() {
+
+    }
+
+    override fun setPresenter(presenter: LocalMusicContract.Presenter) {
+        localMusicPresenter = presenter
     }
 
 }

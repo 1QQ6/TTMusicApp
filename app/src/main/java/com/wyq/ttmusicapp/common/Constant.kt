@@ -73,7 +73,7 @@ object Constant {
 
     var PLAYPRO_EXIT = "com.wyq.intent.PLAYPRO_EXIT_ACTION"
     //关于歌曲信息控件的更新
-    const val PLAY_BAR_UPDATE = "com.wyq.intent.PLAY_BAR_UPDATE"
+    const val PLAY_MUSIC_VIEW_UPDATE = "com.wyq.intent.PLAY_BAR_UPDATE"
 
     const val PLAY_STATUS_UPDATE = "com.wyq.intent.PLAY_STATUS_UPDATE"
     //当前状态 有关时间控件的更新
@@ -90,6 +90,9 @@ object Constant {
     const val IS_PLAYING = "is_playing"
     const val NOW_PLAY_MUSIC_ID = "is_new_play_music_id"
     const val SEEK_BAR_CURRENT_TIME = "seek_bar_current_time"
+    const val PLAY_MUSIC_ERROR = "play_music_error"
+
+    const val PLAY_MUSIC_ERROR_SIZE = -1
 
     /**
      * 登录相关

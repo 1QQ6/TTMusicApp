@@ -38,4 +38,8 @@
     <string name="pwd_not_confirm">密码和确认密码不匹配!</string>
     <string name="email_cant_null">邮箱地址不能为空</string>
     <string name="login_success">登录成功</string>
+    <string name="item_index">1</string>
+    <string name="music_name">music namemusic namemusic namemusic namemusic namemusic namemusic namemusic name</string>
+    <string name="singer_name">singer name</string>
+    <string name="play_music_error">歌曲播放失败</string>
 </resources>

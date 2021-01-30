@@ -1,8 +1,10 @@
 package com.wyq.ttmusicapp.ui.scanmusic
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.common.Constant
@@ -46,7 +48,19 @@ class ScanActivity:BaseActivity(), ScanContract.View {
     }
     override fun setupToolbar() {
         setSupportActionBar(scan_music_toolbar)
+        supportActionBar?.title = "扫描本地音乐"
+        supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == android.R.id.home) {
+            HomeActivity.startActivity(this)
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     /**

@@ -32,7 +32,7 @@ import com.wyq.ttmusicapp.utils.SPUtil
 
    private fun registerBroadcast() {
       val intentFilter = IntentFilter()
-      intentFilter.addAction(Constant.PLAY_BAR_UPDATE)
+      intentFilter.addAction(Constant.PLAY_MUSIC_VIEW_UPDATE)
       registerReceiver(receiver, intentFilter)
    }
 
@@ -42,7 +42,7 @@ import com.wyq.ttmusicapp.utils.SPUtil
    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
       override fun onReceive(context: Context, intent: Intent) {
          when (intent.action) {
-            Constant.PLAY_BAR_UPDATE -> {
+            Constant.PLAY_MUSIC_VIEW_UPDATE -> {
                val musicId = intent.getLongExtra(Constant.NOW_PLAY_MUSIC_ID,0)
                SPUtil.saveRecentMusicId(musicId)
                val recentMusicId = SPUtil.getRecentMusicId()

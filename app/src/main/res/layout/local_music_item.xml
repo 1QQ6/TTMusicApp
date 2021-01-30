@@ -1,112 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/local_music_item"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     app:swipeEnable="true">
 
-    <TextView
-        android:id="@+id/indext_head_tv"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:textSize="15sp"
-        android:textColor="@color/grey700"
-        android:visibility="gone" />
+        <TextView
+        android:id="@+id/local_item_index"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/item_index"
 
-    <com.mcxtzhang.swipemenulib.SwipeMenuLayout
-        android:id="@+id/swipemenu_layout"
-        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <FrameLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/local_item_iv"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_music_item"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+    </FrameLayout>
+
+
+        <TextView
+        android:id="@+id/local_item_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:swipeEnable="true">
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/music_name"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/local_item_index"
+        app:layout_constraintRight_toLeftOf="@+id/local_music_item_never_menu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/local_music_singer"
+        />
 
-        <LinearLayout
-            android:id="@+id/local_music_item_ll"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/local_music_singer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/singer_name"
+            android:textSize="12sp"
+            android:textColor="@color/grey700"
+            app:layout_constraintLeft_toRightOf="@+id/local_item_index"
+            app:layout_constraintTop_toBottomOf="@+id/local_item_name"
+            app:layout_constraintRight_toLeftOf="@+id/local_music_item_never_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/local_music_item_never_menu"
+            android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/selector_layout"
+            android:layout_weight="0"
+            android:layout_marginEnd="10dp"
+            android:padding="15dp"
             android:clickable="true"
-            android:orientation="horizontal">
+            android:src="@drawable/selector_never_menu"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
-            <TextView
-                android:id="@+id/local_index"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="1"
-                android:textColor="@color/black"
-                />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_weight="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/local_music_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="bottom"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="music name "
-                            android:textSize="15sp"/>
-
-                        <TextView
-                            android:id="@+id/local_music_singer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="top"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:text="singer name "
-                            android:textSize="12sp"
-                            android:textColor="@color/grey700" />
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/local_music_item_never_menu"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        android:layout_marginRight="10dp"
-                        android:padding="15dp"
-                        android:clickable="true"
-                        android:src="@drawable/selector_never_menu" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/swip_delete_menu_btn"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorRed"
-            android:gravity="center"
-            android:textColor="@color/colorWhite"
-            android:text="删除" />
-    </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

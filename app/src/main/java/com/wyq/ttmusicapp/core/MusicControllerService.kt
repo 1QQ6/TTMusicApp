@@ -9,7 +9,6 @@ import android.media.MediaPlayer.OnBufferingUpdateListener
 import android.media.MediaPlayer.OnCompletionListener
 import android.os.*
 import android.util.Log
-import android.widget.Toast
 import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
@@ -96,9 +95,11 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             mediaPlayer!!.reset()
         }
         try {
-            val file = File(music.musicPath)
-            if (!file.exists()) {
-                Toast.makeText(this, "歌曲文件不存在，请重新扫描", Toast.LENGTH_SHORT).show()
+            val file = File(music.musicPath!!)
+            if (!file.exists()||music.musicDuration==0) {
+                val intent = Intent(Constant.PLAY_MUSIC_VIEW_UPDATE)
+                intent.putExtra(Constant.PLAY_MUSIC_ERROR,Constant.PLAY_MUSIC_ERROR_SIZE)
+                sendBroadcast(intent)
                 mBinder.nextSong()
                 return
             }
@@ -292,7 +293,7 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
      * 发送广播更新PlayBar的UI
      */
     private fun updatePlayState() {
-        val intent = Intent(Constant.PLAY_BAR_UPDATE)
+        val intent = Intent(Constant.PLAY_MUSIC_VIEW_UPDATE)
         //是否正在播放
         intent.putExtra(Constant.IS_PLAYING, mediaPlayer!!.isPlaying)
         //正在播放的歌曲信息

@@ -15,6 +15,7 @@ import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.CoverLoader
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.SPUtil
+import com.wyq.ttmusicapp.utils.toast
 import kotlinx.android.synthetic.main.fragment_play_bar.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -137,7 +138,7 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
     private fun initReceiver() {
         val intentFilter = IntentFilter()
         //bar当前状态
-        intentFilter.addAction(Constant.PLAY_BAR_UPDATE)
+        intentFilter.addAction(Constant.PLAY_MUSIC_VIEW_UPDATE)
         //当前进度条
         intentFilter.addAction(Constant.CURRENT_UPDATE)
         context!!.registerReceiver(receiver,intentFilter)
@@ -150,7 +151,12 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
     private val receiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             when(intent!!.action){
-                Constant.PLAY_BAR_UPDATE->{
+                Constant.PLAY_MUSIC_VIEW_UPDATE->{
+                    //设置默认状态正常为0
+                    val musicErrorCode = intent.getIntExtra(Constant.PLAY_MUSIC_ERROR, 0)
+                    if (musicErrorCode == Constant.PLAY_MUSIC_ERROR_SIZE){
+                        context!!.toast(getString(R.string.play_music_error))
+                    }
                     isPlayMusic = intent.getBooleanExtra(Constant.IS_PLAYING, false)
                     val songInfo = intent.getParcelableExtra<SongInfo>(Constant.NOW_PLAY_MUSIC)
                     if (songInfo!=null){
@@ -159,6 +165,9 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
                 }
                 Constant.CURRENT_UPDATE->{
                     home_seek_bar.progress = intent.getIntExtra(Constant.SEEK_BAR_CURRENT_TIME, 0)
+                }
+                else->{
+
                 }
             }
         }

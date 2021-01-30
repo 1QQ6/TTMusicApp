@@ -12,11 +12,10 @@ import java.util.concurrent.TimeUnit
  */
 class RetrofitManager {
 
-    private val BASE_URL = "http://47.111.233.78:8080/api/user/"
-
     companion object{
 
         fun <T> getService(url:String,service: Class<T>):T{
+            //根据你传的service来进行不同的请求
             return createRetrofit(url).create(service)
         }
 
@@ -30,10 +29,13 @@ class RetrofitManager {
             loggingInterceptor.level = level
 
             val okHttpClientBuilder = OkHttpClient.Builder()
+            //连接超时
             okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS)
+            //读取超时
             okHttpClientBuilder.readTimeout(10, TimeUnit.SECONDS)
+            //添加拦截器
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
-
+            //创建retrofit对象
             return Retrofit.Builder()
                             .baseUrl(url)
                             .client(okHttpClientBuilder.build())

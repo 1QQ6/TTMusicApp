@@ -3,6 +3,8 @@ package com.wyq.ttmusicapp.core
 import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.interfaces.IMusicControl
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
+import com.wyq.ttmusicapp.utils.SPUtil
 import java.util.concurrent.ExecutorService
 
 /**
@@ -165,14 +167,33 @@ class PlayMusicManager : IMusicControl {
         }
     }
 
+    /**
+     * 获取当前音乐播放状态
+     */
     override val isPlaying: Boolean
-        get() =  service!!.isPlaying
+        get(){
+            return if (service==null){
+                false
+            }else{
+                service!!.isPlaying
+            }
+        }
 
     override val nowPlayingIndex: Int
         get() = service!!.playingSongIndex
 
+    /**
+     * 获取当前播放的音乐
+     */
     override val nowPlayingSong: SongInfo?
-        get() = service!!.nowPlayingSong
+        get() {
+            return if (service==null){
+                val recentMusicId = SPUtil.getRecentMusicId()
+                PlayMusicHelper.getMusicInfoById(recentMusicId)
+            }else{
+                service!!.nowPlayingSong
+            }
+        }
 
     override val isForeground: Boolean
         get() = service!!.isForeground

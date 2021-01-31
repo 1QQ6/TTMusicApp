@@ -1,8 +1,7 @@
-package com.wyq.ttmusicapp.ui.localmusic
+package com.wyq.ttmusicapp.ui.fragment.localmusic
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.SongRecyclerViewAdapter
@@ -18,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_song.*
 /**
  * Created by Roman on 2021/1/10
  */
-class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
+class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     var songRecyclerViewAdapter:SongRecyclerViewAdapter? = null
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
-    private var localMusicPresenter:LocalMusicContract.Presenter? = null
+    private var localMusicPresenter: LocalMusicContract.Presenter? = null
 
     private var dbManager:DatabaseManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {

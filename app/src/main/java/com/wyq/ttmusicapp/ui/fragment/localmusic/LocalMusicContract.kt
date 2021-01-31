@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.localmusic
+package com.wyq.ttmusicapp.ui.fragment.localmusic
 
 import com.wyq.ttmusicapp.base.BasePresenter
 import com.wyq.ttmusicapp.base.BaseView

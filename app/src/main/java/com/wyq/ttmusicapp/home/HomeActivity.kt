@@ -8,9 +8,9 @@ import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.ui.fragment.WorkFragment
-import com.wyq.ttmusicapp.ui.me.MeFragment
+import com.wyq.ttmusicapp.ui.fragment.me.MeFragment
 import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
+import com.wyq.ttmusicapp.ui.remotemusic.WorkFragment
 import com.wyq.ttmusicapp.ui.scanmusic.ScanActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -41,7 +41,7 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
     /**
      * 我的页面
      */
-    private var meFragment:MeFragment? = null
+    private var meFragment: MeFragment? = null
 
     companion object{
         fun startActivity(ctx: Context){

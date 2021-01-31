@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.fragment
+package com.wyq.ttmusicapp.ui.fragment.me
 
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment
@@ -6,9 +6,9 @@ import com.wyq.ttmusicapp.base.BaseFragment
 /**
  * Created by Roman on 2021/1/20
  */
-class WorkFragment:BaseFragment() {
+class MeFragment:BaseFragment() {
     override fun getLayout(): Int {
-        return R.layout.fragment_work
+        return R.layout.fragment_me
     }
 
     override fun initData() {

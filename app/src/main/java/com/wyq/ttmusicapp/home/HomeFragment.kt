@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.LocalFragmentAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
-import com.wyq.ttmusicapp.ui.fragment.AlbumFragment
-import com.wyq.ttmusicapp.ui.fragment.FolderFragment
-import com.wyq.ttmusicapp.ui.fragment.SingerFragment
-import com.wyq.ttmusicapp.ui.localmusic.LocalMusicFragment
+import com.wyq.ttmusicapp.ui.fragment.album.AlbumFragment
+import com.wyq.ttmusicapp.ui.fragment.localmusic.LocalMusicFragment
+import com.wyq.ttmusicapp.ui.fragment.singer.SingerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -20,9 +19,8 @@ class HomeFragment:BaseFragment() {
     private var fragmentList = ArrayList<Fragment>()
     private var singerFragment: SingerFragment? = null
     private var albumFragment: AlbumFragment? = null
-    private var folderFragment: FolderFragment? = null
     private val mTitlesArrays =
-        arrayOf("单曲", "歌手", "专辑", "文件")
+        arrayOf("单曲", "歌手", "专辑")
     private var fragmentAdapter: LocalFragmentAdapter?=null
 
     override fun getLayout(): Int {
@@ -66,10 +64,6 @@ class HomeFragment:BaseFragment() {
         if (albumFragment == null) {
             albumFragment = AlbumFragment()
             fragmentList.add(albumFragment!!)
-        }
-        if (folderFragment == null) {
-            folderFragment = FolderFragment()
-            fragmentList.add(folderFragment!!)
         }
     }
 }

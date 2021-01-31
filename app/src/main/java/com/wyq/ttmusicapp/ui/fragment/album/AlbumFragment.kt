@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.ui.fragment
+package com.wyq.ttmusicapp.ui.fragment.album
 
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseFragment

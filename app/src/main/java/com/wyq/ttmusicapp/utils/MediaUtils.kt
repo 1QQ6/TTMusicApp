@@ -14,7 +14,7 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
-import com.wyq.ttmusicapp.common.MyApplication
+import com.wyq.ttmusicapp.common.MusicApplication
 import java.io.*
 
 
@@ -209,7 +209,7 @@ object MediaUtils {
      * @param inSampleSize 图片像素的 1/n*n
      */
     fun createBlurredImageFromBitmap(bitmap: Bitmap, inSampleSize: Int): Drawable {
-        val rs = RenderScript.create(MyApplication.context)
+        val rs = RenderScript.create(MusicApplication.context)
         val options = BitmapFactory.Options()
         options.inSampleSize = inSampleSize
         val stream = ByteArrayOutputStream()
@@ -225,6 +225,6 @@ object MediaUtils {
         script.setInput(input)
         script.forEach(output)
         output.copyTo(blurTemplate)
-        return BitmapDrawable(MyApplication.context!!.resources, blurTemplate)
+        return BitmapDrawable(MusicApplication.context!!.resources, blurTemplate)
     }
 }

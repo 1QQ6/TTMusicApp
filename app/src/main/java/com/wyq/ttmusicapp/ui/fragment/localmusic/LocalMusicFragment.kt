@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adpter.SongRecyclerViewAdapter
+import com.wyq.ttmusicapp.adapter.SongRecyclerViewAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager

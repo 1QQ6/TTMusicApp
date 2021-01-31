@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.adpter
+package com.wyq.ttmusicapp.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +8,10 @@ import android.widget.SectionIndexer
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.common.MyApplication.Companion.context
+import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.local_music_item.view.*
 
 /**
@@ -40,7 +39,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        fun bind(musicInfoList:ArrayList<SongInfo>, dbManager:DatabaseManager, onItemClickListener:OnItemClickListener){
+        fun bind(musicInfoList:ArrayList<SongInfo>,  onItemClickListener:OnItemClickListener){
             val musicInfo = musicInfoList[adapterPosition]
 
             val musicId = PlayMusicManager.getMusicManager()?.nowPlayingSong?.music_id
@@ -102,7 +101,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.bind(musicInfoList,dbManager!!,onItemClickListener!!)
+        holder.bind(musicInfoList,onItemClickListener!!)
 
         val musicInfo = musicInfoList[position]
         val section = getSectionForPosition(position)

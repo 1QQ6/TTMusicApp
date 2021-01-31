@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adpter.LocalFragmentAdapter
+import com.wyq.ttmusicapp.adapter.LocalFragmentAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.ui.fragment.album.AlbumFragment
 import com.wyq.ttmusicapp.ui.fragment.localmusic.LocalMusicFragment

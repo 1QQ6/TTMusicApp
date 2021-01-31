@@ -9,7 +9,7 @@ import android.content.Context
  * 这里注意AndroidManifest的 android:name=".utils.MyApplication" 配置
  * 否则onCreate回调不会执行，造成context为空指针异常
  */
-class MyApplication: Application() {
+class MusicApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()

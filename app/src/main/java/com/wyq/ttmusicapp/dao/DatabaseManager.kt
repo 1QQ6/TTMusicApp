@@ -5,8 +5,10 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
+import com.wyq.ttmusicapp.entity.SingerInfo
 import com.wyq.ttmusicapp.entity.SongInfo
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Roman on 2021/1/11
@@ -338,6 +340,37 @@ class DatabaseManager(context: Context) {
             )
         }
         return songInfo
+    }
+
+    /**
+     * 按照歌手的专辑分组
+     * SELECT * FROM music_table WHERE music_singer = "?" GROUP BY music_album;
+     */
+    fun getSingerAlbumsCount(singerName: String): ArrayList<SongInfo> {
+        var musicInfoList = ArrayList<SongInfo>()
+        var cursor: Cursor? = null
+        val sql = "SELECT * FROM "+
+                DatabaseHelper.MUSIC_TABLE +
+                " WHERE "+
+                DatabaseHelper.MUSIC_SINGER_COLUMN +
+                " = ? " +
+                " GROUP BY " +
+                DatabaseHelper.MUSIC_ALBUM_COLUMN+";"
+        //开启一个事务
+        db.beginTransaction()
+
+        try {
+            cursor = db.rawQuery(sql, arrayOf(singerName))
+            musicInfoList = cursorToSongsList(cursor)
+
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.endTransaction()
+            cursor?.close()
+        }
+        return musicInfoList
     }
 
 }

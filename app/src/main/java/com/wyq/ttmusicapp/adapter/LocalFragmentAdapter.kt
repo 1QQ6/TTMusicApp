@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp.adpter
+package com.wyq.ttmusicapp.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

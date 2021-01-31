@@ -1,7 +1,6 @@
 package com.wyq.ttmusicapp.ui.scanmusic
 
 import android.content.Context
-import com.wyq.ttmusicapp.common.MyApplication.Companion.context
 
 /**
  * Created by Roman on 2021/1/20

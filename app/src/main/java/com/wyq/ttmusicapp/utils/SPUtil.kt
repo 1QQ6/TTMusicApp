@@ -1,10 +1,9 @@
 package com.wyq.ttmusicapp.utils
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.common.MyApplication
+import com.wyq.ttmusicapp.common.MusicApplication
 
 /**
  * Created by Roman on 2021/1/11
@@ -15,7 +14,7 @@ object SPUtil {
      */
     @Synchronized
     private fun getSP(): SharedPreferences {
-        return MyApplication.context!!.getSharedPreferences("music", MODE_PRIVATE)
+        return MusicApplication.context!!.getSharedPreferences("music", MODE_PRIVATE)
     }
 
     /**

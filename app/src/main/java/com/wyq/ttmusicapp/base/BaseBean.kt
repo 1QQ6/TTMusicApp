@@ -1,9 +1,7 @@
 package com.wyq.ttmusicapp.base
 
-import android.content.Context
-import com.wyq.ttmusicapp.common.MyApplication.Companion.context
+import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
 import com.wyq.ttmusicapp.utils.toast
-import org.jetbrains.anko.toast
 import java.io.Serializable
 
 /**

@@ -9,7 +9,7 @@ import android.os.Message
 import android.provider.MediaStore
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.FileNameFormat
-import com.wyq.ttmusicapp.common.MyApplication.Companion.context
+import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.utils.ChineseToEnglish

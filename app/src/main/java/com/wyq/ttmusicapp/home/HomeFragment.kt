@@ -1,7 +1,9 @@
-package com.wyq.ttmusicapp
+package com.wyq.ttmusicapp.home
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adpter.LocalFragmentAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.ui.fragment.AlbumFragment
@@ -37,12 +39,19 @@ class HomeFragment:BaseFragment() {
     }
 
     override fun initViews() {
+        setUpToolBar()
         initFragmentList()
     }
     private fun initFragmentList() {
         local_viewPager.adapter = fragmentAdapter
         local_viewPager.offscreenPageLimit = 2
         local_tab.setViewPager(local_viewPager,mTitlesArrays)
+    }
+
+    private fun setUpToolBar(){
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).setSupportActionBar(local_music_toolbar)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.local_music)
     }
 
     private fun initFragment() {

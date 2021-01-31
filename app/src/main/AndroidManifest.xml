@@ -48,7 +48,7 @@
             android:name=".ui.scanmusic.ScanActivity"
             android:screenOrientation="portrait" /> <!-- HomeActivity -->
         <activity
-            android:name=".HomeActivity"
+            android:name=".home.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" /> <!-- SplashActivity -->
         <activity

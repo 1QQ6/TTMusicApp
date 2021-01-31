@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp
+package com.wyq.ttmusicapp.home
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.ui.fragment.WorkFragment
 import com.wyq.ttmusicapp.ui.me.MeFragment
@@ -184,8 +185,6 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
     }
 
     override fun setupToolbar() {
-        setSupportActionBar(local_music_toolbar)
-        supportActionBar?.title = getString(R.string.local_music)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.local_music_menu,menu)

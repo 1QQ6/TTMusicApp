@@ -3,9 +3,9 @@ package com.wyq.ttmusicapp.login
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
+import com.wyq.ttmusicapp.home.HomeActivity
 import com.wyq.ttmusicapp.register.MusicRegisterActivity
 import com.wyq.ttmusicapp.utils.SPUtil
 import com.wyq.ttmusicapp.utils.toast

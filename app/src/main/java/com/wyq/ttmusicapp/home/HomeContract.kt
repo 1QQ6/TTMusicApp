@@ -1,4 +1,4 @@
-package com.wyq.ttmusicapp
+package com.wyq.ttmusicapp.home
 
 import com.wyq.ttmusicapp.base.BasePresenter
 import com.wyq.ttmusicapp.base.BaseView

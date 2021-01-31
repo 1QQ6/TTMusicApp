@@ -36,7 +36,7 @@ class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
 
     override fun initData() {
         musicInfoList.sortBy { it.musicFirstLetter }
-        initDefaultPlayModeView()
+        //initDefaultPlayModeView()
     }
 
     override fun initViews() {
@@ -45,21 +45,21 @@ class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
     }
 
     private fun setClickEvent() {
-        local_music_play_mode_rl.setOnClickListener {
+/*        local_music_play_mode_rl.setOnClickListener {
             setMusicMode()
-        }
+        }*/
     }
     /**
      * 初始化音乐模式UI
      */
-    private fun initDefaultPlayModeView() {
+/*    private fun initDefaultPlayModeView() {
         when (SPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
             Constant.PLAY_MODE_SEQUENCE -> local_music_play_mode_tv.text = getString(R.string.play_mode_sequence)
             Constant.PLAY_MODE_RANDOM -> local_music_play_mode_tv.text = getString(R.string.play_mode_random)
             Constant.PLAY_MODE_SINGLE_REPEAT -> local_music_play_mode_tv.text = getString(R.string.play_mode_repeat)
         }
         initPlayMode()
-    }
+    }*/
 
     /**
      * 初始化音乐模式
@@ -77,7 +77,7 @@ class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
      * 单曲
      * 顺序
      */
-    private fun setMusicMode() {
+   /* private fun setMusicMode() {
             when (SPUtil.getIntShared(Constant.KEY_PLAY_MODE)) {
                 Constant.PLAY_MODE_SEQUENCE -> {
                     local_music_play_mode_tv.text = getString(R.string.play_mode_random)
@@ -92,7 +92,7 @@ class LocalMusicFragment: BaseFragment(),LocalMusicContract.View {
                     SPUtil.setPlayMusicModeShared(Constant.PLAY_MODE_SEQUENCE)
                 }
             }
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()

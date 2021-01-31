@@ -1,10 +1,11 @@
-package com.wyq.ttmusicapp
+package com.wyq.ttmusicapp.home
 
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
+import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.core.MusicControllerService
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager

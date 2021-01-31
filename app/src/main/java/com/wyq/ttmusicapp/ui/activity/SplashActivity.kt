@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
+import com.wyq.ttmusicapp.home.HomeActivity
 import com.wyq.ttmusicapp.login.MusicLoginActivity
 import com.wyq.ttmusicapp.ui.scanmusic.MusicScanHelper
 import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener

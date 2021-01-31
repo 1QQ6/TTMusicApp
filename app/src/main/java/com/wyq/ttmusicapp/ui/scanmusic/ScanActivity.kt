@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.wyq.ttmusicapp.HomeActivity
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_scan.*
 
 

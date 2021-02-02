@@ -100,4 +100,10 @@ object Constant {
     const val REQUEST_BASE_URL:String = "http://47.111.233.78:8080/api/user/"
     const val IS_LOGIN:String = "is_login"
 
+    /**
+     *音乐列表分组标志
+     */
+    const val MUSIC_FROM_SINGER = "music_from_singer"
+    const val MUSIC_FROM_ALBUM = "music_from_album"
+
 }

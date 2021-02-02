@@ -19,7 +19,7 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
     init {
         view.setPresenter(this)
     }
-    override fun bindMusicController() {
+    override fun bindMusicService() {
         if (!isBinding){
             val connection = object :ServiceConnection{
 
@@ -39,7 +39,7 @@ class HomePresenter(val context: Context,view: HomeContract.View):HomeContract.P
         }
     }
 
-    override fun unbindMusicController() {
+    override fun unbindMusicService() {
         if (isBinding){
             val intent = Intent(context, MusicControllerService::class.java)
             context.stopService(intent)

@@ -4,9 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.SingerRecycleViewAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
+import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SingerInfo
+import com.wyq.ttmusicapp.ui.commonmusic.CommonMusicActivity
 import kotlinx.android.synthetic.main.fragment_singer.*
-import kotlinx.android.synthetic.main.fragment_song.*
 
 /**
  * Created by Roman on 2021/1/10
@@ -28,6 +29,7 @@ class SingerFragment: BaseFragment(),SingerContract.View {
     }
 
     override fun initViews() {
+
     }
 
     /**
@@ -46,7 +48,7 @@ class SingerFragment: BaseFragment(),SingerContract.View {
             }
 
             override fun onItemClick(position: Int) {
-
+                CommonMusicActivity.startActivity(context!!, singerInfoList!![position].singerName,Constant.MUSIC_FROM_SINGER)
             }
         })
     }

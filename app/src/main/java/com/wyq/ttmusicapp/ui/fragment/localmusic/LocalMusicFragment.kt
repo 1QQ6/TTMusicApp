@@ -1,6 +1,9 @@
 package com.wyq.ttmusicapp.ui.fragment.localmusic
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
@@ -23,6 +26,20 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     private var localMusicPresenter: LocalMusicContract.Presenter? = null
 
     private var dbManager:DatabaseManager? = null
+
+    private val receiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action){
+                Constant.PLAY_MUSIC_VIEW_UPDATE->{
+                    updateListView()
+                }
+                else->{
+
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dbManager = DatabaseManager.getInstance(context)
@@ -34,6 +51,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     override fun initData() {
+        initReceiver()
         musicInfoList.sortBy { it.musicFirstLetter }
         //initDefaultPlayModeView()
     }
@@ -41,6 +59,11 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     override fun initViews() {
         initMusicList()
         setClickEvent()
+    }
+    private fun initReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Constant.PLAY_MUSIC_VIEW_UPDATE)
+        context!!.registerReceiver(receiver,intentFilter)
     }
 
     private fun setClickEvent() {
@@ -125,13 +148,13 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                     return
                 }
                 PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)
-                songRecyclerViewAdapter?.notifyDataSetChanged()
+                updateListView()
             }
         })
     }
 
     override fun updateListView() {
-
+        songRecyclerViewAdapter?.notifyDataSetChanged()
     }
 
     override fun showBottomMenu() {
@@ -140,6 +163,11 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
 
     override fun setPresenter(presenter: LocalMusicContract.Presenter) {
         localMusicPresenter = presenter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        context!!.unregisterReceiver(receiver)
     }
 
 }

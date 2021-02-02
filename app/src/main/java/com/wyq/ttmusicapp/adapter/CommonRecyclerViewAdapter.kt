@@ -17,12 +17,15 @@ import kotlinx.android.synthetic.main.local_music_item.view.*
 /**
  * Created by Roman on 2021/1/12
  */
-class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
-    : RecyclerView.Adapter<SongRecyclerViewAdapter.ViewHolder>(), SectionIndexer{
+class CommonRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
+    : RecyclerView.Adapter<CommonRecyclerViewAdapter.ViewHolder>(), SectionIndexer{
 
-
+    private var dbManager: DatabaseManager? = null
     private var onItemClickListener: OnItemClickListener? = null
 
+    init {
+        dbManager = DatabaseManager.getInstance(context)
+    }
     /**
      * 点击事件监听回调
      */
@@ -144,7 +147,7 @@ class SongRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
     }
 
     companion object {
-        private val TAG = SongRecyclerViewAdapter::class.java.name
+        private val TAG = CommonRecyclerViewAdapter::class.java.name
     }
 
 }

@@ -14,12 +14,12 @@ interface HomeContract {
         /**
          * 绑定服务的接口
          */
-        fun bindMusicController()
+        fun bindMusicService()
 
         /**
          * 解绑服务的接口
          */
-        fun unbindMusicController()
+        fun unbindMusicService()
 
         /**
          * 加载上一个退出时的音乐

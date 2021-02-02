@@ -20,7 +20,7 @@ class SingerPresenter(val view:SingerContract.View):SingerContract.Presenter {
 
     }
 
-    override fun onClickLove(musicId: Long) {
+    override fun onItemClick(musicId: Long) {
 
     }
 

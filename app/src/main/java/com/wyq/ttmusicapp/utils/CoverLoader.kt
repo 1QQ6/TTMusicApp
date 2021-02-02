@@ -203,6 +203,24 @@ object CoverLoader {
                 })
     }
 
+    fun loadBitmap(mContext: Context?, url: String?,withoutUrlCoverImage:Int, callBack: ((Bitmap) -> Unit)?) {
+        if (mContext == null) return
+        GlideApp.with(mContext)
+            .asBitmap()
+            .load(url ?: withoutUrlCoverImage)
+            .error(withoutUrlCoverImage)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into<CustomTarget<Bitmap>>(object : CustomTarget<Bitmap>() {
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    callBack?.invoke(resource)
+                }
+            })
+    }
+
 /**
      * 返回Drawable
      *

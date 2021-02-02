@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.singer_music_item.view.*
 /**
  * Created by Roman on 2021/1/31
  */
-class SingerRecycleViewAdapter(private val singerInfoList:ArrayList<SingerInfo>):
+class SingerRecycleViewAdapter(private val singerInfoList:List<SingerInfo>):
     RecyclerView.Adapter<SingerRecycleViewAdapter.ViewHolder>() {
 
     private var onItemClickListener: OnItemClickListener? = null
@@ -29,7 +29,7 @@ class SingerRecycleViewAdapter(private val singerInfoList:ArrayList<SingerInfo>)
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        fun bind(singerInfoList:ArrayList<SingerInfo>, onItemClickListener: OnItemClickListener){
+        fun bind(singerInfoList:List<SingerInfo>, onItemClickListener: OnItemClickListener){
             val singerInfo = singerInfoList[adapterPosition]
             with(itemView){
 

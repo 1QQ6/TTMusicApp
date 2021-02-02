@@ -57,7 +57,6 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
                     if (recentMusicProgress!=0){
                         home_seek_bar?.max = musicInfo?.musicDuration!!
                         home_seek_bar?.progress = recentMusicProgress
-                        PlayMusicManager.getMusicManager()!!.seekTo(recentMusicProgress)
                     }
                     updateMusicBarUI(musicInfo!!,isPlayMusic)
                 }

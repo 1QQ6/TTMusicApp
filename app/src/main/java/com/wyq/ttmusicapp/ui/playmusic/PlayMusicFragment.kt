@@ -24,6 +24,12 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
     private lateinit var presenter: PlayMusicContract.Presenter
     private var playMusicManager: PlayMusicManager? = null
     private var intentFilter: IntentFilter? = null
+
+    /**
+     * 是否正在拖动进度条
+     * true：拖动
+     * false：停止拖动
+     */
     private var mProgressBarLock: Boolean = false
 
     private val receiver = object : BroadcastReceiver() {
@@ -85,7 +91,6 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
             play_page_progressbar?.max = PlayMusicManager.getMusicManager()!!.nowPlayingSong!!.musicDuration!!
             play_page_progressbar?.progress = recentMusicProgress
             playpage_playtime_tv!!.text = TimeUtil.mill2mmss(recentMusicProgress.toLong())
-            PlayMusicManager.getMusicManager()!!.seekTo(recentMusicProgress)
         }
         updateSongInfoView()
         setImageAnimation(isPlaying)

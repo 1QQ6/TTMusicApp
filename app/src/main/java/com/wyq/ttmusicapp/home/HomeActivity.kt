@@ -174,7 +174,7 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
 
     override fun initData() {
         HomePresenter(this,this)
-        mPresenter!!.bindMusicController()
+        mPresenter!!.bindMusicService()
     }
 
     override fun initViews() {
@@ -201,7 +201,7 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter!!.unbindMusicController()
+        mPresenter!!.unbindMusicService()
     }
 
     override fun setPresenter(presenter: HomeContract.Presenter) {

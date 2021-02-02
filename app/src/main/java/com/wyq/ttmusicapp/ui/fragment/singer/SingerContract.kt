@@ -17,6 +17,6 @@ interface SingerContract {
 
     interface Presenter:BasePresenter{
         fun onClickMenu(musicId:Long)
-        fun onClickLove(musicId:Long)
+        fun onItemClick(musicId:Long)
     }
 }

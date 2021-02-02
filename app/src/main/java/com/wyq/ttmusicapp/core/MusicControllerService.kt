@@ -221,6 +221,10 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
             //mNoticationManager.notify(NT_PLAYBAR_ID, mNotification)
             Log.e(TAG, "isPlaying:"+mediaPlayer!!.isPlaying.toString())
             Log.e(TAG, "isPlaying:mIsPrepared:$mIsPrepared")
+            val recentMusicProgress = SPUtil.getRecentMusicProgress()
+            if (recentMusicProgress!=0){
+                seekTo(recentMusicProgress)
+            }
             if (!mediaPlayer!!.isPlaying) {
                 isPlayCurrentMusic = true
                 mediaPlayer!!.start()

@@ -1,12 +1,9 @@
 package com.wyq.ttmusicapp.utils
 
-import android.os.Build
-import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.MusicApplication
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SingerInfo
 import com.wyq.ttmusicapp.entity.SongInfo
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -39,44 +36,28 @@ object PlayMusicHelper {
                 singerInfoList.add(SingerInfo(singerName,values.size, albumsCount.size))
             }
         }
+        singerInfoList.sortBy { it.singerName }
         return singerInfoList
     }
 
     /**
-     * 获取当前音乐列表数据
+     * 通过歌手获取歌单
      */
-    private fun getCurrentPlayList(): List<SongInfo> {
-        //获取列表类型
-        val playListMode: Int = SPUtil.getIntShared(Constant.KEY_LIST)
-        var musicInfoList: List<SongInfo> = ArrayList<SongInfo>()
-        when (playListMode) {
-            Constant.LIST_ALL_MUSIC -> {
-                musicInfoList = dbManager!!.getAllMusicFromMusicTable()
-                return musicInfoList
-            }
-            Constant.LIST_MY_LOVE -> {
+    fun getMusicListBySinger(commonInfo: String): ArrayList<SongInfo> {
+        val allMusic = dbManager!!.getAllMusicFromMusicTable()
+        val songsList = allMusic.filter { it.musicSinger == commonInfo } as ArrayList<SongInfo>
+        songsList.sortByDescending { it.musicName }
+        return songsList
+    }
 
-            }
-            Constant.LIST_LAST_PLAY -> {
-
-            }
-            Constant.LIST_MY_PLAY -> {
-
-            }
-            Constant.LIST_PLAY_LIST -> {
-
-            }
-            Constant.LIST_SINGER -> {
-
-            }
-            Constant.LIST_ALBUM -> {
-
-            }
-            Constant.LIST_FOLDER -> {
-
-            }
-        }
-        return musicInfoList
+    /**
+     * 通过专辑id获取歌单
+     */
+    fun getMusicListByAlbum(commonInfo: String): ArrayList<SongInfo> {
+        val allMusic = dbManager!!.getAllMusicFromMusicTable()
+        val songsList = allMusic.filter { it.musicAlbumId!!.toString() == commonInfo } as ArrayList<SongInfo>
+        songsList.sortByDescending { it.musicName }
+        return songsList
     }
 }
 

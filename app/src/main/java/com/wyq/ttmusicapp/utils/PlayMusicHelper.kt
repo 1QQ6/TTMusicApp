@@ -2,6 +2,7 @@ package com.wyq.ttmusicapp.utils
 
 import com.wyq.ttmusicapp.common.MusicApplication
 import com.wyq.ttmusicapp.dao.DatabaseManager
+import com.wyq.ttmusicapp.entity.AlbumInfo
 import com.wyq.ttmusicapp.entity.SingerInfo
 import com.wyq.ttmusicapp.entity.SongInfo
 import kotlin.collections.ArrayList
@@ -38,6 +39,23 @@ object PlayMusicHelper {
         }
         singerInfoList.sortBy { it.singerName }
         return singerInfoList
+    }
+
+    /**
+     * 按照专辑分组
+     */
+    fun getGroupByAlbumsInfo(): ArrayList<AlbumInfo> {
+        var albumInfoList = ArrayList<AlbumInfo>()
+        val allMusic = dbManager!!.getAllMusicFromMusicTable()
+        val albumMap = allMusic.groupBy { it.musicAlbumId }
+        albumMap.forEach {(albumId,songList)->
+            albumInfoList.add(AlbumInfo(albumId!!,
+                songList[0].musicAlbum.toString(),
+                songList[0].coverUrl,
+                songList[0].musicSinger.toString(),
+                songList.size))
+        }
+        return albumInfoList
     }
 
     /**

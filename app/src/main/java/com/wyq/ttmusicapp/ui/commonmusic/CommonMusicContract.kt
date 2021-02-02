@@ -1,6 +1,5 @@
 package com.wyq.ttmusicapp.ui.commonmusic
 
-import com.wyq.ttmusicapp.adapter.SingerRecycleViewAdapter
 import com.wyq.ttmusicapp.base.BasePresenter
 import com.wyq.ttmusicapp.base.BaseView
 import com.wyq.ttmusicapp.entity.SongInfo

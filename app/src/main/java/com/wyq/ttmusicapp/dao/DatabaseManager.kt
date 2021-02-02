@@ -343,7 +343,7 @@ class DatabaseManager(context: Context) {
     }
 
     /**
-     * 按照歌手的专辑分组
+     * 按照专辑分组
      * SELECT * FROM music_table WHERE music_singer = "?" GROUP BY music_album;
      */
     fun getSingerAlbumsCount(singerName: String): ArrayList<SongInfo> {

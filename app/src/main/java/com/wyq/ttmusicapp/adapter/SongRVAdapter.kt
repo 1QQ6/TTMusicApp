@@ -10,22 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
 import com.wyq.ttmusicapp.core.PlayMusicManager
-import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
-import kotlinx.android.synthetic.main.local_music_item.view.*
+import kotlinx.android.synthetic.main.item_local_music.view.*
 
 /**
  * Created by Roman on 2021/1/12
  */
-class CommonRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
-    : RecyclerView.Adapter<CommonRecyclerViewAdapter.ViewHolder>(), SectionIndexer{
+class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
+    : RecyclerView.Adapter<SongRVAdapter.ViewHolder>(), SectionIndexer{
 
-    private var dbManager: DatabaseManager? = null
+
     private var onItemClickListener: OnItemClickListener? = null
 
-    init {
-        dbManager = DatabaseManager.getInstance(context)
-    }
     /**
      * 点击事件监听回调
      */
@@ -92,7 +88,7 @@ class CommonRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.local_music_item, parent, false))
+            LayoutInflater.from(context).inflate(R.layout.item_local_music, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -147,7 +143,7 @@ class CommonRecyclerViewAdapter(private val musicInfoList:ArrayList<SongInfo>)
     }
 
     companion object {
-        private val TAG = CommonRecyclerViewAdapter::class.java.name
+        private val TAG = SongRVAdapter::class.java.name
     }
 
 }

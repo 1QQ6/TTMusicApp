@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.xubo.statusbarutils.StatusBarUtils
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adapter.CommonRecyclerViewAdapter
+import com.wyq.ttmusicapp.adapter.CommonRVAdapter
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_common.*
 class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
 
     private var presenter:CommonMusicContract.Presenter? = null
-    var songRecyclerViewAdapter: CommonRecyclerViewAdapter? = null
+    var songRVAdapter: CommonRVAdapter? = null
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
     private var commonInfo:String? = null
     private var from:String? = null
@@ -93,13 +93,13 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
     }
 
     private fun initMusicList() {
-        songRecyclerViewAdapter = CommonRecyclerViewAdapter(musicInfoList)
+        songRVAdapter = CommonRVAdapter(musicInfoList)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         common_music_rv.layoutManager = linearLayoutManager
-        common_music_rv.adapter = songRecyclerViewAdapter
+        common_music_rv.adapter = songRVAdapter
 
-        songRecyclerViewAdapter!!.setOnItemClickListener(object :CommonRecyclerViewAdapter.OnItemClickListener{
+        songRVAdapter!!.setOnItemClickListener(object :CommonRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
 
             }
@@ -124,7 +124,7 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
         StatusBarUtils.setStatusBarTransparenLight(this)
     }
     fun updateListView(){
-        songRecyclerViewAdapter?.notifyDataSetChanged()
+        songRVAdapter?.notifyDataSetChanged()
     }
     override fun initListView(musicInfoList:ArrayList<SongInfo>) {
         this.musicInfoList = musicInfoList

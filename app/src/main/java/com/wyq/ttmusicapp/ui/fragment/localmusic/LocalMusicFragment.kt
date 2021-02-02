@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adapter.SongRecyclerViewAdapter
+import com.wyq.ttmusicapp.adapter.SongRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_song.*
  * Created by Roman on 2021/1/10
  */
 class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
-    var songRecyclerViewAdapter:SongRecyclerViewAdapter? = null
+    var songRVAdapter:SongRVAdapter? = null
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
     private var localMusicPresenter: LocalMusicContract.Presenter? = null
 
@@ -128,13 +128,13 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
 
 
     private fun initMusicList() {
-        songRecyclerViewAdapter = SongRecyclerViewAdapter(musicInfoList)
+        songRVAdapter = SongRVAdapter(musicInfoList)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         local_recycler_view.layoutManager = linearLayoutManager
-        local_recycler_view.adapter = songRecyclerViewAdapter
+        local_recycler_view.adapter = songRVAdapter
 
-        songRecyclerViewAdapter!!.setOnItemClickListener(object :SongRecyclerViewAdapter.OnItemClickListener{
+        songRVAdapter!!.setOnItemClickListener(object :SongRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
 
             }
@@ -154,7 +154,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     override fun updateListView() {
-        songRecyclerViewAdapter?.notifyDataSetChanged()
+        songRVAdapter?.notifyDataSetChanged()
     }
 
     override fun showBottomMenu() {

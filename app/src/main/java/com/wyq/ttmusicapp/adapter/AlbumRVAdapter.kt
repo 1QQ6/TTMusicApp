@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.MusicApplication
-import com.wyq.ttmusicapp.entity.SingerInfo
-import kotlinx.android.synthetic.main.singer_music_item.view.*
+import com.wyq.ttmusicapp.entity.AlbumInfo
+import com.wyq.ttmusicapp.utils.CoverLoader
+import kotlinx.android.synthetic.main.item_album_music.view.*
 
 /**
  * Created by Roman on 2021/1/31
  */
-class SingerRecycleViewAdapter(private val singerInfoList:List<SingerInfo>):
-    RecyclerView.Adapter<SingerRecycleViewAdapter.ViewHolder>() {
+class AlbumRVAdapter(private val albumInfoList:List<AlbumInfo>):
+    RecyclerView.Adapter<AlbumRVAdapter.ViewHolder>() {
 
     private var onItemClickListener: OnItemClickListener? = null
     /**
@@ -29,20 +30,21 @@ class SingerRecycleViewAdapter(private val singerInfoList:List<SingerInfo>):
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        fun bind(singerInfoList:List<SingerInfo>, onItemClickListener: OnItemClickListener){
-            val singerInfo = singerInfoList[adapterPosition]
+        fun bind(albumInfoList:List<AlbumInfo>, onItemClickListener: OnItemClickListener){
+            val albumInfo = albumInfoList[adapterPosition]
             with(itemView){
 
-                singer_item_name.text = singerInfo.singerName
-                singer_music_singer.text = context.getString(R.string.singer_count_album_count,singerInfo.albumCount.toString(),singerInfo.songsCount.toString())
-                singer_item_iv.setBackgroundResource(R.drawable.ic_ktv)
-
+                album_item_name.text = albumInfo.albumName
+                album_music_singer.text = albumInfo.singer
+                CoverLoader.loadBitmap(context,albumInfo.albumUrl,R.drawable.default_cover){
+                    album_music_iv.setImageBitmap(it)
+                }
                 //item点击
-                singer_music_item.setOnClickListener {
+                album_root_view.setOnClickListener {
                     onItemClickListener.onItemClick(adapterPosition)
                 }
                 //菜单栏点击
-                singer_music_item_menu.setOnClickListener {
+                album_music_item_menu.setOnClickListener {
                     onItemClickListener.onOpenMenuClick(adapterPosition)
                 }
             }
@@ -51,15 +53,15 @@ class SingerRecycleViewAdapter(private val singerInfoList:List<SingerInfo>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(MusicApplication.context)
-                .inflate(R.layout.singer_music_item, parent, false)
+                .inflate(R.layout.item_album_music, parent, false)
         )
     }
 
     override fun getItemCount(): Int {
-        return singerInfoList.size
+        return albumInfoList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(singerInfoList,onItemClickListener!!)
+        holder.bind(albumInfoList,onItemClickListener!!)
     }
 }

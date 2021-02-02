@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adapter.LocalFragmentAdapter
+import com.wyq.ttmusicapp.adapter.LocalRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.ui.fragment.album.AlbumFragment
 import com.wyq.ttmusicapp.ui.fragment.localmusic.LocalMusicFragment
@@ -21,7 +21,7 @@ class HomeFragment:BaseFragment() {
     private var albumFragment: AlbumFragment? = null
     private val mTitlesArrays =
         arrayOf("单曲", "歌手", "专辑")
-    private var fragmentAdapter: LocalFragmentAdapter?=null
+    private var RVAdapter: LocalRVAdapter?=null
 
     override fun getLayout(): Int {
         return R.layout.fragment_home
@@ -29,7 +29,7 @@ class HomeFragment:BaseFragment() {
 
     override fun initData() {
        initFragment()
-        fragmentAdapter = LocalFragmentAdapter(
+        RVAdapter = LocalRVAdapter(
             activity!!.supportFragmentManager,
             FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
             mTitlesArrays, fragmentList
@@ -41,7 +41,7 @@ class HomeFragment:BaseFragment() {
         initFragmentList()
     }
     private fun initFragmentList() {
-        local_viewPager.adapter = fragmentAdapter
+        local_viewPager.adapter = RVAdapter
         local_viewPager.offscreenPageLimit = 2
         local_tab.setViewPager(local_viewPager,mTitlesArrays)
     }

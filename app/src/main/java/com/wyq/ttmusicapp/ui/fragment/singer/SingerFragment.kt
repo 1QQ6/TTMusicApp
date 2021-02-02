@@ -2,7 +2,7 @@ package com.wyq.ttmusicapp.ui.fragment.singer
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
-import com.wyq.ttmusicapp.adapter.SingerRecycleViewAdapter
+import com.wyq.ttmusicapp.adapter.SingerRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SingerInfo
@@ -17,7 +17,7 @@ class SingerFragment: BaseFragment(),SingerContract.View {
     private var presenter:SingerContract.Presenter? = null
 
     private var singerInfoList:ArrayList<SingerInfo>? = null
-    private var singerAdapter:SingerRecycleViewAdapter? = null
+    private var singerAdapter:SingerRVAdapter? = null
 
     override fun getLayout(): Int {
         return R.layout.fragment_singer
@@ -36,13 +36,13 @@ class SingerFragment: BaseFragment(),SingerContract.View {
      * 初始化列表
      */
     private fun initRecycleView() {
-        singerAdapter = SingerRecycleViewAdapter(singerInfoList!!)
+        singerAdapter = SingerRVAdapter(singerInfoList!!)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         singer_recycler_view.layoutManager = linearLayoutManager
         singer_recycler_view.adapter = singerAdapter
 
-        singerAdapter?.setOnItemClickListener(object :SingerRecycleViewAdapter.OnItemClickListener{
+        singerAdapter?.setOnItemClickListener(object :SingerRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
 
             }

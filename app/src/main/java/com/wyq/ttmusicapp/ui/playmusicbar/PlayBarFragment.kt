@@ -83,8 +83,7 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
         })
         //点击整个bar进入音乐详情页
         root_player_bar_view.setOnClickListener {
-            val intent = Intent(activity, PlayMusicActivity::class.java)
-            startActivity(intent)
+            PlayMusicActivity.startActivity(context!!)
         }
 
         //点击start或pause

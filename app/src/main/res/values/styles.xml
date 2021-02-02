@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="@style/BaseTheme">
 
     </style>
@@ -49,5 +49,27 @@
         <item name="android:textColor">@color/primary_text_white</item>
         <item name="android:singleLine">true</item>
     </style>
+
+    <style name="TopDownAnim" parent="BaseTheme">
+        <!-- 去除Activity顶部黑线 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 系统状态栏背景设置透明 -->
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">
+            @android:color/transparent
+        </item>
+        <!-- Activity背景 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivityTopDown</item>
+    </style>
+
+    <style name="AnimationActivityTopDown" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_down</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_down</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_up</item>
+    </style>
+
+
 
 </resources>

@@ -24,7 +24,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.playmusic.PlayMusicActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/TopDownAnim"
+            />
 
         <!-- 如果被设置的进程名是以一个冒号(:)开头的，则这个新的进程对于这个应用来说是私有的 -->
         <service

@@ -108,8 +108,7 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
                 val nowPlayingIndex = PlayMusicManager.getMusicManager()!!.nowPlayingIndex
                 //如果当前点击的歌曲正在播放并且和当前播放的index相等，那么跳转到播放主页
                 if(isPlaying && nowPlayingIndex == position){
-                    val intent = Intent(this@CommonMusicActivity, PlayMusicActivity::class.java)
-                    startActivity(intent)
+                    PlayMusicActivity.startActivity(this@CommonMusicActivity)
                     return
                 }
                 PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)

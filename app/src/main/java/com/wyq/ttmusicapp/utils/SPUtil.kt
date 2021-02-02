@@ -88,8 +88,11 @@ object SPUtil {
         getSP().edit().putBoolean(Constant.IS_LOGIN,currentProgress).apply()
     }
 
+    /**
+     * 服务器暂时关闭，splash页面登录功能暂不检查，这里设置为true
+     */
     @Synchronized
     fun isLogin():Boolean{
-        return getSP().getBoolean(Constant.IS_LOGIN, false)
+        return getSP().getBoolean(Constant.IS_LOGIN, true)
     }
 }

@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.item_refresh_header.view.*
 
 /**
  * Created by Roman on 2021/2/3
+ *
+ * 下拉刷新的头部自定义view
  */
 class ArrowRefreshHeader: LinearLayout,IRefreshHeader {
     private var TAG = "ArrowRefreshHeaderHeight"
@@ -154,8 +156,8 @@ class ArrowRefreshHeader: LinearLayout,IRefreshHeader {
 
             override fun onAnimationEnd(animation: Animator?) {
                 if (mState != Constant.STATE_REFRESHING){
-                    /*ivHeaderArrow.visibility = View.VISIBLE
-                    refreshProgress.visibility = View.INVISIBLE*/
+                    ivHeaderArrow.visibility = View.VISIBLE
+                    refreshProgress.visibility = View.INVISIBLE
                     tvRefreshStatus.text = "下拉刷新"
                 }
             }

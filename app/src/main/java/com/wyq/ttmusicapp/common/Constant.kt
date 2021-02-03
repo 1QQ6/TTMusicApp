@@ -106,4 +106,35 @@ object Constant {
     const val MUSIC_FROM_SINGER = "music_from_singer"
     const val MUSIC_FROM_ALBUM = "music_from_album"
 
+    /**
+     * recycleView相关的
+     *
+     * 头部 item type 标志
+     */
+    const val TYPE_REFRESH_HEADER = 100000
+
+    /**
+     * list item 正常type 标志
+     */
+    const val TYPE_NORMAL = 10001
+    /**
+     * 正常状态
+     */
+    const val STATE_NORMAL = 0
+
+    /**
+     * 下拉的状态
+     */
+    const val STATE_RELEASE_TO_REFRESH = 1
+
+    /**
+     * 正在刷新的状态
+     */
+    const val STATE_REFRESHING = 2
+
+    /**
+     * 刷新完成的状态
+     */
+    const val STATE_DONE = 3
+
 }

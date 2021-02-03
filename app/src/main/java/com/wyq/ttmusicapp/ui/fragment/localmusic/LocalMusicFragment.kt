@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.SongRVAdapter
@@ -13,6 +16,7 @@ import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.interfaces.IRefreshListener
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
@@ -22,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_song.*
  */
 class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     var songRVAdapter:SongRVAdapter? = null
+    val FINISH = 123
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
     private var localMusicPresenter: LocalMusicContract.Presenter? = null
 
@@ -123,7 +128,9 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     private fun updateView() {
-        musicInfoList = dbManager!!.getAllMusicFromMusicTable()
+        musicInfoList.clear()
+        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
+        musicInfoList.addAll(dbManager!!.getAllMusicFromMusicTable())
     }
 
 
@@ -133,6 +140,12 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         local_recycler_view.layoutManager = linearLayoutManager
         local_recycler_view.adapter = songRVAdapter
+        local_recycler_view.setOnRefreshListener(object :IRefreshListener{
+            override fun onRefresh() {
+                requestData()
+            }
+        })
+
 
         songRVAdapter!!.setOnItemClickListener(object :SongRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
@@ -150,6 +163,29 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                 updateListView()
             }
         })
+    }
+
+    private fun requestData() {
+        Thread(Runnable {
+            try {
+                Thread.sleep(1500)
+                val message = Message.obtain()
+                message.what = FINISH
+                sHandler.sendMessage(message)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }).start()
+    }
+
+    private val sHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if (msg.what == FINISH) {
+                Toast.makeText(context, "刷新完成！", Toast.LENGTH_SHORT).show()
+                local_recycler_view.refreshComplete()
+            }
+        }
     }
 
     override fun updateListView() {

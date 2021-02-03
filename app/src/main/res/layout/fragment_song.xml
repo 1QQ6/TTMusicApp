@@ -27,7 +27,7 @@
             android:textSize="15sp"
             android:text="顺序播放"/>
     </RelativeLayout>-->
-    <androidx.recyclerview.widget.RecyclerView
+    <com.wyq.ttmusicapp.ui.view.RefreshHeaderRecyclerView
         android:id="@+id/local_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

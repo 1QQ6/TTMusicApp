@@ -85,4 +85,5 @@
     <color name="lightgray">#D3D3D3</color>
     <color name="default_cover_bg">#3b3b3b</color>
     <color name="recycle_bg">#CCCD3072</color>
+    <color name="window_background">#0D2639</color>
 </resources>

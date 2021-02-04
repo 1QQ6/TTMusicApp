@@ -24,6 +24,10 @@ object PlayMusicHelper {
         return dbManager!!.getSongInfo(musicId)
     }
 
+    fun getAllMusic(): ArrayList<SongInfo> {
+        return dbManager!!.getAllMusicFromMusicTable()
+    }
+
     /**
      * 按照歌手分组
      */

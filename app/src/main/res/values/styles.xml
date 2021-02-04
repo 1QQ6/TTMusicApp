@@ -4,14 +4,6 @@
 
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/no_color</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -68,6 +60,14 @@
         <item name="android:activityOpenExitAnimation">@anim/slide_out_down</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_up</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_up</item>
+    </style>
+
+    <style name= "SplashTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
 

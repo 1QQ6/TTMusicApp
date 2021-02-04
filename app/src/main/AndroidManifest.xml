@@ -65,6 +65,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--      华为刘海屏区域使用       -->
+            <meta-data android:name="android.notch_support" android:value="true"/>
         </activity>
     </application>
 

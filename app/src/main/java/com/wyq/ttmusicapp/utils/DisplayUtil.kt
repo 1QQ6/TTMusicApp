@@ -1,6 +1,9 @@
 package com.wyq.ttmusicapp.utils
 
+import android.app.Activity
 import android.content.Context
+import android.os.Build
+import android.view.WindowManager
 
 /**
  * @author Jayce
@@ -53,5 +56,42 @@ object DisplayUtil {
     fun sp2px(context: Context, spValue: Float): Int {
         val fontScale = context.resources.displayMetrics.scaledDensity
         return (spValue * fontScale + 0.5f).toInt()
+    }
+
+    /**
+     * 兼容9.0刘海屏
+     *
+     * @param mActivity mActivity
+     */
+    fun openFullScreenModel(mActivity: Activity) {
+        try {
+            if (Build.VERSION.SDK_INT >= 28) {
+                val lp = mActivity.window.attributes
+                lp.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+                mActivity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                mActivity.window.attributes = lp
+            }
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun showStatusBar(activity: Activity, show: Boolean) {
+        try {
+            if (show) {
+                val attr = activity.window.attributes
+                attr.flags = attr.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+                activity.window.attributes = attr
+                //                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            } else {
+                val lp = activity.window.attributes
+                lp.flags = lp.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN
+                activity.window.attributes = lp
+                //                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

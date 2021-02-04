@@ -7,14 +7,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.home.HomeActivity
 import com.wyq.ttmusicapp.login.MusicLoginActivity
 import com.wyq.ttmusicapp.ui.scanmusic.MusicScanHelper
 import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener
+import com.wyq.ttmusicapp.utils.DisplayUtil
 import com.wyq.ttmusicapp.utils.SPUtil
 import java.util.*
+
 
 class SplashActivity : BaseActivity() {
     private val PERMISSION_REQUEST_CODE = 1
@@ -26,7 +27,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun getLayout(): Int {
-       return R.layout.activity_splash
+       return 0
     }
 
     override fun initData() {
@@ -49,6 +50,8 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun initViews() {
+       DisplayUtil.openFullScreenModel(this)
+       DisplayUtil.showStatusBar(this,false)
     }
 
     override fun setupToolbar() {

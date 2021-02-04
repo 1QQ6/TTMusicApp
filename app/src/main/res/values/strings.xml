@@ -44,4 +44,5 @@
     <string name="play_music_error">歌曲播放失败</string>
     <string name="singer_count_album_count">%s 张专辑 | %s 首歌曲</string>
     <string name="pullRefresh">下拉刷新</string>
+    <string name="app_splash_name">天天音乐</string>
 </resources>

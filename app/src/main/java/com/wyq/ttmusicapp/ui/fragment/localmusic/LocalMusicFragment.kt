@@ -28,7 +28,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     var songRVAdapter:SongRVAdapter? = null
     val FINISH = 123
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
-    private var localMusicPresenter: LocalMusicContract.Presenter? = null
+    private var presenter: LocalMusicContract.Presenter? = null
 
     private var dbManager:DatabaseManager? = null
 
@@ -36,7 +36,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         override fun onReceive(context: Context?, intent: Intent?) {
             when(intent?.action){
                 Constant.PLAY_MUSIC_VIEW_UPDATE->{
-                    updateListView()
+                    songRVAdapter?.notifyDataSetChanged()
                 }
                 else->{
 
@@ -56,6 +56,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     override fun initData() {
+        LocalMusicPresenter(this)
         initReceiver()
         musicInfoList.sortBy { it.musicFirstLetter }
         //initDefaultPlayModeView()
@@ -142,7 +143,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         local_recycler_view.adapter = songRVAdapter
         local_recycler_view.setOnRefreshListener(object :IRefreshListener{
             override fun onRefresh() {
-                requestData()
+                presenter?.requestData()
             }
         })
 
@@ -160,36 +161,17 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                     return
                 }
                 PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)
-                updateListView()
+                songRVAdapter?.notifyDataSetChanged()
             }
         })
     }
 
-    private fun requestData() {
-        Thread(Runnable {
-            try {
-                Thread.sleep(1500)
-                val message = Message.obtain()
-                message.what = FINISH
-                sHandler.sendMessage(message)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }).start()
-    }
-
-    private val sHandler: Handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            if (msg.what == FINISH) {
-                Toast.makeText(context, "刷新完成！", Toast.LENGTH_SHORT).show()
-                local_recycler_view.refreshComplete()
-            }
-        }
-    }
-
-    override fun updateListView() {
-        songRVAdapter?.notifyDataSetChanged()
+    override fun updateListView(musicList: ArrayList<SongInfo>) {
+        musicInfoList.clear()
+        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
+        musicInfoList.addAll(musicList)
+        initMusicList()
+        local_recycler_view.refreshComplete()
     }
 
     override fun showBottomMenu() {
@@ -197,7 +179,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     override fun setPresenter(presenter: LocalMusicContract.Presenter) {
-        localMusicPresenter = presenter
+        this.presenter = presenter
     }
 
     override fun onDestroy() {

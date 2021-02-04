@@ -15,7 +15,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/album_music_iv"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="110dp"
                 android:src="@drawable/default_cover"
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"

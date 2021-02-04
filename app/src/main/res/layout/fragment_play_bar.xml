@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <SeekBar
         android:id="@+id/home_seek_bar"
@@ -51,7 +52,9 @@
             android:gravity="bottom"
             android:maxLines="1"
             android:text="歌名aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            />
 
         <TextView
             android:id="@+id/home_singer_name_tv"
@@ -61,7 +64,7 @@
             android:gravity="top"
             android:maxLines="1"
             android:text="歌手名"
-            android:textColor="@color/grey500"
+            android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>
 

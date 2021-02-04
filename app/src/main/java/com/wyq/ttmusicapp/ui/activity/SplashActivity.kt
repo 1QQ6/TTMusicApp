@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.home.HomeActivity
 import com.wyq.ttmusicapp.login.MusicLoginActivity
@@ -82,7 +83,7 @@ class SplashActivity : BaseActivity() {
                 startMusicActivity()
             }
         }
-        timer.schedule(task, 3000)
+        timer.schedule(task, 2000)
     }
 
     private fun startMusicActivity() {

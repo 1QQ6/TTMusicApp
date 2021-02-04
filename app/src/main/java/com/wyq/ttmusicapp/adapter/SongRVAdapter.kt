@@ -50,12 +50,13 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
                     initTheme()
                     //设置当前正在播放的itemView
                     if (musicInfo.music_id == musicId) {
-                        local_item_name.setTextColor(ContextCompat.getColor(context,R.color.colorPrimaryDark))
-
+                        local_item_name.setTextColor(ContextCompat.getColor(context,R.color.colorAccent))
+                        local_music_singer.setTextColor(ContextCompat.getColor(context,R.color.colorAccent))
                         local_item_iv.visibility = View.VISIBLE
                         local_item_index.visibility = View.INVISIBLE
                     }else{
-                        local_item_name.setTextColor(ContextCompat.getColor(context,R.color.black))
+                        local_item_name.setTextColor(ContextCompat.getColor(context,R.color.white))
+                        local_music_singer.setTextColor(ContextCompat.getColor(context,R.color.white))
                         local_item_iv.visibility = View.INVISIBLE
                         local_item_index.visibility = View.VISIBLE
                     }

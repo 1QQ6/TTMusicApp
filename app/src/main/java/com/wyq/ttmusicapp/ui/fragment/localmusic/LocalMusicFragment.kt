@@ -5,9 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.SongRVAdapter

@@ -9,7 +9,7 @@
     <item android:id="@android:id/progress">
         <scale android:scaleGravity="left" android:scaleWidth="100%" >
             <shape>
-                <solid android:color="@color/colorPrimary" />
+                <solid android:color="@color/colorAccent" />
             </shape>
         </scale>
     </item>

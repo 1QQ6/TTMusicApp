@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.KeyEvent
+import android.view.WindowManager
 import com.github.xubo.statusbarutils.StatusBarUtils
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
@@ -28,6 +29,17 @@ class PlayMusicActivity : BaseActivity() {
 
     override fun initViews() {
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //保持屏幕长亮
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    override fun onPause() {
+        super.onPause()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

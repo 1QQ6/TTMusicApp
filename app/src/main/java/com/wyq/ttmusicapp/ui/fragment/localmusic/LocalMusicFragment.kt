@@ -5,7 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.SongRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
@@ -14,9 +18,11 @@ import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.interfaces.IRefreshListener
+import com.wyq.ttmusicapp.ui.commonmusic.CommonMusicActivity
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
+
 
 /**
  * Created by Roman on 2021/1/10
@@ -147,7 +153,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
 
         songRVAdapter!!.setOnItemClickListener(object :SongRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
-
+                openMenu(position)
             }
             override fun onItemClick(position: Int) {
                 val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
@@ -161,6 +167,60 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                 songRVAdapter?.notifyDataSetChanged()
             }
         })
+    }
+    private fun openMenu(position: Int) {
+        val songInfo = musicInfoList[position]
+        val dialog = BottomSheetDialog(context!!,R.style.BottomSheetDialog)
+        val view: View = layoutInflater.inflate(R.layout.dialog_bottom_list, null)
+        dialog.setContentView(view)
+        dialog.show()
+        setMenuItemClick(view,dialog,songInfo)
+    }
+
+    private fun setMenuItemClick(
+        view: View,
+        dialog: BottomSheetDialog,
+        songInfo: SongInfo
+    ) {
+        val nextSong = view.findViewById<LinearLayout>(R.id.next_song_ll)
+        val songNameTV = view.findViewById<TextView>(R.id.song_name_bottom_dialog)
+        val songAlbumTV = view.findViewById<TextView>(R.id.song_album_bottom_dialog)
+        val queryAlbum = view.findViewById<LinearLayout>(R.id.query_album_ll)
+        val querySinger = view.findViewById<LinearLayout>(R.id.query_singer_ll)
+        val deleteSongs = view.findViewById<LinearLayout>(R.id.delete_songs_ll)
+        val shareSongs = view.findViewById<LinearLayout>(R.id.share_songs_ll)
+
+        songNameTV.text = songInfo?.musicName
+        songAlbumTV.text = songInfo?.musicAlbum
+
+        nextSong.setOnClickListener {
+            PlayMusicManager.getMusicManager()!!.nextSong()
+            dialog.dismiss()
+        }
+        queryAlbum.setOnClickListener {
+            songInfo.musicAlbumId?.let { musicAlbum ->
+                CommonMusicActivity.startActivity(
+                    context!!,
+                    musicAlbum.toString(), Constant.MUSIC_FROM_ALBUM
+                )
+            }
+            dialog.dismiss()
+        }
+        querySinger.setOnClickListener {
+            songInfo.musicSinger?.let { musicSinger ->
+                CommonMusicActivity.startActivity(
+                    context!!,
+                    musicSinger, Constant.MUSIC_FROM_SINGER
+                )
+            }
+            dialog.dismiss()
+        }
+        deleteSongs.setOnClickListener {
+            dialog.dismiss()
+        }
+        shareSongs.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     override fun updateListView(musicList: ArrayList<SongInfo>) {

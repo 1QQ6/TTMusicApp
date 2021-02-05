@@ -66,10 +66,11 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
                         onItemClickListener.onItemClick(adapterPosition)
                     }
                     //点击菜单
-                    local_music_item_never_menu.setOnClickListener {
+                    local_music_item.setOnLongClickListener {
                         onItemClickListener.onOpenMenuClick(adapterPosition)
+                         true
                     }
-                }
+            }
         }
 
         private fun initTheme() {

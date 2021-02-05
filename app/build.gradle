@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.github.thinkcool:circletextimageview:1.0.20151218'
     implementation 'com.github.xubo.statusbarutils:StatusBarUtils:1.0.1'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.jcminarro:RoundKornerLayouts:0.4.0'
     //LogUtil
     implementation 'com.apkfuns.logutils:library:1.7.5'
     //

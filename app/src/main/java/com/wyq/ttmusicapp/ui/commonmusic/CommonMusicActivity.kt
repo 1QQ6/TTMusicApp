@@ -51,8 +51,11 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
          */
         private const val COMMON_FROM = "from"
 
-
-
+        /**
+         * @param ctx
+         * @param commonInfo 歌手或者专辑
+         * @param from Constant.MUSIC_FROM_SINGER or Constant.MUSIC_FROM_MUSIC_FROM_ALBUM
+         */
         fun startActivity(
             ctx: Context,
             commonInfo: String,

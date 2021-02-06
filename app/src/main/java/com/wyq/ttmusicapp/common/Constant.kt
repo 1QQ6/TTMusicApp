@@ -137,4 +137,9 @@ object Constant {
      */
     const val STATE_DONE = 3
 
+    /**
+     * 音乐爱好 0 非喜欢  1 喜欢
+     */
+    const val LOVE_STATUS = 1
+    const val NULL_LOVE_STATUS = 0
 }

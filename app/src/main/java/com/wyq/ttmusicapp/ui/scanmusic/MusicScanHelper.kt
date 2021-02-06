@@ -3,10 +3,12 @@ package com.wyq.ttmusicapp.ui.scanmusic
 import android.app.Activity
 import android.content.Context
 import android.database.Cursor
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.provider.MediaStore
+import androidx.annotation.RequiresApi
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.FileNameFormat
 import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
@@ -156,6 +158,11 @@ object MusicScanHelper {
         val file = File(path)
         val parentPath = file.parentFile.path
 
+        var love = 0
+        val songInfo = dbManager?.getSongInfo(musicId)
+        if (songInfo!=null){
+            love = songInfo.musicLove!!
+        }
         name = FileNameFormat.replaceUnKnownName(name)
         singer = FileNameFormat.replaceUnKnownName(singer)
         album = FileNameFormat.replaceUnKnownName(album)
@@ -175,7 +182,7 @@ object MusicScanHelper {
                 path,
                 parentPath,
                 firstLetter,
-                0
+                love
             )
         )
 

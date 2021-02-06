@@ -45,4 +45,9 @@
     <string name="singer_count_album_count">%s 张专辑 | %s 首歌曲</string>
     <string name="pullRefresh">下拉刷新</string>
     <string name="app_splash_name">天天音乐</string>
+    <string name="delete_music">删除</string>
+    <string name="cancle">取消</string>
+    <string name="home_page_name">主页</string>
+    <string name="search_page_name">发现</string>
+    <string name="me_page_name">我的</string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.fragment.me.MeFragment
 import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
 import com.wyq.ttmusicapp.ui.remotemusic.WorkFragment
@@ -43,8 +44,20 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
      */
     private var meFragment: MeFragment? = null
 
+    private var musicInfoList: ArrayList<SongInfo> = ArrayList()
+
     companion object{
-        fun startActivity(ctx: Context){
+        fun startActivity(
+            ctx: Context,
+            allMusic: ArrayList<SongInfo>
+        ){
+            val i = Intent(ctx, HomeActivity::class.java)
+            i.putExtra("musicList",allMusic)
+            ctx.startActivity(i)
+        }
+        fun startActivity(
+            ctx: Context
+        ){
             val i = Intent(ctx, HomeActivity::class.java)
             ctx.startActivity(i)
         }
@@ -52,13 +65,15 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     private fun setupFragment() {
         val transaction =
             supportFragmentManager.beginTransaction()
         homeFragment = HomeFragment()
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("musicList",musicInfoList)
+        homeFragment!!.arguments = bundle
         transaction.add(R.id.fragment_layout, homeFragment!!)
         try {
             transaction.commitAllowingStateLoss()
@@ -173,6 +188,7 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
     }
 
     override fun initData() {
+        musicInfoList = intent?.getParcelableArrayListExtra("musicList")!!
         HomePresenter(this,this)
         mPresenter!!.bindMusicService()
     }

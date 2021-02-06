@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_local_music.view.*
 /**
  * Created by Roman on 2021/1/12
  */
-class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
+class SongRVAdapter(private var musicInfoList:ArrayList<SongInfo>)
     : RecyclerView.Adapter<SongRVAdapter.ViewHolder>(), SectionIndexer{
 
 
@@ -30,6 +30,7 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
     interface OnItemClickListener {
         fun onOpenMenuClick(position: Int)
         fun onItemClick(position: Int)
+        fun updateLoveStatus(musicId: Long)
     }
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener?) {
@@ -47,6 +48,7 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
                     local_item_name.text = musicInfo.musicName
                     local_item_index.text = (adapterPosition).toString()
                     local_music_singer.text = musicInfo.musicSinger
+                    updateLoveStatus(musicInfo)
                     initTheme()
                     //设置当前正在播放的itemView
                     if (musicInfo.music_id == musicId) {
@@ -60,6 +62,14 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
                         local_item_iv.visibility = View.INVISIBLE
                         local_item_index.visibility = View.VISIBLE
                     }
+                    local_item_love_fl.setOnClickListener {
+                        musicInfo.music_id?.let { music_id -> onItemClickListener.updateLoveStatus(music_id) }
+                        if (musicInfo.musicLove == Constant.NULL_LOVE_STATUS) {
+                            local_item_love.setBackgroundResource(R.drawable.ic_love_highlight)
+                        } else {
+                            local_item_love.setBackgroundResource(R.drawable.ic_no_love)
+                        }
+                    }
                     //点击播放
                     local_music_item.setOnClickListener {
                         Log.i(TAG, "onClick: 播放 " + musicInfo.musicName)
@@ -70,6 +80,14 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
                         onItemClickListener.onOpenMenuClick(adapterPosition)
                          true
                     }
+            }
+        }
+
+        private fun View.updateLoveStatus(musicInfo: SongInfo) {
+            if (musicInfo.musicLove == Constant.NULL_LOVE_STATUS) {
+                local_item_love.setBackgroundResource(R.drawable.ic_no_love)
+            } else {
+                local_item_love.setBackgroundResource(R.drawable.ic_love_highlight)
             }
         }
 
@@ -108,6 +126,11 @@ class SongRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
      */
     override fun getItemCount(): Int {
         return musicInfoList.size
+    }
+
+    fun setNewData(musicList:ArrayList<SongInfo>){
+        musicInfoList = musicList
+        notifyDataSetChanged()
     }
 
     /**

@@ -7,20 +7,23 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.base.BaseActivity
+import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.home.HomeActivity
 import com.wyq.ttmusicapp.login.MusicLoginActivity
 import com.wyq.ttmusicapp.ui.scanmusic.MusicScanHelper
 import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener
 import com.wyq.ttmusicapp.utils.DisplayUtil
+import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.SPUtil
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 
 class SplashActivity : BaseActivity() {
     private val PERMISSION_REQUEST_CODE = 1
-
+    private var musicInfoList: ArrayList<SongInfo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,12 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun scanMusicSuccess(type: Int) {
-
+                doAsync {
+                    val allMusic = PlayMusicHelper.getAllMusic()
+                    uiThread {
+                        musicInfoList = allMusic
+                    }
+                }
             }
 
             override fun scanMusicUpdate(path: String, currentProgress: Int) {
@@ -88,7 +96,7 @@ class SplashActivity : BaseActivity() {
 
     private fun startMusicActivity() {
         if (SPUtil.isLogin()){
-            HomeActivity.startActivity(this)
+            HomeActivity.startActivity(this@SplashActivity,musicInfoList)
             finish()
         }else{
             MusicLoginActivity.startActivity(this)

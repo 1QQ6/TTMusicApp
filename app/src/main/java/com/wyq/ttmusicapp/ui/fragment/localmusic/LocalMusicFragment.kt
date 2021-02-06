@@ -1,11 +1,10 @@
 package com.wyq.ttmusicapp.ui.fragment.localmusic
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.os.Bundle
+import android.app.AlertDialog
+import android.content.*
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +14,13 @@ import com.wyq.ttmusicapp.adapter.SongRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
-import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.interfaces.IRefreshListener
 import com.wyq.ttmusicapp.ui.commonmusic.CommonMusicActivity
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.utils.SPUtil
 import kotlinx.android.synthetic.main.fragment_song.*
+
 
 
 /**
@@ -32,9 +31,11 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     val FINISH = 123
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
     private var presenter: LocalMusicContract.Presenter? = null
+    var bottomSheetDialog :BottomSheetDialog? = null
 
-    private var dbManager:DatabaseManager? = null
-
+    /**
+     * 切换音乐时，更新当前播放列表音乐选中状态
+     */
     private val receiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             when(intent?.action){
@@ -48,26 +49,20 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        dbManager = DatabaseManager.getInstance(context)
-        updateView()
-    }
-
     override fun getLayout(): Int {
         return R.layout.fragment_song
     }
 
     override fun initData() {
+        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
+        musicInfoList.addAll(arguments?.getParcelableArrayList<SongInfo>("musicList")!!)
         LocalMusicPresenter(this)
         initReceiver()
-        musicInfoList.sortBy { it.musicFirstLetter }
         //initDefaultPlayModeView()
     }
 
     override fun initViews() {
         initMusicList()
-        setClickEvent()
     }
     private fun initReceiver() {
         val intentFilter = IntentFilter()
@@ -75,11 +70,6 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         context!!.registerReceiver(receiver,intentFilter)
     }
 
-    private fun setClickEvent() {
-/*        local_music_play_mode_rl.setOnClickListener {
-            setMusicMode()
-        }*/
-    }
     /**
      * 初始化音乐模式UI
      */
@@ -125,19 +115,6 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
             }
     }*/
 
-    override fun onResume() {
-        super.onResume()
-        updateView()
-        initMusicList()
-    }
-
-    private fun updateView() {
-        musicInfoList.clear()
-        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
-        musicInfoList.addAll(dbManager!!.getAllMusicFromMusicTable())
-    }
-
-
     private fun initMusicList() {
         songRVAdapter = SongRVAdapter(musicInfoList)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -149,11 +126,9 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                 presenter?.requestData()
             }
         })
-
-
         songRVAdapter!!.setOnItemClickListener(object :SongRVAdapter.OnItemClickListener{
             override fun onOpenMenuClick(position: Int) {
-                openMenu(position)
+                showBottomMenu(position)
             }
             override fun onItemClick(position: Int) {
                 val isPlaying = PlayMusicManager.getMusicManager()!!.isPlaying
@@ -166,20 +141,14 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                 PlayMusicManager.getMusicManager()!!.prepareAndPlay(position,musicInfoList)
                 songRVAdapter?.notifyDataSetChanged()
             }
+            override fun updateLoveStatus(musicId:Long) {
+                presenter?.updateLoveStatus(musicId)
+            }
         })
-    }
-    private fun openMenu(position: Int) {
-        val songInfo = musicInfoList[position]
-        val dialog = BottomSheetDialog(context!!,R.style.BottomSheetDialog)
-        val view: View = layoutInflater.inflate(R.layout.dialog_bottom_list, null)
-        dialog.setContentView(view)
-        dialog.show()
-        setMenuItemClick(view,dialog,songInfo)
     }
 
     private fun setMenuItemClick(
         view: View,
-        dialog: BottomSheetDialog,
         songInfo: SongInfo
     ) {
         val nextSong = view.findViewById<LinearLayout>(R.id.next_song_ll)
@@ -195,7 +164,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
 
         nextSong.setOnClickListener {
             PlayMusicManager.getMusicManager()!!.nextSong()
-            dialog.dismiss()
+            bottomSheetDialog?.dismiss()
         }
         queryAlbum.setOnClickListener {
             songInfo.musicAlbumId?.let { musicAlbum ->
@@ -204,7 +173,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                     musicAlbum.toString(), Constant.MUSIC_FROM_ALBUM
                 )
             }
-            dialog.dismiss()
+            bottomSheetDialog?.dismiss()
         }
         querySinger.setOnClickListener {
             songInfo.musicSinger?.let { musicSinger ->
@@ -213,13 +182,30 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
                     musicSinger, Constant.MUSIC_FROM_SINGER
                 )
             }
-            dialog.dismiss()
+            bottomSheetDialog?.dismiss()
         }
         deleteSongs.setOnClickListener {
-            dialog.dismiss()
+            val inflater = LayoutInflater.from(context)
+            val view: View = inflater.inflate(R.layout.dialog_delete_file, null)
+            val deleteFileCheckBox = view.findViewById<CheckBox>(R.id.dialog_delete_cb)
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.create()
+            builder.setView(view)
+            builder.setPositiveButton(getString(R.string.delete_music)
+            ) { dialog, which ->
+                if (deleteFileCheckBox.isChecked){
+                    songInfo.music_id?.let { music_id -> presenter?.deleteMusic(context!!, music_id) }
+                }
+                dialog.dismiss()
+            }
+            builder.setNegativeButton(getString(R.string.cancle)
+            ) { dialog, which ->
+                dialog.dismiss()
+            }
+            builder.show()
         }
         shareSongs.setOnClickListener {
-            dialog.dismiss()
+            songInfo.music_id?.let { musicId-> presenter?.sharedMusic(musicId) }
         }
     }
 
@@ -227,12 +213,19 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         musicInfoList.clear()
         musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
         musicInfoList.addAll(musicList)
-        initMusicList()
+        musicInfoList.sortBy { it.musicFirstLetter }
+        songRVAdapter?.setNewData(musicInfoList)
         local_recycler_view.refreshComplete()
+        bottomSheetDialog?.dismiss()
     }
 
-    override fun showBottomMenu() {
-
+    override fun showBottomMenu(position: Int) {
+        val songInfo = musicInfoList[position]
+        bottomSheetDialog = BottomSheetDialog(context!!,R.style.BottomSheetDialog)
+        val view: View = layoutInflater.inflate(R.layout.dialog_bottom_list, null)
+        bottomSheetDialog?.setContentView(view)
+        bottomSheetDialog?.show()
+        setMenuItemClick(view,songInfo)
     }
 
     override fun setPresenter(presenter: LocalMusicContract.Presenter) {
@@ -243,5 +236,4 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
         super.onDestroy()
         context!!.unregisterReceiver(receiver)
     }
-
 }

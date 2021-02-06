@@ -1,11 +1,17 @@
 package com.wyq.ttmusicapp.utils
 
+import android.content.Context
+import android.provider.MediaStore
+import com.apkfuns.logutils.LogUtils
+import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.common.MusicApplication
+import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.AlbumInfo
 import com.wyq.ttmusicapp.entity.SingerInfo
 import com.wyq.ttmusicapp.entity.SongInfo
-import kotlin.collections.ArrayList
+import com.wyq.ttmusicapp.ui.fragment.localmusic.LocalMusicContract
+import java.io.File
 
 
 /**
@@ -80,6 +86,59 @@ object PlayMusicHelper {
         val songsList = allMusic.filter { it.musicAlbumId!!.toString() == commonInfo } as ArrayList<SongInfo>
         songsList.sortByDescending { it.musicName }
         return songsList
+    }
+
+    /**
+     * 通过id删除music
+     */
+    fun deleteMusicByID(context: Context,musicId: Long,iLocalDeleteListener: LocalMusicContract.Presenter.ILocalDeleteListener) {
+        val musicPath = dbManager?.getMusicPathById(musicId)
+        val currentPlayMusicId = PlayMusicManager.getMusicManager()!!.nowPlayingSong!!.music_id
+            if (musicPath?.isNotEmpty()!!){
+                val file = File(musicPath)
+                if (file.exists()){
+                    deleteMediaDB(context,file)
+                    //删除此抽象路径名表示的文件或目录。如果此路径名表示目录，则该目录必须为空才能删除。
+                    val delete = file.delete()
+                    LogUtils.d(delete)
+                    dbManager?.deleteMusic(musicId)
+                    iLocalDeleteListener.onDeleteComplete()
+                }
+                if(musicId == currentPlayMusicId){
+
+                }
+            }else{
+
+                if(musicId == currentPlayMusicId){
+
+                }
+            }
+    }
+
+    private fun deleteMediaDB(context: Context, file: File) {
+        try {
+            context.contentResolver.delete(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Audio.Media.DATA + "= \"" + file.path + "\"",
+                null
+            )
+        }catch (e:Exception){
+
+        }
+    }
+
+    /**
+     * 设置歌曲喜爱状态
+     */
+    fun setLocalLoveMusic(musicId: Long) {
+        val songInfo = dbManager?.getSongInfo(musicId)
+        if (songInfo!=null){
+            if (songInfo.musicLove == Constant.NULL_LOVE_STATUS){
+                dbManager?.setLocalLove(musicId,Constant.LOVE_STATUS)
+            }else{
+                dbManager?.setLocalLove(musicId,Constant.NULL_LOVE_STATUS)
+            }
+        }
     }
 }
 

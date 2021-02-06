@@ -5,9 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.wyq.ttmusicapp.entity.SingerInfo
 import com.wyq.ttmusicapp.entity.SongInfo
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -371,6 +369,17 @@ class DatabaseManager(context: Context) {
             cursor?.close()
         }
         return musicInfoList
+    }
+
+    fun deleteMusic(musicId: Long) {
+        db.execSQL("PRAGMA foreign_keys=ON")
+        db.delete(DatabaseHelper.MUSIC_TABLE,DatabaseHelper.ID_COLUMN+" = ? ", arrayOf("" +musicId))
+    }
+
+    fun setLocalLove(musicId: Long, loveStatus: Int) {
+        val values = ContentValues()
+        values.put(DatabaseHelper.MUSIC_LOVE_COLUMN, loveStatus)
+        db.update(DatabaseHelper.MUSIC_TABLE,values,DatabaseHelper.ID_COLUMN + " = ? ", arrayOf("" + musicId))
     }
 
 }

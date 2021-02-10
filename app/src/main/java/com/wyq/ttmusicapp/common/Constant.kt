@@ -4,6 +4,9 @@ package com.wyq.ttmusicapp.common
  * Created by Roman on 2021/1/10
  */
 object Constant {
+    const val NET_EASE = "neteasy"
+    const val LOCAL = "local"
+
     //主页tab
     const val TAB_MAIN = 1
     const val TAB_WORK = 2
@@ -141,5 +144,10 @@ object Constant {
      * 音乐爱好 0 非喜欢  1 喜欢
      */
     const val LOVE_STATUS = 1
-    const val NULL_LOVE_STATUS = 0
+    const val NULL_LOVE_STATUS =0
+
+    /**
+     * 网易云音乐接口
+     */
+    const val BASE_NETEASE_URL = "http://musiclake.leanapp.cn"
 }

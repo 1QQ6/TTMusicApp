@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.ui.fragment.discovermusic.DiscoverFragment
 import com.wyq.ttmusicapp.ui.fragment.me.MeFragment
 import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
-import com.wyq.ttmusicapp.ui.remotemusic.WorkFragment
 import com.wyq.ttmusicapp.ui.scanmusic.ScanActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -37,7 +37,7 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
     /**
      *
      */
-    private var workFragment: WorkFragment? = null
+    private var discoverFragment: DiscoverFragment? = null
 
     /**
      * 我的页面
@@ -129,8 +129,8 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
         if (homeFragment != null) {
             transaction.hide(homeFragment!!)
         }
-        if (workFragment != null) {
-            transaction.hide(workFragment!!)
+        if (discoverFragment != null) {
+            transaction.hide(discoverFragment!!)
         }
         if (meFragment != null) {
             transaction.hide(meFragment!!)
@@ -148,11 +148,11 @@ class HomeActivity : PlayBarBaseActivity(),HomeContract.View {
                 checkBottomTabView(Constant.TAB_MAIN)
             }
             Constant.TAB_WORK -> {
-                if (workFragment == null) {
-                    workFragment = WorkFragment()
-                    transaction.add(R.id.fragment_layout, workFragment!!)
+                if (discoverFragment == null) {
+                    discoverFragment = DiscoverFragment()
+                    transaction.add(R.id.fragment_layout, discoverFragment!!)
                 } else {
-                    transaction.show(workFragment!!)
+                    transaction.show(discoverFragment!!)
                     invalidateOptionsMenu()
                 }
                 setupToolbar()

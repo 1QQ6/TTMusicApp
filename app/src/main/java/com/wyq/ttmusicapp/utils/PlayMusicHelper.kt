@@ -8,7 +8,7 @@ import com.wyq.ttmusicapp.common.MusicApplication
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.entity.AlbumInfo
-import com.wyq.ttmusicapp.entity.SingerInfo
+import com.wyq.ttmusicapp.entity.Artist
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.fragment.localmusic.LocalMusicContract
 import java.io.File
@@ -18,6 +18,10 @@ import java.io.File
  * Created by Roman on 2021/1/16
  */
 object PlayMusicHelper {
+
+    const val PIC_SIZE_SMALL = 0
+    const val PIC_SIZE_NORMAL = 1
+    const val PIC_SIZE_BIG = 2
 
     private var dbManager: DatabaseManager? = null
     private const val albumPrePath = "content://media/external/audio/albumart"
@@ -37,14 +41,18 @@ object PlayMusicHelper {
     /**
      * 按照歌手分组
      */
-    fun getGroupBySingersInfo(): ArrayList<SingerInfo> {
-        var singerInfoList = ArrayList<SingerInfo>()
+    fun getGroupBySingersInfo(): ArrayList<Artist> {
+        var singerInfoList = ArrayList<Artist>()
         val allMusic = dbManager!!.getAllMusicFromMusicTable()
         val singerMap = allMusic.groupBy { it.musicSinger }
         singerMap.forEach { (singerName, values) ->
             if (singerName!=null){
                 val albumsCount = dbManager!!.getSingerAlbumsCount(singerName)
-                singerInfoList.add(SingerInfo(singerName,values.size, albumsCount.size))
+                var artist = Artist()
+                artist.singerName = singerName
+                artist.songsCount = values.size
+                artist.albumCount = albumsCount.size
+                singerInfoList.add(artist)
             }
         }
         singerInfoList.sortBy { it.singerName }
@@ -140,6 +148,16 @@ object PlayMusicHelper {
             }
         }
     }
+
+    fun getAlbumPic(url: String?,  size: Int): String? {
+        println(url)
+        val temp = url?.split("?")?.get(0) ?: url
+        return when (size) {
+            PIC_SIZE_SMALL -> "$temp?param=90y90"
+            PIC_SIZE_NORMAL -> "$temp?param=150y150"
+            else -> "$temp?param=450y450"
+        }
+        }
 }
 
 

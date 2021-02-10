@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.MusicApplication
-import com.wyq.ttmusicapp.entity.SingerInfo
+import com.wyq.ttmusicapp.entity.Artist
 import kotlinx.android.synthetic.main.item_singer_music.view.*
 /**
  * Created by Roman on 2021/1/31
  */
-class SingerRVAdapter(private val singerInfoList:List<SingerInfo>):
+class SingerRVAdapter(private val artistList:List<Artist>):
     RecyclerView.Adapter<SingerRVAdapter.ViewHolder>() {
 
     private var onItemClickListener: OnItemClickListener? = null
@@ -28,8 +28,8 @@ class SingerRVAdapter(private val singerInfoList:List<SingerInfo>):
     }
 
     class ViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        fun bind(singerInfoList:List<SingerInfo>, onItemClickListener: OnItemClickListener){
-            val singerInfo = singerInfoList[adapterPosition]
+        fun bind(artistList:List<Artist>, onItemClickListener: OnItemClickListener){
+            val singerInfo = artistList[adapterPosition]
             with(itemView){
 
                 singer_item_name.text = singerInfo.singerName
@@ -55,10 +55,10 @@ class SingerRVAdapter(private val singerInfoList:List<SingerInfo>):
     }
 
     override fun getItemCount(): Int {
-        return singerInfoList.size
+        return artistList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(singerInfoList,onItemClickListener!!)
+        holder.bind(artistList,onItemClickListener!!)
     }
 }

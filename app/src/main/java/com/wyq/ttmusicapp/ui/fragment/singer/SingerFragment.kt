@@ -5,7 +5,7 @@ import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.SingerRVAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.entity.SingerInfo
+import com.wyq.ttmusicapp.entity.Artist
 import com.wyq.ttmusicapp.ui.commonmusic.CommonMusicActivity
 import kotlinx.android.synthetic.main.fragment_singer.*
 
@@ -16,7 +16,7 @@ class SingerFragment: BaseFragment(),SingerContract.View {
 
     private var presenter:SingerContract.Presenter? = null
 
-    private var singerInfoList:ArrayList<SingerInfo>? = null
+    private var artistList:ArrayList<Artist>? = null
     private var singerAdapter:SingerRVAdapter? = null
 
     override fun getLayout(): Int {
@@ -36,7 +36,7 @@ class SingerFragment: BaseFragment(),SingerContract.View {
      * 初始化列表
      */
     private fun initRecycleView() {
-        singerAdapter = SingerRVAdapter(singerInfoList!!)
+        singerAdapter = SingerRVAdapter(artistList!!)
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         singer_recycler_view.layoutManager = linearLayoutManager
@@ -48,7 +48,8 @@ class SingerFragment: BaseFragment(),SingerContract.View {
             }
 
             override fun onItemClick(position: Int) {
-                CommonMusicActivity.startActivity(context!!, singerInfoList!![position].singerName,Constant.MUSIC_FROM_SINGER)
+                CommonMusicActivity.startActivity(context!!,
+                    artistList!![position].singerName!!,Constant.MUSIC_FROM_SINGER)
             }
         })
     }
@@ -70,8 +71,8 @@ class SingerFragment: BaseFragment(),SingerContract.View {
     /**
      * 获取列表数据
      */
-    override fun getSingersData(singerList: ArrayList<SingerInfo>) {
-        singerInfoList = singerList
+    override fun getSingersData(singerList: ArrayList<Artist>) {
+        artistList = singerList
         initRecycleView()
     }
 

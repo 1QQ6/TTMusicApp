@@ -50,4 +50,6 @@
     <string name="home_page_name">主页</string>
     <string name="search_page_name">发现</string>
     <string name="me_page_name">我的</string>
+    <string name="error_connection">网络连接异常，请稍后重试！</string>
+    <string name="default_num">0 首</string>
 </resources>

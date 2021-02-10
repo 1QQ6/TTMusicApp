@@ -14,7 +14,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 /*
         1.room.schemaLocation：配置并启用将数据库架构导出到给定目录中的 JSON 文件的功能。
@@ -64,7 +64,16 @@ dependencies {
     implementation 'com.jcminarro:RoundKornerLayouts:0.4.0'
     //LogUtil
     implementation 'com.apkfuns.logutils:library:1.7.5'
-    //
+    //RxJava and RxAndroid
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+    // 多dex配置
+    implementation 'androidx.multidex:multidex:2.0.1'
+    //cookie
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    //retrofit2
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'

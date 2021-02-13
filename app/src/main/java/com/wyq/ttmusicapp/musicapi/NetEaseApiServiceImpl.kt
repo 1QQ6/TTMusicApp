@@ -25,15 +25,15 @@ object NetEaseApiServiceImpl {
                         if (it.code == 200) {
                             val list = mutableListOf<Artist>()
                             it.list.artists?.forEach {
-                                val playlist = Artist()
-                                playlist.artistId = it.id.toString()
-                                playlist.singerName = it.name
-                                playlist.picUrl = it.picUrl
-                                playlist.score = it.score
-                                playlist.songsCount = it.musicSize
-                                playlist.albumCount = it.albumSize
-                                playlist.type = Constant.NET_EASE
-                                list.add(playlist)
+                                val artist = Artist()
+                                artist.artistId = it.id.toString()
+                                artist.singerName = it.name
+                                artist.picUrl = it.picUrl
+                                artist.score = it.score
+                                artist.songsCount = it.musicSize
+                                artist.albumCount = it.albumSize
+                                artist.type = Constant.NET_EASE
+                                list.add(artist)
                             }
                             e.onNext(list)
                             e.onComplete()
@@ -52,19 +52,25 @@ object NetEaseApiServiceImpl {
      * 获取歌手单曲
      *
      */
-    fun getArtistSongs(id: String, offset: Int = 0, limit: Int = 50): Observable<Artist> {
+    fun getArtistSongs(id: String, offset: Int = 0, limit: Int = 10): Observable<Artist> {
         return apiService?.getArtistSongs(id,offset, limit)!!.flatMap { it->
             Observable.create(ObservableOnSubscribe<Artist> { e ->
-                val musicList = arrayListOf<SongInfo>()
-                it.songs.forEach {
-                    musicList.add(MusicUtils.getMusic(it))
+                try {
+                    if (it.code == 200) {
+                        val musicList = arrayListOf<SongInfo>()
+                        it.songs.forEach {
+                            musicList.add(MusicUtils.getMusic(it))
+                        }
+                        val artist = Artist()
+                        artist.songs = musicList
+                        artist.singerName = it.songs[0].artists?.get(0)?.name
+                        artist.artistId = it.songs[0].artists?.get(0)?.id
+                        e.onNext(artist)
+                        e.onComplete()
+                    }
+                }catch (ep: Exception){
+                    e.onError(ep)
                 }
-                val artist = Artist()
-                artist.songs = musicList
-                artist.singerName = it.songs[0].artists?.get(0)?.name
-                artist.artistId = it.songs[0].artists?.get(0)?.id
-                e.onNext(artist)
-                e.onComplete()
             })
         }
     }

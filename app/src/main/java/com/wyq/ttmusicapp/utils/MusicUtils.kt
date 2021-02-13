@@ -19,6 +19,7 @@ object MusicUtils {
         }
         music.musicName = musicInfo.name
         music.isOnline = true
+        music.musicAlbum = musicInfo.album?.name
         if (musicInfo.artists != null) {
             var artistIds = musicInfo.artists[0].id
             var artistNames = musicInfo.artists[0].name

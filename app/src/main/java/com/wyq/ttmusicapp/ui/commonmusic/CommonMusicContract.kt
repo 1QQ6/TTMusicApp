@@ -2,6 +2,7 @@ package com.wyq.ttmusicapp.ui.commonmusic
 
 import com.wyq.ttmusicapp.base.BasePresenter
 import com.wyq.ttmusicapp.base.BaseView
+import com.wyq.ttmusicapp.entity.Artist
 import com.wyq.ttmusicapp.entity.SongInfo
 
 /**
@@ -10,7 +11,7 @@ import com.wyq.ttmusicapp.entity.SongInfo
 interface CommonMusicContract {
     interface View: BaseView<Presenter> {
         fun initListView(musicInfoList:ArrayList<SongInfo>)
-        fun initNetListView(musicInfoList: ArrayList<SongInfo>)
+        fun initNetListView(musicInfoList: Artist)
         fun showBottomMenu()
     }
 

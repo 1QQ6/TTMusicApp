@@ -10,6 +10,7 @@ import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.CommonRVAdapter
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.core.PlayMusicManager
+import com.wyq.ttmusicapp.entity.Artist
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.ui.playmusic.PlayMusicActivity
 import com.wyq.ttmusicapp.ui.playmusicbar.PlayBarBaseActivity
@@ -135,8 +136,8 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
         initHead()
     }
 
-    override fun initNetListView(musicInfoList: ArrayList<SongInfo>) {
-        this.musicInfoList = musicInfoList
+    override fun initNetListView(artist: Artist) {
+        this.musicInfoList = artist.songs as ArrayList<SongInfo>
         initMusicList()
     }
 

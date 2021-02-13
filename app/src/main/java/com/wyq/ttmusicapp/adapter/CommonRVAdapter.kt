@@ -46,7 +46,8 @@ class CommonRVAdapter(private val musicInfoList:ArrayList<SongInfo>)
             with(itemView){
                 local_item_name.text = musicInfo.musicName
                 local_item_index.text = (adapterPosition+1).toString()
-                local_music_singer.text = musicInfo.musicSinger
+                local_music_singer.setTextColor(ContextCompat.getColor(context,R.color.black))
+                local_music_singer.text = musicInfo.musicSinger +"-"+musicInfo.musicAlbum
                 initTheme()
                 //设置当前正在播放的itemView
                 if (musicInfo.music_id == musicId) {

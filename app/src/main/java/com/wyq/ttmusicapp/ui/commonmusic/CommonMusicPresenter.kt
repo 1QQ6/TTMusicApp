@@ -49,7 +49,7 @@ class CommonMusicPresenter(val view:CommonMusicContract.View):CommonMusicContrac
     }
 
     override fun loadNetEasyData(artistId: String) {
-        val observable = NetEaseApiServiceImpl.getArtistSongs(artistId, 50, 10)
+        val observable = NetEaseApiServiceImpl.getArtistSongs(artistId, 0, 10)
         APIManager.getInstance()?.request(observable, object : RequestCallBack<Artist> {
             override fun success(result: Artist) {
                 val musicLists = result.songs
@@ -61,7 +61,7 @@ class CommonMusicPresenter(val view:CommonMusicContract.View):CommonMusicContrac
                         iterator.remove()// 推荐使用
                     //}
                 }*/
-                view.initNetListView(musicLists as ArrayList<SongInfo>)
+                view.initNetListView(result)
             }
 
             override fun error(msg: String?) {

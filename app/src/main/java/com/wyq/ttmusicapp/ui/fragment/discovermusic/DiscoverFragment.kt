@@ -4,7 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.adapter.TopArtistListAdapter
 import com.wyq.ttmusicapp.base.BaseFragment
+import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.Artist
+import com.wyq.ttmusicapp.interfaces.IItemClickListener
+import com.wyq.ttmusicapp.ui.commonmusic.CommonMusicActivity
 import kotlinx.android.synthetic.main.fragment_discover.*
 import kotlinx.android.synthetic.main.fragment_song.*
 
@@ -41,6 +44,16 @@ class DiscoverFragment:BaseFragment(),DiscoverContract.View {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         discover_recycler_view.layoutManager = linearLayoutManager
         discover_recycler_view.adapter = mArtistListAdapter
+        mArtistListAdapter?.setOnItemClickListener(object :IItemClickListener{
+            override fun onOpenMenuClick(position: Int) {
+
+            }
+
+            override fun onItemClick(position: Int) {
+                context?.let { CommonMusicActivity.startActivity(it,
+                    artists[position].artistId.toString(),Constant.MUSIC_FROM_NET_EASY) }
+            }
+        })
     }
 
     override fun setPresenter(presenter: DiscoverContract.Presenter) {

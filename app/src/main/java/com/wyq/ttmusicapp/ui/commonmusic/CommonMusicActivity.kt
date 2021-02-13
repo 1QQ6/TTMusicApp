@@ -76,7 +76,11 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
     override fun initData() {
         handleIntent()
         CommonMusicPresenter(this)
-        presenter!!.loadData(commonInfo!!,from!!)
+        if (Constant.MUSIC_FROM_NET_EASY == from){
+            commonInfo?.let { presenter!!.loadNetEasyData(it) }
+        }else{
+            from?.let { presenter!!.loadData(commonInfo!!, it) }
+        }
         initReceiver()
     }
 
@@ -87,13 +91,10 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
     }
 
     private fun handleIntent() {
-        commonInfo = intent?.getStringExtra(COMMON_INFO)
         from = intent?.getStringExtra(COMMON_FROM)
+        commonInfo = intent?.getStringExtra(COMMON_INFO)
     }
 
-    override fun initViews() {
-        super.initViews()
-    }
 
     private fun initMusicList() {
         songRVAdapter = CommonRVAdapter(musicInfoList)
@@ -132,6 +133,11 @@ class CommonMusicActivity:PlayBarBaseActivity(),CommonMusicContract.View{
         this.musicInfoList = musicInfoList
         initMusicList()
         initHead()
+    }
+
+    override fun initNetListView(musicInfoList: ArrayList<SongInfo>) {
+        this.musicInfoList = musicInfoList
+        initMusicList()
     }
 
     /**

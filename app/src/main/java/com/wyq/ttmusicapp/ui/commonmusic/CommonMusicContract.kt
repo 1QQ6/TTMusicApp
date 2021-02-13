@@ -10,11 +10,13 @@ import com.wyq.ttmusicapp.entity.SongInfo
 interface CommonMusicContract {
     interface View: BaseView<Presenter> {
         fun initListView(musicInfoList:ArrayList<SongInfo>)
+        fun initNetListView(musicInfoList: ArrayList<SongInfo>)
         fun showBottomMenu()
     }
 
     interface Presenter: BasePresenter {
         fun onClickItem(musicId:Long)
         fun loadData(commonInfo:String,type:String)
+        fun loadNetEasyData(artistId: String)
     }
 }

@@ -108,6 +108,7 @@ object Constant {
      */
     const val MUSIC_FROM_SINGER = "music_from_singer"
     const val MUSIC_FROM_ALBUM = "music_from_album"
+    const val MUSIC_FROM_NET_EASY = "net_easy"
 
     /**
      * recycleView相关的

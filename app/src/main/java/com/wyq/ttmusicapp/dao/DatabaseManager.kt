@@ -266,19 +266,18 @@ class DatabaseManager(context: Context) {
                     val musicDuration =
                         cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
 
-                    val songInfo = SongInfo(
-                        musicId,
-                        musicName,
-                        musicSinger,
-                        musicDuration,
-                        musicAlbum,
-                        musicAlbumId,
-                        musicCoverUri,
-                        musicPath,
-                        musicParentPath,
-                        musicFirstLetter,
-                        musicLove
-                    )
+                    val songInfo = SongInfo()
+                    songInfo.music_id = musicId
+                    songInfo.musicName = musicName
+                    songInfo.musicSinger = musicSinger
+                    songInfo.musicDuration = musicDuration
+                    songInfo.musicAlbum = musicAlbum
+                    songInfo.musicAlbumId = musicAlbumId
+                    songInfo.coverUrl = musicCoverUri
+                    songInfo.musicPath = musicPath
+                    songInfo.musicParentPath = musicParentPath
+                    songInfo.musicFirstLetter = musicFirstLetter
+                    songInfo.musicLove = musicLove
                     musicsList.add(songInfo)
                 }
             }
@@ -323,19 +322,18 @@ class DatabaseManager(context: Context) {
             val musicDuration =
                 cursor.getInt(cursor.getColumnIndex(DatabaseHelper.MUSIC_DURATION_COLUMN))
 
-                songInfo = SongInfo(
-                musicId,
-                musicName,
-                musicSinger,
-                musicDuration,
-                musicAlbum,
-                musicAlbumId,
-                musicCoverUri,
-                musicPath,
-                musicParentPath,
-                musicFirstLetter,
-                musicLove
-            )
+                songInfo = SongInfo()
+                songInfo.music_id = musicId
+                songInfo.musicName = musicName
+                songInfo.musicSinger = musicSinger
+                songInfo.musicDuration = musicDuration
+                songInfo.musicAlbum = musicAlbum
+                songInfo.musicAlbumId = musicAlbumId
+                songInfo.coverUrl = musicCoverUri
+                songInfo.musicPath = musicPath
+                songInfo.musicParentPath = musicParentPath
+                songInfo.musicFirstLetter = musicFirstLetter
+                songInfo.musicLove = musicLove
         }
         return songInfo
     }

@@ -1,6 +1,11 @@
 package com.wyq.ttmusicapp.ui.commonmusic
 
 import com.wyq.ttmusicapp.common.Constant
+import com.wyq.ttmusicapp.entity.Artist
+import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.musicapi.NetEaseApiServiceImpl
+import com.wyq.ttmusicapp.net.APIManager
+import com.wyq.ttmusicapp.net.RequestCallBack
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -41,6 +46,27 @@ class CommonMusicPresenter(val view:CommonMusicContract.View):CommonMusicContrac
             }
         }
 
+    }
+
+    override fun loadNetEasyData(artistId: String) {
+        val observable = NetEaseApiServiceImpl.getArtistSongs(artistId, 50, 10)
+        APIManager.getInstance()?.request(observable, object : RequestCallBack<Artist> {
+            override fun success(result: Artist) {
+                val musicLists = result.songs
+                val iterator = musicLists.iterator()
+                /*while (iterator.hasNext()) {
+                    val temp = iterator.next()
+                    //if (temp.isCp) {
+                        //list.remove(temp);// 出现java.util.ConcurrentModificationException
+                        iterator.remove()// 推荐使用
+                    //}
+                }*/
+                view.initNetListView(musicLists as ArrayList<SongInfo>)
+            }
+
+            override fun error(msg: String?) {
+            }
+        })
     }
 
     override fun start() {

@@ -170,22 +170,19 @@ object MusicScanHelper {
         val firstLetter: String =
             ChineseToEnglish.stringToPinyinSpecial(name)?.toUpperCase()?.get(0).toString()
         //将扫描的音乐加入到一个list集合，后续将集合的音乐数据插入到数据库中
-        musicsList?.add(
-            SongInfo(
-                musicId,
-                name,
-                singer,
-                duration,
-                album,
-                albumId,
-                coverUri,
-                path,
-                parentPath,
-                firstLetter,
-                love
-            )
-        )
-
+        val song = SongInfo()
+        song.music_id = musicId
+        song.musicName = name
+        song.musicSinger = singer
+        song.musicDuration = duration
+        song.musicAlbum = album
+        song.musicAlbumId = albumId
+        song.coverUrl = coverUri
+        song.musicPath = path
+        song.musicParentPath = parentPath
+        song.musicFirstLetter = firstLetter
+        song.musicLove = love
+        musicsList?.add(song)
         return path
     }
 

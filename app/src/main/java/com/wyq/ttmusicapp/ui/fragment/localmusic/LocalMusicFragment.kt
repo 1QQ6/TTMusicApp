@@ -54,8 +54,8 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
     }
 
     override fun initData() {
-        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
-        musicInfoList.addAll(arguments?.getParcelableArrayList<SongInfo>("musicList")!!)
+        musicInfoList.add(SongInfo())
+        musicInfoList.addAll(arguments?.getParcelableArrayList("musicList")!!)
         LocalMusicPresenter(this)
         initReceiver()
         //initDefaultPlayModeView()
@@ -211,7 +211,7 @@ class LocalMusicFragment: BaseFragment(), LocalMusicContract.View {
 
     override fun updateListView(musicList: ArrayList<SongInfo>) {
         musicInfoList.clear()
-        musicInfoList.add(SongInfo(-1,"","",-1,"",-1,"","","","",-1))
+        musicInfoList.add(SongInfo())
         musicInfoList.addAll(musicList)
         musicInfoList.sortBy { it.musicFirstLetter }
         songRVAdapter?.setNewData(musicInfoList)

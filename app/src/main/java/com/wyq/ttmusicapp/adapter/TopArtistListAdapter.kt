@@ -31,6 +31,9 @@ class TopArtistListAdapter(val list: List<Artist>):RecyclerView.Adapter<TopArtis
             with(itemView){
                 tv_name.text = artistInfo.singerName
                 CoverLoader.loadImageView(context, PlayMusicHelper.getAlbumPic(artistInfo.picUrl,PIC_SIZE_SMALL),iv_artist_cover)
+                artist_root_item.setOnClickListener {
+                    onItemClickListener?.onItemClick(adapterPosition)
+                }
             }
         }
 

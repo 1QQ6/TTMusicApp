@@ -54,8 +54,6 @@ class APIManager {
             }
             return mApiManager
         }
-
-
     }
 
     /**
@@ -125,6 +123,7 @@ class APIManager {
             return
         }
         service.subscribeOn(io())
+            .subscribeOn(io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object :Observer<T> {
                 override fun onComplete() {
@@ -180,7 +179,4 @@ class APIManager {
                 }
             })
     }
-
-
-
 }

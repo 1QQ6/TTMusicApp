@@ -24,7 +24,7 @@ class Artist() : Parcelable{
     var songsCount:Int = 0
     var albumCount:Int = 0
     var followed: Boolean = false
-
+    var songs = mutableListOf<SongInfo>()
     constructor(parcel: Parcel) : this() {
         singerName = parcel.readString()
         id = parcel.readLong()

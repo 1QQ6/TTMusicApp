@@ -55,10 +55,10 @@ class PlayBarFragment:BaseFragment(), PlayBarContract.View {
                 val recentMusicProgress = SPUtil.getRecentMusicProgress()
                 uiThread {
                     if (recentMusicProgress!=0){
-                        home_seek_bar?.max = musicInfo?.musicDuration!!
-                        home_seek_bar?.progress = recentMusicProgress
+                        /*home_seek_bar?.max = musicInfo?.musicDuration!!
+                        home_seek_bar?.progress = recentMusicProgress*/
                     }
-                    updateMusicBarUI(musicInfo!!,isPlayMusic)
+                    //updateMusicBarUI(musicInfo!!,isPlayMusic)
                 }
             }
 

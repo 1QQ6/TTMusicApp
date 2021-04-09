@@ -3,6 +3,7 @@ package com.wyq.ttmusicapp.musicapi
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.Artist
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.musicapi.entity.NetEasySongInfo
 import com.wyq.ttmusicapp.net.APIManager
 import com.wyq.ttmusicapp.utils.MusicUtils
 import io.reactivex.Observable
@@ -73,5 +74,13 @@ object NetEaseApiServiceImpl {
                 }
             })
         }
+    }
+
+    /**
+     * 获取歌手单曲
+     *
+     */
+    fun getSongsUrl(id: String): Observable<NetEasySongInfo>{
+        return apiService!!.getSongUrl(id)
     }
 }

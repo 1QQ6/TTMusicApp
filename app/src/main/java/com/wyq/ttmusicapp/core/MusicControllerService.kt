@@ -12,6 +12,12 @@ import android.util.Log
 import com.wyq.ttmusicapp.IMusicControllerService
 import com.wyq.ttmusicapp.common.Constant
 import com.wyq.ttmusicapp.entity.SongInfo
+import com.wyq.ttmusicapp.musicapi.NetEaseApiServiceImpl
+import com.wyq.ttmusicapp.musicapi.entity.NetEasySongInfo
+import com.wyq.ttmusicapp.musicapi.entity.SongItemInfo
+import com.wyq.ttmusicapp.net.APIManager
+import com.wyq.ttmusicapp.net.RequestCallBack
+import com.wyq.ttmusicapp.utils.NetworkUtils
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.SPUtil
 import com.wyq.ttmusicapp.utils.toast
@@ -313,34 +319,33 @@ class MusicControllerService:Service(), OnCompletionListener, OnBufferingUpdateL
         //showMusicPlayerNotification(music)
         //updatePlayState()
         //如果是网络歌曲,而且未从网络获取详细信息，则需要获取歌曲的详细信息
-        /*if (music.getType() === AbstractMusic.MusicType.Online) {
-            val song: Song = music as Song
-            if (!song.hasGetDetailInfo()) {
-                //同步请求到歌曲信息
-                RetrofitFactory.Companion.create(BaiduMusicService::class.java)
-                    .querySong(song.song_id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(object : SimpleObserver<SongPlayResp?>() {
-                        fun onSuccess(resp: SongPlayResp) {
-                            song.bitrate = resp.bitrate
-                            song.songinfo = resp.songinfo
-                            Log.i(TAG, "song hasGetDetailInfo:$song")
-                            updatePlayBar(true, song)
-                            val msg = Message.obtain()
-                            msg.what = MSG_PLAY
-                            msg.obj = song
-                            handler.sendMessage(msg)
-                            updateArtistView(song)
+        if (music.isOnline) {
+            if (!NetworkUtils.checkNetworkConnect(this)!!) {
+                //ToastUtils.show("网络不可用，请检查网络连接")
+            } else {
+                APIManager.getInstance()?.request(
+                    NetEaseApiServiceImpl.getSongsUrl(music.music_id.toString()),
+                    object : RequestCallBack<NetEasySongInfo>{
+                        override fun error(msg: String?) {
+                            /*LogUtil.e(
+                                com.cyl.musiclake.player.MusicPlayerService.TAG,
+                                "播放异常-----$msg"
+                            )
+                            checkPlayErrorTimes()*/
+                        }
+
+                        override fun success(result: NetEasySongInfo) {
+                            /* mPlayingMusic = result
+                            saveHistory()
+                            playErrorTimes = 0*/
+                            mediaPlayer?.setDataSource(result.songItemInfo?.get(0)?.url)
+                            mediaPlayer!!.prepareAsync()
                         }
                     })
-            } else {
-                playMusic(music)
             }
-        } else {
+        }else {
             playMusic(music)
-        }*/
-        playMusic(music)
+        }
     }
 
     override fun onUnbind(intent: Intent?): Boolean {

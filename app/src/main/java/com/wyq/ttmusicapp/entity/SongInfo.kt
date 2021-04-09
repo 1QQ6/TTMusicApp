@@ -32,7 +32,7 @@ class SongInfo():Parcelable {
     //音乐喜好
     var musicLove: Int?= 0
     // [本地|网络]
-    var isOnline: Boolean = true
+    var isOnline: Boolean = false
     // 文件名
     var fileName: String? = null
     // 文件大小

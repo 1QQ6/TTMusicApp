@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wyq.ttmusicapp.R
 import com.wyq.ttmusicapp.common.Constant
-import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
+import com.wyq.ttmusicapp.common.MusicApplication.context
 import com.wyq.ttmusicapp.core.PlayMusicManager
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.interfaces.IRefreshHeader

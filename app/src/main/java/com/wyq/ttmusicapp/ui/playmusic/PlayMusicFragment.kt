@@ -90,7 +90,7 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
         if (recentMusicProgress!=0 && !isPlaying){
             play_page_progressbar?.max = PlayMusicManager.getMusicManager()!!.nowPlayingSong!!.musicDuration!!
             play_page_progressbar?.progress = recentMusicProgress
-            playpage_playtime_tv!!.text = TimeUtil.mill2mmss(recentMusicProgress.toLong())
+            playpage_playtime_tv?.text = TimeUtil.mill2mmss(recentMusicProgress.toLong())
         }
         updateSongInfoView()
         setImageAnimation(isPlaying)
@@ -114,7 +114,7 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
         }
         val songInfo = PlayMusicManager.getMusicManager()!!.nowPlayingSong
 
-        CoverLoader.loadBitmap(context, songInfo!!.coverUrl) {
+        CoverLoader.loadBitmap(context, songInfo?.coverUrl) {
             rotateView.setImageBitmap(it)
             iv_playing_bg.setImageDrawable(CoverLoader.createBlurredImageFromBitmap(it))
         }

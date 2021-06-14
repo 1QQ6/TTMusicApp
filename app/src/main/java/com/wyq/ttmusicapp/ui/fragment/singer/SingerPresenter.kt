@@ -1,6 +1,6 @@
 package com.wyq.ttmusicapp.ui.fragment.singer
 
-import com.wyq.ttmusicapp.common.MusicApplication.Companion.context
+import com.wyq.ttmusicapp.common.MusicApplication.context
 import com.wyq.ttmusicapp.dao.DatabaseManager
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import org.jetbrains.anko.doAsync

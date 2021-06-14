@@ -1,6 +1,5 @@
 package com.wyq.ttmusicapp.net
 
-import androidx.annotation.MainThread
 import com.apkfuns.logutils.LogUtils
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -13,10 +12,8 @@ import com.wyq.ttmusicapp.common.MyGsonConverterFactory
 import com.wyq.ttmusicapp.utils.NetworkUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.Schedulers.io
 import okhttp3.Cache
 import okhttp3.OkHttpClient

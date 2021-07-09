@@ -1,11 +1,8 @@
 package com.wyq.ttmusicapp.common;
 
+import android.app.Application;
 import android.content.Context;
 
-import androidx.multidex.MultiDex;
-
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
@@ -24,7 +21,8 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
  * @since 2016/11/15
  */
 public class MusicApplication extends TinkerApplication {
-    public static Context context;
+    public static Context context = null;
+    public static Application application = null;
 
     public MusicApplication() {
         super(ShareConstants.TINKER_ENABLE_ALL, "com.wyq.ttmusicapp.common.SampleApplicationLike",
@@ -34,6 +32,6 @@ public class MusicApplication extends TinkerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
+        //context = getApplicationContext();
     }
 }

@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".register.MusicRegisterActivity" />
+        <service
+            android:name=".common.tinker.SampleResultService"
+            android:exported="false"/>
 
         <activity
             android:name=".ui.commonmusic.CommonMusicActivity"

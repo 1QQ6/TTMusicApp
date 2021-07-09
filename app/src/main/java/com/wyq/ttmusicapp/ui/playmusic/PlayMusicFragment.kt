@@ -88,7 +88,9 @@ class PlayMusicFragment : BaseFragment(), PlayMusicContract.View {
         playpage_play!!.isChecked = isPlaying
         val recentMusicProgress = SPUtil.getRecentMusicProgress()
         if (recentMusicProgress!=0 && !isPlaying){
-            play_page_progressbar?.max = PlayMusicManager.getMusicManager()!!.nowPlayingSong!!.musicDuration!!
+            if (PlayMusicManager.getMusicManager()?.nowPlayingSong?.musicDuration!=null){
+                play_page_progressbar?.max = PlayMusicManager.getMusicManager()?.nowPlayingSong?.musicDuration!!
+            }
             play_page_progressbar?.progress = recentMusicProgress
             playpage_playtime_tv?.text = TimeUtil.mill2mmss(recentMusicProgress.toLong())
         }

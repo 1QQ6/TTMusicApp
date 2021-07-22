@@ -20,4 +20,4 @@
 * logutils
 * FlycoTabLayout_Lib
 * circletextimageview
-* SwipeDelMenuLayout
+

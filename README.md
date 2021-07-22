@@ -19,5 +19,5 @@
 * okhttp3
 * logutils
 * FlycoTabLayout_Lib
-* circletextimageview
+
 

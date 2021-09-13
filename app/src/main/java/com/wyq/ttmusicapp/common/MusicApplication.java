@@ -3,9 +3,6 @@ package com.wyq.ttmusicapp.common;
 import android.app.Application;
 import android.content.Context;
 
-import com.tencent.tinker.loader.app.TinkerApplication;
-import com.tencent.tinker.loader.shareutil.ShareConstants;
-
 /**
  * 自定义Application.
  *
@@ -20,18 +17,13 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
  * @author wenjiewu
  * @since 2016/11/15
  */
-public class MusicApplication extends TinkerApplication {
+public class MusicApplication extends Application {
     public static Context context = null;
     public static Application application = null;
-
-    public MusicApplication() {
-        super(ShareConstants.TINKER_ENABLE_ALL, "com.wyq.ttmusicapp.common.SampleApplicationLike",
-                "com.tencent.tinker.loader.TinkerLoader", false);
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        //context = getApplicationContext();
+        context = getApplicationContext();
     }
 }

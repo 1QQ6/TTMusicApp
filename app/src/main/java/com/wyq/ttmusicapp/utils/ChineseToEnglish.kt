@@ -1,6 +1,7 @@
 package com.wyq.ttmusicapp.utils
 
 import android.util.Log
+import androidx.room.util.StringUtil
 import net.sourceforge.pinyin4j.PinyinHelper
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat
@@ -67,6 +68,9 @@ object ChineseToEnglish {
      */
     fun stringToPinyinSpecial(input: String?): String? {
         if (input == null) {
+            return null
+        }
+        if("" == input){
             return null
         }
         var result: String? = null

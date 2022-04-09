@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.apkfuns.logutils.LogUtils
 import com.wyq.ttmusicapp.base.BaseActivity
 import com.wyq.ttmusicapp.entity.SongInfo
 import com.wyq.ttmusicapp.home.HomeActivity
@@ -53,7 +54,6 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun scanMusicUpdate(path: String, currentProgress: Int) {
-
             }
         })
     }

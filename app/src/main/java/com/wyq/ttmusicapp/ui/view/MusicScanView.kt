@@ -14,6 +14,12 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
+private val paint1: Paint
+    get() {
+        val paint = Paint()
+        return paint
+    }
+
 /**
  * Created by Roman on 2021/1/30
  */
@@ -66,10 +72,14 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
      */
     private var isScanning = false
 
+    private var drawCircle = false
+
     /**
      *中间的图片
      */
     private var bitmap:Bitmap? = null
+
+    private var bitmapPaint:Paint? = null
 
     /**
      * 是否显示水滴
@@ -107,6 +117,8 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
         mCirclePaint = Paint()
         mCirclePaint?.style = Paint.Style.FILL
         mCirclePaint?.isAntiAlias = true
+
+        bitmapPaint = Paint()
 
         mSweepPaint = Paint()
         mSweepPaint?.isAntiAlias = true
@@ -260,21 +272,19 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
         val circleRadius = min(circleWidth,circleHeight)/2
         //计算圆心
         // circleX = 半径 + 左内边距
-        val circleX = paddingLeft + (width - paddingLeft - paddingRight)/2
+        val circleX = paddingLeft + circleWidth / 2
         // circleY = 半径 + 上内边距
-        val circleY = paddingTop + (height - paddingTop - paddingBottom)/2
+        val circleY = paddingTop + circleHeight / 2
         //开始画圆
         drawCircle(canvas,circleX,circleY,circleRadius)
         //如果正在扫描，则绘制扫描动画
         if(isScanning){
             drawCircleSweep(canvas,circleX,circleY,circleRadius)
-
             //计算雷达扫描的旋转角度
             mOffsetArgs = (mOffsetArgs + 360 / mSpeed / 60) % 360
             //请求重新draw()，但只会绘制调用者本身
             invalidate()
         }
-
     }
 
     /**
@@ -286,15 +296,14 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
      * 第四个参数：positions[]和颜色数组对应，表示每种颜色在渐变方向上所占的百分比，取值[0, 1]
      */
     private fun drawCircleSweep(canvas: Canvas?, circleX: Int, circleY: Int, circleRadius: Int) {
-
         val sweepColorArray = intArrayOf(
             Color.TRANSPARENT,
             changeAlpha(mSweepColor, 0),
-            changeAlpha(mSweepColor, 168),
-            changeAlpha(mSweepColor, 255),
+            changeAlpha(mSweepColor, 88),
+            changeAlpha(mSweepColor, 166),
             changeAlpha(mSweepColor, 255)
         )
-        val positionArray = floatArrayOf(0.0f, 0.6f, 0.99f, 0.998f, 1f)
+        val positionArray = floatArrayOf(0.0f, 0.33f, 0.66f, 0.88f, 1f)
 
         val sweepGradient = SweepGradient(
             circleX.toFloat(),
@@ -314,8 +323,7 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
      * @param circleRadius 圆的半径
      */
     private fun drawCircle(canvas: Canvas?, circleX: Int, circleY: Int, circleRadius: Int) {
-        val paint = Paint()
-        paint.isAntiAlias = true
+        bitmapPaint?.isAntiAlias = true
         //Rect():用指定的坐标创建一个新的矩形。
         // 注意：不执行范围检查，因此调用者必须确保左<=右和上<=下
         val rectSrc = Rect(0,0,bitmap!!.width,bitmap!!.height)
@@ -325,7 +333,8 @@ class MusicScanView(context: Context, attrs: AttributeSet?) : View(context, attr
         //dst是将图片绘制到View的哪个位置
         val itemWidth = circleRadius / mCircleNum
         val rectDst = Rect(circleX-itemWidth+20,circleY-itemWidth,circleX+itemWidth,circleY+itemWidth)
-        canvas?.drawBitmap(bitmap!!,rectSrc,rectDst,paint)
+        canvas?.drawBitmap(bitmap!!,rectSrc,rectDst,
+            bitmapPaint!!)
 
         for (i in 0 until mCircleNum){
             mCirclePaint?.color = Color.parseColor(colorList[i])

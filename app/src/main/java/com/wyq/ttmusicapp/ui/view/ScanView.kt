@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.wyq.ttmusicapp.R
 
@@ -85,7 +86,7 @@ class ScanView @JvmOverloads constructor(
      */
     private fun initBitmap() {
         val drawable = tintDrawable(
-            resources.getDrawable(R.drawable.music_note),
+            ContextCompat.getDrawable(context,R.drawable.music_note),
             ColorStateList.valueOf(accentColor)
         )
         bitmap = drawableToBitamp(drawable)
@@ -114,11 +115,6 @@ class ScanView @JvmOverloads constructor(
             viewSize - viewSize / 10 * 4
         )
         canvas.drawBitmap(bitmap!!, rect, rectd, mPaint)
-        circlePaint = Paint()
-        circlePaint!!.style = Paint.Style.STROKE
-        circlePaint!!.isAntiAlias = true
-        circlePaint!!.strokeWidth = (viewSize / 10).toFloat()
-        circlePaint!!.color = Color.parseColor(circlrColor1)
         canvas.drawCircle(
             viewSize / 2.toFloat(),
             viewSize / 2.toFloat(),
@@ -139,28 +135,6 @@ class ScanView @JvmOverloads constructor(
             viewSize / 10 * 4.5f,
             circlePaint!!
         )
-        sectorPaint = Paint()
-        sectorPaint!!.isAntiAlias = true
-        sectorPaint!!.style = Paint.Style.STROKE
-        sectorPaint!!.strokeWidth = viewSize / 10 * 3.toFloat()
-        val sectorShader: Shader = SweepGradient(
-            (viewSize / 2).toFloat(), (viewSize / 2).toFloat(), intArrayOf(
-                Color.TRANSPARENT,
-                Color.argb(
-                    0,
-                    Color.red(accentColor),
-                    Color.green(accentColor),
-                    Color.blue(accentColor)
-                ),
-                Color.argb(
-                    255,
-                    Color.red(accentColor),
-                    Color.green(accentColor),
-                    Color.blue(accentColor)
-                )
-            ), floatArrayOf(0f, 0.875f, 1f)
-        )
-        sectorPaint!!.shader = sectorShader
         if (threadFlag) {
             canvas.concat(matrix)
             canvas.drawCircle(
@@ -257,5 +231,36 @@ class ScanView @JvmOverloads constructor(
         Log.d(TAG, "ScanView: color = $color")
         Log.d(TAG, "ScanView: circlrColor1 = $circlrColor1")
         initBitmap()
+
+        circlePaint = Paint()
+        circlePaint!!.style = Paint.Style.STROKE
+        circlePaint!!.isAntiAlias = true
+        circlePaint!!.strokeWidth = (viewSize / 10).toFloat()
+        circlePaint!!.color = Color.parseColor(circlrColor1)
+
+        sectorPaint = Paint()
+        sectorPaint!!.isAntiAlias = true
+        sectorPaint!!.style = Paint.Style.STROKE
+        sectorPaint!!.strokeWidth = viewSize / 10 * 3.toFloat()
+
+
+        val sectorShader: Shader = SweepGradient(
+            (viewSize / 2).toFloat(), (viewSize / 2).toFloat(), intArrayOf(
+                Color.TRANSPARENT,
+                Color.argb(
+                    0,
+                    Color.red(accentColor),
+                    Color.green(accentColor),
+                    Color.blue(accentColor)
+                ),
+                Color.argb(
+                    255,
+                    Color.red(accentColor),
+                    Color.green(accentColor),
+                    Color.blue(accentColor)
+                )
+            ), floatArrayOf(0f, 0.875f, 1f)
+        )
+        sectorPaint!!.shader = sectorShader
     }
 }

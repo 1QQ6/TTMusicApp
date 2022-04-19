@@ -27,7 +27,7 @@ object PlayMusicHelper {
     private const val albumPrePath = "content://media/external/audio/albumart"
 
     init {
-        dbManager = DatabaseManager(MusicApplication.context!!)
+        dbManager = DatabaseManager.getInstance(MusicApplication.context!!)
     }
 
     fun getMusicInfoById(musicId: Long): SongInfo? {

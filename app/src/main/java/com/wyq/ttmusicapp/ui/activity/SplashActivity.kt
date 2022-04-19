@@ -1,9 +1,12 @@
 package com.wyq.ttmusicapp.ui.activity
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,14 +20,39 @@ import com.wyq.ttmusicapp.ui.scanmusic.OnScanMusicFinishListener
 import com.wyq.ttmusicapp.utils.DisplayUtil
 import com.wyq.ttmusicapp.utils.PlayMusicHelper
 import com.wyq.ttmusicapp.utils.SPUtil
+import kotlinx.coroutines.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.lang.ref.WeakReference
 import java.util.*
 
 
 class SplashActivity : BaseActivity() {
     private val PERMISSION_REQUEST_CODE = 1
     private var musicInfoList: ArrayList<SongInfo> = ArrayList()
+    private var mainScope = MainScope()
+    private var isLoadFinished = false
+    // 静态常量
+    private  val splashHandler: SplashHandler = SplashHandler(this)
+
+    companion object {
+        const val START_HOME_ACTIVITY = 1001
+
+        class SplashHandler(val activity: SplashActivity) : Handler() {
+            private var splashActivity: WeakReference<SplashActivity> = WeakReference(activity)
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                when(msg.what){
+                    START_HOME_ACTIVITY->{
+                        splashActivity.get()?.startMusicActivity()
+                    }
+                    else->{
+
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +73,13 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun scanMusicSuccess(type: Int) {
-                doAsync {
-                    val allMusic = PlayMusicHelper.getAllMusic()
-                    uiThread {
-                        musicInfoList = allMusic
+                mainScope.launch {
+                    val allMusic = async(Dispatchers.IO) {
+                        PlayMusicHelper.getAllMusic()
                     }
+                    musicInfoList.clear()
+                    musicInfoList.addAll(allMusic.await())
+                    checkSkip()
                 }
             }
 
@@ -68,7 +98,7 @@ class SplashActivity : BaseActivity() {
 
     private fun initPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            checkSkip()
+            initMusicData()
             return
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -80,21 +110,16 @@ class SplashActivity : BaseActivity() {
             )
         } else {
             initMusicData()
-            checkSkip()
         }
     }
 
     private fun checkSkip() {
-        val timer = Timer()
-        val task: TimerTask = object : TimerTask() {
-            override fun run() {
-                startMusicActivity()
-            }
-        }
-        timer.schedule(task, 2000)
+            val obtain = Message.obtain()
+            obtain.what = START_HOME_ACTIVITY
+            splashHandler.sendMessageDelayed(obtain,2000)
     }
 
-    private fun startMusicActivity() {
+     fun startMusicActivity() {
         if (SPUtil.isLogin()){
             HomeActivity.startActivity(this@SplashActivity,musicInfoList)
             finish()
@@ -113,7 +138,6 @@ class SplashActivity : BaseActivity() {
             PERMISSION_REQUEST_CODE -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
                 initMusicData()
-                checkSkip()
             } else {
                 Toast.makeText(this, "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT).show()
                 finish()
@@ -121,5 +145,10 @@ class SplashActivity : BaseActivity() {
             else -> {
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainScope.cancel()
     }
 }

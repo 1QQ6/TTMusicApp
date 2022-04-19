@@ -18,13 +18,17 @@ class DatabaseManager(context: Context) {
 
     companion object {
         private val TAG = DatabaseManager::class.java.name
-        private var instance: DatabaseManager? = null
+        @Volatile private var instance: DatabaseManager? = null
 
         @JvmStatic
-        @Synchronized
         fun getInstance(context: Context?): DatabaseManager? {
             if (instance == null) {
-                instance = DatabaseManager(context!!)
+                synchronized(this){
+                    if (instance == null){
+                        instance = DatabaseManager(context!!)
+                    }
+                }
+
             }
             return instance
         }
@@ -224,7 +228,6 @@ class DatabaseManager(context: Context) {
         try {
             cursor = db.query(DatabaseHelper.MUSIC_TABLE, null, null, null, null, null, null, null)
             musicInfoList = cursorToSongsList(cursor)
-
             db.setTransactionSuccessful()
         } catch (e: Exception) {
             e.printStackTrace()

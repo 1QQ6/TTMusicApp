@@ -20,6 +20,7 @@
         android:usesCleartextTraffic="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity android:name=".register.MusicRegisterActivity" />
 

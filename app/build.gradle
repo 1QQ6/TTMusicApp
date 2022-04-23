@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.wyq.ttmusicapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -87,4 +87,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+
+    //核心模块
+    debugImplementation "io.github.didi.dokit:dokitx:${lastversion}"
+    //no-op 模块
+    releaseImplementation "io.github.didi.dokit:dokitx-no-op:${lastversion}"
 }

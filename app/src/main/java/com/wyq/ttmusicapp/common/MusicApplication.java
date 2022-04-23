@@ -3,6 +3,8 @@ package com.wyq.ttmusicapp.common;
 import android.app.Application;
 import android.content.Context;
 
+import com.didichuxing.doraemonkit.DoKit;
+
 /**
  * 自定义Application.
  *
@@ -25,5 +27,9 @@ public class MusicApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+
+        new DoKit.Builder(this)
+                .productId("需要使用平台功能的话，需要到dokit.cn平台申请id")
+                .build();
     }
 }
